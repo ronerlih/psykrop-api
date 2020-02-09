@@ -1,0 +1,41 @@
+
+https://github.com/ronerlih/project-3-boiler-authentication
+
+// morgan docs
+https://www.npmjs.com/package/morgan
+
+//docker: https://docs.docker.com/engine/reference/builder/
+https://docs.docker.com/get-started/
+
+//heroku scaling: 
+https://devcenter.heroku.com/articles/scaling
+
+// load test: https://www.npmjs.com/package/loadtest
+//i.e. loadtest http://localhost:3000/ -k -n 10000 -c 1000 -C cookie-__id=s%3AcvzqMmnAaar3bIknaKsQSsFiQNGbFRC1.c4US2JD17dcuBg1zA46jhdzBuE0O2pglgO6STcQrkCI
+//i.e. loadtest http://localhost:3001/ -k -n 10000 -c 1000
+//i.e. loadtest https://mern-stack-boilerplat.herokuapp.com/ -k -n 10000 -c 1000
+
+//load test with wrk: https://github.com/wg/wrk
+// brew install wrk
+//wrk -t8 -c100 -d30s http://localhost:3001/
+//https://www.cognitiveclouds.com/insights/top-node-js-production-best-practices/
+
+//https://nodejs.org/api/cluster.html
+//https://medium.com/js-imaginea/clustering-inter-process-communication-ipc-in-node-js-748f981214e9
+
+//cache:
+// heroku eviction policy:
+// heroku redis:maxmemory  --policy=volatile-lru
+// heroku redis:cli --confirm mern-stack-boilerplat
+
+//docker
+docker build -t boiler-docker .
+docker images
+docker run -p 49160:3001 -d boiler-docker
+docker swarm -p 3001:3001 -d boiler-docker
+docker ps
+curl -i localhost:49160
+//https://nodejs.org/de/docs/guides/nodejs-docker-webapp/
+
+//Nginx
+// https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/
