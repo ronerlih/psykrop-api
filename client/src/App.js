@@ -1,6 +1,6 @@
 import React from "react";
 import { StaticRouter, BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Books from "./pages/Books";
+import Landing from "./pages/Landing";
 import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -67,7 +67,7 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) =>
-                <Login {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
+                <Landing {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
             />
             <Route
               exact
@@ -75,8 +75,6 @@ class App extends React.Component {
               render={(props) =>
                 <Signup {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
             />
-            <PrivateRoute exact path="/books" state={this.state} component={Books} />
-            <PrivateRoute exact path="/books/:id" state={this.state} component={Detail} />
             <Route component={NoMatch} />
           </Switch>
           {this.state.cpu
