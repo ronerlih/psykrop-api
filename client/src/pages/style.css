@@ -1,0 +1,10 @@
+.details{
+    color:#00cd00;
+    padding:6px;
+}
+.details-container{
+    background-color: rgb(189, 189, 189);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top:10px;
+}

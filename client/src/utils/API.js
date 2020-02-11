@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+  runTests: function(){
+    return axios.get("/api/tests");
+    
+  },
   // Gets all books
   getBooks: function () {
     return axios.get("/api/books");
