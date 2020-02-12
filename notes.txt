@@ -1,6 +1,8 @@
 TO-DO:
-add CMAKE install script on heroku and production builds
+- add CMAKE install script on heroku and production builds
 brew install cmake
+- add on testController.js
+   fix async image processing
 
 
 https://github.com/ronerlih/project-3-boiler-authentication

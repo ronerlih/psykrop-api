@@ -1,4 +1,5 @@
-import cv from "opencv4nodejs";
+const cv = require("opencv4nodejs");
+import Path from "path";
 
 module.exports = {
     getTestImages: function() {
@@ -6,12 +7,18 @@ module.exports = {
     },
     analyseImage: function(image) {
         return new Promise((resolve, reject) => {
-            // TO-DO: add promisses array from promies.all
-            image;
-            
-            resolve("100%");
+            const path = Path.resolve(__dirname, "../images/", image);
+            console.log(__dirname);
 
-            // reject(e);
+            cv.imreadAsync("./images/img.jpg", (err, mat) => {
+
+                // mat = mat.bitwiseNot();
+                cv.imshow("window", mat);
+                cv.waitKey();
+                resolve("100%");
+            })
+       
+
         });
     }
 };

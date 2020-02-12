@@ -10,14 +10,16 @@ module.exports = {
             downloadsPromisesArray.push(imgDownload(url));
         });
 
-        Promise.all(downloadsPromisesArray).then(images => {
+        Promise.all(downloadsPromisesArray)
+        .then(images => {
             let analysisPromisesArray = [];
             images.forEach(img => {
-                analysisPromisesArray.push(analyseImage(img));
+                // TO-DO: fix async
+                analysisPromisesArray.push(setTimeout(() => analyseImage(img), 1000));
             });
 
             Promise.all(analysisPromisesArray).then(result => {
-                console.log(result);
+                // console.log(result);
                 res.status(200).json("tests completed, " + result);
             });
         });
