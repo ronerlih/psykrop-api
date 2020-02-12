@@ -1,23 +1,17 @@
 import cv from "opencv4nodejs";
-import imgDownload from "./downloadImage";
 
 module.exports = {
-    getTestImages: function(){
-        return ['https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg']
+    getTestImages: function() {
+        return ["https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"];
     },
-    analyseImages: function(images){
+    analyseImage: function(image) {
         return new Promise((resolve, reject) => {
-            images.forEach(url => {
-                imgDownload(url)
-                   .then(imgPath => {
-                       resolve("100%")
-                   })
-                   .catch(e => {
-                       console.log(e);
-                       reject(e);
-                   });
-           });
-        })
+            // TO-DO: add promisses array from promies.all
+            image;
+            
+            resolve("100%");
 
+            // reject(e);
+        });
     }
-}
+};
