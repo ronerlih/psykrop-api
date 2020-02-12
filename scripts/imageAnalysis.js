@@ -6,9 +6,18 @@ module.exports = {
         return ['https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg']
     },
     analyseImages: function(images){
-        images.forEach(url => {
-            imgDownload(url); 
-        });
-        return "true"
+        return new Promise((resolve, reject) => {
+            images.forEach(url => {
+                imgDownload(url)
+                   .then(imgPath => {
+                       resolve("100%")
+                   })
+                   .catch(e => {
+                       console.log(e);
+                       reject(e);
+                   });
+           });
+        })
+
     }
 }

@@ -18,8 +18,8 @@ export default async function downloadImage (url) {
         response.data.pipe(writer)
       
         return new Promise((resolve, reject) => {
-          writer.on('finish', resolve)
-          writer.on('error', reject)
+          writer.on('finish', resolve('img_' + now + '.jpg'))
+          writer.on('error', reject(e))
         })
       }
       

@@ -6,5 +6,6 @@ export default function (err, req, res, next) {
     }
     console.log('error will send');
     res.status(500)
+    console.log(err);
     res.send(`server error:<br>error msg: ${err}`)
   }

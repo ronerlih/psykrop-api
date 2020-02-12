@@ -3,8 +3,12 @@ import {getTestImages, analyseImages} from "../scripts/imageAnalysis"
 module.exports = {
   runAll : function (req, res) {
     const urls = getTestImages();
-    const result = analyseImages(urls);
-    console.log(result);
-      res.status(200).json('tests completed, ' + result)
+    analyseImages(urls)
+      .then(result => {
+    console.log("aftr err");
+
+        console.log(result)
+        res.status(200).json('tests completed, ' + result)});
+      
   }
 };
