@@ -1,3 +1,7 @@
+TO-DO:
+add CMAKE install script on heroku and production builds
+brew install cmake
+
 
 https://github.com/ronerlih/project-3-boiler-authentication
 
