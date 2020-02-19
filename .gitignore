@@ -9,7 +9,8 @@
 .cs
 
 # downloaded imgs
-/images
+/images/*
+
 # testing
 /coverage
 
