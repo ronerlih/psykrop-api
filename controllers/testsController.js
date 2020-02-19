@@ -15,12 +15,12 @@ module.exports = {
             let analysisPromisesArray = [];
             images.forEach(img => {
                 // TO-DO: fix async
-                analysisPromisesArray.push(setTimeout(() => analyseImage(img), 1000));
+                analysisPromisesArray.push(setTimeout(function(){ analyseImage(img)}, 1000));
             });
 
             Promise.all(analysisPromisesArray).then(result => {
-                // console.log(result);
-                res.status(200).json("tests completed, " + result);
+                console.log(result[0]);
+                res.status(200).json("tests completed");
             });
         });
     }

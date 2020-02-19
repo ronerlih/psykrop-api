@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const testsController = require("../../controllers/testsController");
 
-console.log('tests');
 // Matches with "/api/tests"
 router.route("/")
   .get(testsController.runAll)
