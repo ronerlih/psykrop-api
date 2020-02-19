@@ -7,7 +7,7 @@ const APIandAppRoutes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const compression = require('compression')
-const session = require('express-session')
+// const session = require('express-session')
 // connect redis 
 // const RedisStore = require('connect-redis')(session)
 // import client from './scripts/redis';
@@ -24,7 +24,7 @@ app.use(compression())
 //use sessions for tracking logins
 // connect redis
 // app.use(initSession(session, RedisStore, client));
-app.use(initSession(session));
+// app.use(initSession(session));
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

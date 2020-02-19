@@ -16,6 +16,8 @@ module.exports = {
         return ["https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg"];
     },
     analyseImage: async function(image) {
+        return new Promise(async (resolve, reject) => {
+            setTimeout(async ()=> {
         const BLUR_SIZE = 3;
         const THRESHHOLD = 127.5;
         const CANNY_THRESHOLD = 100;
@@ -52,7 +54,6 @@ module.exports = {
         // threshold
         cv.threshold(dst, dst, THRESHHOLD, 255, cv.THRESH_BINARY);
         // cv.imgproc.moments(dst,arr, false);
-        console.log(arr);
 
         let arr = new cv.moments(dst);
 
@@ -148,8 +149,9 @@ module.exports = {
         //         // console.log("center: " + WeightedCentroid[0].x +", " + WeightedCentroid[0].y);
         //     });
         // });
-        return new Promise((resolve, reject) => {
-            resolve("100%");
+        resolve("Center point: " + centerPoint.x)
+    }, 1000)
+            // resolve("Center point: " + centerPoint.x);
         });
     }
 };
