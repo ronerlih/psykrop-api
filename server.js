@@ -2,7 +2,7 @@ const express = require("express");
 const router = require("express").Router();
 const path = require("path");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const APIandAppRoutes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,7 +11,7 @@ const compression = require('compression')
 // connect redis 
 // const RedisStore = require('connect-redis')(session)
 // import client from './scripts/redis';
-import initSession from './scripts/session';
+// import initSession from './scripts/session';
 // import {serverRenderer} from './controllers/serverSideRendering';
 import errorHandler from './scripts/errorHandler';
 
@@ -47,9 +47,9 @@ app.use(APIandAppRoutes);
 // error handling
 app.use((err, req, res, next) => errorHandler(err, req, res, next));
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern-auth",{   useCreateIndex: true,
-useUnifiedTopology: true, useNewUrlParser: true});
+// // Connect to the Mongo DB
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern-auth",{   useCreateIndex: true,
+// useUnifiedTopology: true, useNewUrlParser: true});
 
 // Start the API server
 app.listen(PORT, function () {
