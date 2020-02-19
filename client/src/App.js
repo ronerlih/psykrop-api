@@ -7,18 +7,18 @@ import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Alert from "./components/Alert";
-import {/* getCookie, */ authenticateUser, getCpu } from "./utils/handleSessions";
+// import {/* getCookie, */ authenticateUser, getCpu } from "./utils/handleSessions";
 
-const PrivateRoute = ({ component: Component, state: state, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    state.authenticated === true
-      ? <Component {...props} />
-      : state.loading === true
-        ? <div>
-        </div>
-        : <Redirect to='/' />
-  )} />
-)
+// const PrivateRoute = ({ component: Component, state: state, ...rest }) => (
+//   <Route {...rest} render={(props) => (
+//     state.authenticated === true
+//       ? <Component {...props} />
+//       : state.loading === true
+//         ? <div>
+//         </div>
+//         : <Redirect to='/' />
+//   )} />
+// )
 
 class App extends React.Component {
   constructor(props) {
@@ -31,29 +31,29 @@ class App extends React.Component {
   }
 
 
-  authenticate = () => authenticateUser()
-    .then(auth => {
-      console.log("auth.status");
-      console.log(auth.status);
-      this.setState({ authenticated: auth.status === 200 ? true : false, loading: false })
-    })
-    .catch(err => {
-      if(process.env.NODE_ENV !== 'production')
-      console.log(err)
-    })
+  // authenticate = () => authenticateUser()
+  //   .then(auth => {
+  //     console.log("auth.status");
+  //     console.log(auth.status);
+  //     this.setState({ authenticated: auth.status === 200 ? true : false, loading: false })
+  //   })
+  //   .catch(err => {
+  //     if(process.env.NODE_ENV !== 'production')
+  //     console.log(err)
+  //   })
 
-  getCpu = () => getCpu()
-    .then(cpu => this.setState({ cpu: cpu }))
-    .catch(err => {
-      if(process.env.NODE_ENV !== 'production')
-      console.log(err)
-    })
+  // getCpu = () => getCpu()
+  //   .then(cpu => this.setState({ cpu: cpu }))
+  //   .catch(err => {
+  //     if(process.env.NODE_ENV !== 'production')
+  //     console.log(err)
+  //   })
 
-  removeInfo = () => this.setState({ cpu: null })
+  // removeInfo = () => this.setState({ cpu: null })
 
   componentWillMount() {
-      this.authenticate();
-      this.getCpu();
+      // this.authenticate();
+      // this.getCpu();
   }
 
   render() {
@@ -67,14 +67,15 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) =>
-                <Landing {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
+                // <Landing {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
+                <Landing {...props} />}
             />
-            <Route
+            {/* <Route
               exact
               path="/signup"
               render={(props) =>
                 <Signup {...props} authenticate={this.authenticate} authenticated={this.state.authenticated} />}
-            />
+            /> */}
             <Route component={NoMatch} />
           </Switch>
           {this.state.cpu
