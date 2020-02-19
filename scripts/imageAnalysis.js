@@ -30,7 +30,8 @@ module.exports = {
         let dst = new cv.Mat();
         let edgesMat = new cv.Mat();
         let locationsMat = new cv.Mat();
-
+        // TO-DO: initaize with center of img point
+        let centerPoint = new cv.Point(0,0);
 
         console.log(src);
         // mat to gray, TO-DO: extract 3 channels
@@ -47,12 +48,16 @@ module.exports = {
         cv.Canny(dst, edgesMat, CANNY_THRESHOLD, CANNY_THRESHOLD);
 
         //TO-DO: calc wieghted ave of mat and edges
-        let arr = new cv.moments(dst);
+
         // threshold
         cv.threshold(dst, dst, THRESHHOLD, 255, cv.THRESH_BINARY);
         // cv.imgproc.moments(dst,arr, false);
         console.log(arr);
 
+        let arr = new cv.moments(dst);
+
+        centerPoint = new cv.Point((arr.m10 / arr.m00), (arr.m01 / arr.m00));
+        console.log(centerPoint);
         // retur to rgba for display
         cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA, 0);
 
