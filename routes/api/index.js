@@ -7,10 +7,10 @@ const testsRoutes = require("./tests");
 
 // console.log(redisClient)
 // /api/book routes
-router.use("/books", bookRoutes);
+// router.use("/books", bookRoutes);
 
 // /api/user routes
-router.use("/user", userRoutes);
+// router.use("/user", userRoutes);
 
 // /api/worker routes
 router.use("/worker", workerRoutes);
