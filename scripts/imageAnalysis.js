@@ -103,7 +103,7 @@ module.exports = {
 
                 await cv.addWeighted(
                     weightsMat,
-                    (1 - EDGE_WEIGHT),
+                    1 - EDGE_WEIGHT,
                     edgesMat,
                     EDGE_WEIGHT,
                     EDGE_GAMMA,
@@ -111,8 +111,12 @@ module.exports = {
                     -1
                 );
 
-                //TO-DO: calc wieghted ave of mat and edges
+                // locations
+                // cv.resize(locationsMat, weightsMat.cols, weightsMat.rows,function(img){
+                // cv.cvtColor(img, img, cv.COLOR_GRAY2RGBA, 0);
+                // saveImg(img, "loc")});
 
+                // saveImg(img, "location2");
                 let arr = new cv.moments(dst);
 
                 centerPoint = new cv.Point(
