@@ -10,6 +10,7 @@ import Path from "path";
 
 module.exports = {
     getTestImages: function() {
+        return ["https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465"]
         return [
             "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/pia23533.jpg"
         ];
@@ -29,10 +30,10 @@ module.exports = {
                 const EDGE_GAMMA = 0;
 
                 const resultsOptions = {
-                    0: "red_channel",
-                    1: "green_channel",
-                    2: "blue_channel",
-                    3: "alpha_channel",
+                    0: ["red_channel", [255,0,0]],
+                    1: ["green_channel", [0,255,0]],
+                    2: ["blue_channel", [0,0,255]],
+                    3: ["alpha_channel", [120,120,120]]
                 }
                 const moments = [];
                 const WeightedCentroid = [];
@@ -123,13 +124,15 @@ module.exports = {
                         arr.m10 / arr.m00,
                         arr.m01 / arr.m00
                     );
-                    cv.circle(src,centerPoint, 10, new cv.Scalar(0,255,0,0),4,cv.LINE_AA,0)
-
+                    if(i != 3)
+                    {cv.circle(src,centerPoint, 5, new cv.Scalar(0,0,0,255),5,cv.LINE_8,0)
+                    cv.circle(src,centerPoint, 4, new cv.Scalar(resultsOptions[i][1][0],resultsOptions[i][1][1],resultsOptions[i][1][2],255),5,cv.LINE_8,0)
+                    }
                     centerPoint.x = centerPoint.x.toFixed(2)
                     centerPoint.y = centerPoint.y.toFixed(2)
-                    results[resultsOptions[i]] = centerPoint;
+                    results[resultsOptions[i][0]] = centerPoint;
                     cv.cvtColor(channel, channel, cv.COLOR_GRAY2RGBA, 0);
-                    saveImg(channel, resultsOptions[i]);
+                    saveImg(channel, resultsOptions[i][0]);
 
                     //DRAW ON SRC
 
