@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-import './style.css';
+import JSONPretty from "react-json-pretty";
+
+import "./style.css";
 class Landing extends Component {
     state = {
-      results: ""
+        results: ""
     };
 
     componentDidMount() {}
@@ -18,7 +20,7 @@ class Landing extends Component {
     runTests = () => {
         API.runTests()
             .then(res => {
-              this.setState({results: res})
+                this.setState({ results: res.data });
             })
             .catch(err => console.log(err));
     };
@@ -56,18 +58,52 @@ class Landing extends Component {
                         <h4>Test Dashboard</h4>
                     </Col>
                 </Row>
-                <Row>
+                <Button onclick={this.runTests}>run tests</Button>
+                 <Row>
+
                     <Col size="md-6">
-                        <Button onclick={this.runTests}>run tests</Button>
-                        {this.state.results.data ? (
-                              <div className="details-container">
-                                <kbd className="details ">
-                                {this.state.results.data}
-                              </kbd>
-                              </div>
+                        {this.state.results ? (
+                            // <div className="details-container">
+                            <div style={{marginTop:"10px", borderRadius:"5px"}}>
+                                {/* <kbd className="details "> */}
+                                <JSONPretty
+                                    id="json-pretty"
+                                    style={{
+                                        backgroundColor: "black",
+                                        color: "white!important"
+                                    }}
+                                    valueStyle="color:white"
+                                    data={this.state.results}
+                                ></JSONPretty>
+                                {/* </kbd> */}
+                            </div>
                         ) : (
                             <span></span>
                         )}
+                    </Col>
+                    <Col size="md-6">
+                        {this.state.results.length === 0 ? (
+                            // "loading"
+                            ""
+                        ) : (
+                            <div>
+                                <img className="img-tests" src={"images/" + this.state.results.imageFeedback} />
+                                <h6>image centers (insight)</h6>
+                                {console.log(this.state.results.edge)}
+                                <img className="img-tests" src={"images/" + this.state.results.edge} />
+                                <h6>Edge mat</h6>
+                                <img className="img-tests" src={"images/" + this.state.results.ratedPixels} />
+                                <h6>rated pizels mat</h6>
+                                <img className="img-tests" src={"images/" + this.state.results.red_channel.url} />
+                                <h6>red mat</h6>
+                                <img className="img-tests" src={"images/" + this.state.results.green_channel.url} />
+                                <h6>green mat</h6>
+                                <img className="img-tests" src={"images/" + this.state.results.blue_channel.url} />
+                                <h6>blue mat</h6>
+
+                            </div>
+                        )
+                        }
                     </Col>
                 </Row>
             </Container>

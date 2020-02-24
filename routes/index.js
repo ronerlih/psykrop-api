@@ -1,6 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
+const imgRoutes = require("./images");
 
 // API Routes
 router.use("/api", apiRoutes);
@@ -10,5 +11,7 @@ router.use("/api", apiRoutes);
 //   console.log("serving react");
 //   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });
+router.use("/images", imgRoutes);
+
 
 module.exports = router;

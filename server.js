@@ -34,16 +34,18 @@ app.use(express.json());
 // if (process.argv.indexOf("no-ssr") < 0)
 //   router.use("^/$", serverRenderer)
 
-// Serve up static assets (usually on heroku)
- if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, 'client/build'), { maxAge: '30d' }));
- }
+
 
 // Add router (ssr and static)
 // app.use(router);
 // Add API and view routes
 app.use(APIandAppRoutes);
 
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.resolve(__dirname, 'client/build'), { maxAge: '30d' }));
+ }
+ 
 // error handling
 app.use((err, req, res, next) => errorHandler(err, req, res, next));
 

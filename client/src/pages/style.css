@@ -8,3 +8,17 @@
     border-radius: 5px;
     margin-top:10px;
 }
+pre{
+    color:rgba(248,248,242,1);
+    color:#00cd00;
+    max-height: 300px;
+}
+
+pre .__json-key__{
+color: rgb(41, 98, 184)
+}
+.img-tests{
+    margin-top:10px;
+    width: 100%;
+    border:1px solid black;
+}
