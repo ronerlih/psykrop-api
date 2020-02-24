@@ -68,10 +68,6 @@ class Landing extends Component {
                                 {/* <kbd className="details "> */}
                                 <JSONPretty
                                     id="json-pretty"
-                                    style={{
-                                        backgroundColor: "black",
-                                        color: "white!important"
-                                    }}
                                     valueStyle="color:white"
                                     data={this.state.results}
                                 ></JSONPretty>
