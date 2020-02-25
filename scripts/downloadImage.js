@@ -5,7 +5,8 @@ import 'babel-polyfill';
 
 
 export default async function downloadImage (url, id) {  
-        const now = new Date().toISOString();
+        // const now = new Date().toISOString();
+        console.log("dirname: " + __dirname);
         const path = Path.resolve(__dirname, '../images', id + 'img.jpg')
         const writer = fs.createWriteStream(path)
       
