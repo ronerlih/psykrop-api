@@ -6,8 +6,8 @@ module.exports = {
     runAll: function(req, res) {
         let downloadsPromisesArray = [];
         const urls = getTestImages();
-        urls.forEach(async url => {
-            downloadsPromisesArray.push( imgDownload(url));
+        urls.forEach(async (url, i) => {
+            downloadsPromisesArray.push( imgDownload(url, i));
         });
 
         Promise.all(downloadsPromisesArray)
@@ -19,8 +19,9 @@ module.exports = {
             });
 
             Promise.all(analysisPromisesArray).then(result => {
-                res.status(200).json(result[0]);
+                res.status(200).json(result);
             });
-        });
+        })
+        .catch(e => {throw e})
     }
 };

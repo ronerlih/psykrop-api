@@ -83,20 +83,24 @@ class Landing extends Component {
                             ""
                         ) : (
                             <div>
-                                <img className="img-tests" src={"images/" + this.state.results.imageFeedback} />
-                                <h6>image centers (insight)</h6>
-                                {console.log(this.state.results.edge)}
-                                <img className="img-tests" src={"images/" + this.state.results.edge} />
-                                <h6>Edge mat</h6>
-                                <img className="img-tests" src={"images/" + this.state.results.ratedPixels} />
-                                <h6>rated pizels mat</h6>
-                                <img className="img-tests" src={"images/" + this.state.results.red_channel.url} />
-                                <h6>red mat</h6>
-                                <img className="img-tests" src={"images/" + this.state.results.green_channel.url} />
-                                <h6>green mat</h6>
-                                <img className="img-tests" src={"images/" + this.state.results.blue_channel.url} />
-                                <h6>blue mat</h6>
-
+                                {this.state.results.map(image => {
+                                    return (<div>
+                                        <h6>imgID: {image.imgId}</h6>
+                                        <img className="img-tests" src={"images/" + image.imageFeedback} />
+                                        <h6>image centers (insight)</h6>
+                                        <img className="img-tests" src={"images/" + image.edge} />
+                                        <h6>Edge mat</h6>
+                                        <img className="img-tests" src={"images/" + image.ratedPixels} />
+                                        <h6>rated pizels mat</h6>
+                                        <img className="img-tests" src={"images/" + image.red_channel.url} />
+                                        <h6>red mat</h6>
+                                        <img className="img-tests" src={"images/" + image.green_channel.url} />
+                                        <h6>green mat</h6>
+                                        <img className="img-tests" src={"images/" + image.blue_channel.url} />
+                                        <h6>blue mat</h6>
+                                        <hr></hr>
+                                    </div>)
+                                })}
                             </div>
                         )
                         }
