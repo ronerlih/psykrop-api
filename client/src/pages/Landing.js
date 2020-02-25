@@ -11,16 +11,18 @@ import JSONPretty from "react-json-pretty";
 import "./style.css";
 class Landing extends Component {
     state = {
-        results: ""
+        results: "",
+        loading: false
     };
 
     componentDidMount() {}
 
     loadAPI = () => {};
     runTests = () => {
+        this.setState({loading: true})
         API.runTests()
             .then(res => {
-                this.setState({ results: res.data });
+                this.setState({ results: res.data, loading: false });
             })
             .catch(err => console.log(err));
     };
@@ -59,6 +61,9 @@ class Landing extends Component {
                     </Col>
                 </Row>
                 <Button onclick={this.runTests}>run tests</Button>
+                {this.state.loading 
+                    ? <i className="fa fa-circle-notch fa-spin spinner"></i>
+                    : ""}
                  <Row>
 
                     <Col size="md-6">

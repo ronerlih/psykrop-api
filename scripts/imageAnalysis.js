@@ -134,6 +134,7 @@ module.exports = {
                     if(i != 3)
                     {cv.circle(src,centerPoint, 5, new cv.Scalar(0,0,0,255),5,cv.LINE_8,0)
                     cv.circle(src,centerPoint, 4, new cv.Scalar(resultsOptions[i][1][0],resultsOptions[i][1][1],resultsOptions[i][1][2],255),5,cv.LINE_8,0)
+                    // cv.putText(src,centerPoint.x.toFixed(2) + ", " + centerPoint.y.toFixed(2), new cv.Point(centerPoint.x + 10, centerPoint.y - 10),0,1, new cv.Scalar(255,0,0),cv.LINE_8,0, false);
                     }
 
                     centerPoint.x = centerPoint.x.toFixed(2)
