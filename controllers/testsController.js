@@ -7,7 +7,8 @@ module.exports = {
         let downloadsPromisesArray = [];
         const urls = getTestImages();
         urls.forEach(async (url, i) => {
-            downloadsPromisesArray.push( imgDownload(url, i));
+            try {downloadsPromisesArray.push(imgDownload(url, i))}
+            catch(e){throw e} 
         });
 
         Promise.all(downloadsPromisesArray)
