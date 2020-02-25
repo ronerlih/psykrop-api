@@ -193,7 +193,6 @@ module.exports = {
                 edgesMat.delete();
                 channelMat.delete();
                 locationsMat.delete();
-                git 
                 resolve(resultObject);
             }, 1000);
         });
