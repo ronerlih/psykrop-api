@@ -18,7 +18,6 @@ module.exports = {
             "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465",
             "https://www.passmark.com/source/img_posts/montest_slide_2.png",
             "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg",
-            "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465",
             "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"
     ];
     },
@@ -184,6 +183,17 @@ module.exports = {
                 saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
                 resultObject.imageFeedback = ("0" + id).slice(-2) +"-image-feedback.jpg" ;
                 
+                //delete mats
+                src.delete();
+                zerosMat.delete();
+                onesMat.delete();
+                dst.delete();
+                weightsMat.delete();
+                edgesMat.delete();
+                channelMat.delete();
+                locationMatrix.delete();
+                locationsMat.delete();
+
                 resolve(resultObject);
             }, 1000);
         });
