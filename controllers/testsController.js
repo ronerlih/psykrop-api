@@ -19,6 +19,13 @@ module.exports = {
             });
 
             Promise.all(analysisPromisesArray).then(result => {
+                 //check heap memory
+                 let used = process.memoryUsage();
+                 for (let key in used) {
+                     console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
+                   }
+                 console.log(`The script uses approximately ${Math.round(used.heapUsed * 100) / 100} MB`);
+ 
                 res.status(200).json(result);
             });
         })

@@ -183,7 +183,7 @@ module.exports = {
                 saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
                 resultObject.imageFeedback = ("0" + id).slice(-2) +"-image-feedback.jpg" ;
                 
-                //delete mats
+                // delete mats
                 src.delete();
                 zerosMat.delete();
                 onesMat.delete();
@@ -191,9 +191,8 @@ module.exports = {
                 weightsMat.delete();
                 edgesMat.delete();
                 channelMat.delete();
-                locationMatrix.delete();
                 locationsMat.delete();
-
+                
                 resolve(resultObject);
             }, 1000);
         });
