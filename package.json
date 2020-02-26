@@ -7,7 +7,7 @@
   "home": "https://mern-stack-boilerplat.herokuapp.com/",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node index.js prod NODE_ENV=production",
+    "start:prod": "node --tls-min-v1.0 index.js prod NODE_ENV=production ",
     "start:prod-no-cluster": "node index.js no-cluster prod",
     "start:dev": "concurrently \"nodemon index --ignore 'client/*'\" \"npm run client\"",
     "start:dev-no-cluster": "concurrently \"nodemon index no-cluster --ignore 'client/*'\" \"npm run client\"",

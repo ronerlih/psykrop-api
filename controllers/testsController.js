@@ -7,6 +7,7 @@ module.exports = {
         const urls = getTestImages();
         const downloadsPromisesArray = await downloadImages();
 
+        console.log(downloadsPromisesArray);
         Promise.allSettled(downloadsPromisesArray)
         .then(images => {
             let analysisPromisesArray = [];
@@ -15,7 +16,7 @@ module.exports = {
                 if(img.status === 'fulfilled')
                     analysisPromisesArray.push(analyseImage(img.value, id));
             });
-
+            console.log(analysisPromisesArray);
             Promise.all(analysisPromisesArray).then(result => {
                  //check heap memory
                  let used = process.memoryUsage();
@@ -35,9 +36,6 @@ module.exports = {
             return new Promise((resolve, reject) => {
                 urls.forEach( (url, i) => {
                     urlsLength--;
-                    if (urlsLength === 0){
-                        resolve(downloadsPromisesArray);
-                    }
                     
                     try{
                         downloadsPromisesArray.push(imgDownload(url, i))
@@ -46,6 +44,14 @@ module.exports = {
                         console.log('\n--error--');
                         console.log(e.message);
                     }
+
+                    if (urlsLength === 0){
+                        console.log("downloadsPromisesArray");
+                        console.log(downloadsPromisesArray);
+                        resolve(downloadsPromisesArray);
+                    }
+                    
+                    
                 });
             })
 

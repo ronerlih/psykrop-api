@@ -10,6 +10,7 @@ export default async function downloadImage(url, id) {
             const writer = fs.createWriteStream(path);
             try 
             {
+              console.log(url);
               const response = await axios({
                   url,
                   method: "GET",
@@ -21,6 +22,7 @@ export default async function downloadImage(url, id) {
             } 
             catch (e) {
               console.log('\n\n\n--err-r-');
+              console.log(e.message);
               // reject(e);
               reject(e);
             }
