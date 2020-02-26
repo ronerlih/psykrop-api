@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const bookRoutes = require("./books");
-const userRoutes = require("./user");
+// const bookRoutes = require("./books");
+// const userRoutes = require("./user");
 const workerRoutes = require("./worker");
 const testsRoutes = require("./tests");
 // const redisClient = require('../../scripts/redis');
