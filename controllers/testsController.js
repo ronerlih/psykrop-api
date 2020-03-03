@@ -14,7 +14,7 @@ module.exports = {
             images.forEach((img, id) => {
                 // TO-DO: fix async
                 if(img.status === 'fulfilled')
-                    analysisPromisesArray.push(analyseImage(img.value, id));
+                    analysisPromisesArray.push(analyseImage(img.value, id, true));
             });
             console.log(analysisPromisesArray);
             Promise.all(analysisPromisesArray).then(result => {
