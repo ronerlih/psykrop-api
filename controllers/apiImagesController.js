@@ -1,5 +1,4 @@
-import { getTestImages, analyseImage } from "../scripts/imageAnalysis";
-import imgDownload from "../scripts/downloadImage";
+import { analyseImage } from "../scripts/imageAnalysis";
 
 // Defining methods for the booksController
 module.exports = {
