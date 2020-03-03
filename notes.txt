@@ -26,6 +26,9 @@ https://devcenter.heroku.com/articles/scaling
 //i.e. loadtest http://localhost:3001/ -k -n 10000 -c 1000
 //i.e. loadtest https://mern-stack-boilerplat.herokuapp.com/ -k -n 10000 -c 1000
 
+//i.e. 
+loadtest http://localhost:3001/api/images -H "Accept:*/*" -k -n 10 --rps 1 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png", "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg", "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg", "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465", "https://www.passmark.com/source/img_posts/montest_slide_2.png", "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg", "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"]}'  
+
 //load test with wrk: https://github.com/wg/wrk
 // brew install wrk
 //wrk -t8 -c100 -d30s http://localhost:3001/
