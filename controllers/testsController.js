@@ -3,12 +3,11 @@ import imgDownload from "../scripts/downloadImage";
 
 // Defining methods for the booksController
 module.exports = {
-    runAll: async function(req, res) {
+    analyseForFrontEndTestDashboard: async function(req, res) {
         const urls = getTestImages();
 
             let analysisPromisesArray = [];
             urls.forEach((img, id) => {
-                // TO-DO: fix async
                 analysisPromisesArray.push(analyseImage(img, id, true));
             });
             console.log(analysisPromisesArray);

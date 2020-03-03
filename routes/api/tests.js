@@ -3,6 +3,6 @@ const testsController = require("../../controllers/testsController");
 
 // Matches with "/api/tests"
 router.route("/")
-  .get(testsController.runAll)
+  .get(testsController.analyseForFrontEndTestDashboard)
 
 module.exports = router;
