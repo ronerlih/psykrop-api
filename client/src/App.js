@@ -1,9 +1,9 @@
 import React from "react";
-import { StaticRouter, BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { StaticRouter, BrowserRouter as Router, Route, Switch/*, Redirect*/ } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Detail from "./pages/Detail";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+// import Detail from "./pages/Detail";
+// import Login from "./pages/Login";
+// import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Alert from "./components/Alert";

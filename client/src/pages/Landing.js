@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
+// import DeleteBtn from "../components/DeleteBtn";
 import Button from "../components/Button";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+// import { List, ListItem } from "../components/List";
+// import { Input, TextArea, FormBtn } from "../components/Form";
 import JSONPretty from "react-json-pretty";
 
 import "./style.css";
@@ -71,6 +71,7 @@ class Landing extends Component {
                             // <div className="details-container">
                             <div style={{marginTop:"10px", borderRadius:"5px"}}>
                                 {/* <kbd className="details "> */}
+                                <h6>Results sample</h6>
                                 <JSONPretty
                                     id="json-pretty"
                                     valueStyle="color:white"
@@ -91,17 +92,17 @@ class Landing extends Component {
                                 {this.state.results.map(image => {
                                     return (<div>
                                         <h6>imgID: {image.imgId}</h6>
-                                        <img className="img-tests" src={"images/" + image.imageFeedback} />
+                                        <img className="img-tests" src={"images/" + image.imageFeedback} alt="imageFeedback"/>
                                         <h6>image centers (insight)</h6>
-                                        <img className="img-tests" src={"images/" + image.edge} />
+                                        <img className="img-tests" src={"images/" + image.edge} alt="edge" />
                                         <h6>Edge mat</h6>
-                                        <img className="img-tests" src={"images/" + image.ratedPixels} />
-                                        <h6>rated pizels mat</h6>
-                                        <img className="img-tests" src={"images/" + image.red_channel.url} />
+                                        <img className="img-tests" src={"images/" + image.ratedPixels} alt="rated pixels" />
+                                        <h6>rated pixels mat</h6>
+                                        <img className="img-tests" src={"images/" + image.red_channel.url} alt="red channel" />
                                         <h6>red mat</h6>
-                                        <img className="img-tests" src={"images/" + image.green_channel.url} />
+                                        <img className="img-tests" src={"images/" + image.green_channel.url} alt="green channel" />
                                         <h6>green mat</h6>
-                                        <img className="img-tests" src={"images/" + image.blue_channel.url} />
+                                        <img className="img-tests" src={"images/" + image.blue_channel.url} alt="blue channel" />
                                         <h6>blue mat</h6>
                                         <hr></hr>
                                     </div>)

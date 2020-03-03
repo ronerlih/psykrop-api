@@ -5,7 +5,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand " href="/">
-        psycrop API service
+        psyKrop API service
       </a>
     </nav>
   );
