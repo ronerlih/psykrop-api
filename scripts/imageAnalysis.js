@@ -201,11 +201,16 @@ module.exports = {
                     saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
                     resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
                 }
+                
 
                 // average balance
                 const aveCenter = weightedAverageThree(...channelsCenters);
                 resultObject.balanceAllCoefficients = calcBalancePercentage(src, aveCenter);
 
+                //get avareg color
+                console.log(cv.mean(src));
+                resultObject.averageRGBColor = cv.mean(src).slice(0,3);
+                
                 // delete mats
                 src.delete();
                 zerosMat.delete();
@@ -219,11 +224,12 @@ module.exports = {
                 const result = {
                     id: resultObject.imgId,
                     balanceAllCoefficients: resultObject.balanceAllCoefficients,
+                    averageRGBColor: resultObject.averageRGBColor,
                     red_channel: resultObject.red_channel,
                     green_channel: resultObject.green_channel,
                     blue_channel: resultObject.blue_channel,
                 }
-                
+
                 resolve(result);
 
                 function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
