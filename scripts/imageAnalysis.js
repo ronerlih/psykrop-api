@@ -2,9 +2,10 @@
 const cv = require("opencv.js");
 const Jimp = require("jimp");
 // console.log(cv.getBuildInformation())
-console.log("after jimp");
 
+// opencv methods
 // console.log(Object.keys(cv.modules));
+
 import Path from "path";
 
 module.exports = {
@@ -153,10 +154,14 @@ module.exports = {
                     
                     // save centers
                     resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
+                    centerPoint = new cv.Point(arr.m10 / arr.m00, arr.m01 / arr.m00);
                     
                     // add moments to result
-                    resultObject[resultsOptions[i][0]].imageMoments = arr;
-
+                    resultObject[resultsOptions[i][0]].imageMoments = {
+                        m00: arr.m00,
+                        m01: arr.m01,
+                        m10: arr.m10
+                    }
                     // save channel
                     if (saveImageLocaly) {
                         switch (resultsOptions[i][0]) {
@@ -208,7 +213,6 @@ module.exports = {
                 resultObject.balanceAllCoefficients = calcBalancePercentage(src, aveCenter);
 
                 //get avareg color
-                console.log(cv.mean(src));
                 resultObject.averageRGBColor = cv.mean(src).slice(0,3);
                 
                 // delete mats
