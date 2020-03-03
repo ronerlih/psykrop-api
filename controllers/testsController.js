@@ -5,18 +5,21 @@ import imgDownload from "../scripts/downloadImage";
 module.exports = {
     analyseForFrontEndTestDashboard: async function(req, res) {
         const urls = getTestImages();
+        
+        let used = process.memoryUsage();
+        console.log(`Heap used before analysis: ${used.heapUsed / 1024 / 1024} MB`);
 
             let analysisPromisesArray = [];
             urls.forEach((img, id) => {
                 analysisPromisesArray.push(analyseImage(img, id, true));
             });
-            console.log(analysisPromisesArray);
             Promise.all(analysisPromisesArray).then(result => {
                  //check heap memory
                  let used = process.memoryUsage();
-                 for (let key in used) {
-                     console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
-                   }
+                //  for (let key in used) {
+                //      console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
+                //    }
+                console.log(`Heap used: ${used.heapUsed / 1024 / 1024} MB`);
                  console.log(`The script uses approximately ${Math.round(used.heapUsed * 100) / 100} MB`);
                 
                  res.status(200).json(result);
