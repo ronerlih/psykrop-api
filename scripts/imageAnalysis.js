@@ -22,7 +22,6 @@ module.exports = {
     },
     analyseImage: async function(image, id, saveImageLocaly) {
         return new Promise(async (resolve, reject) => {
-            setTimeout(async () => {
                 ///////-->
                 // paramaters and mats
                 const RED_COEFFICIENT = 1;
@@ -246,7 +245,6 @@ module.exports = {
                         (_redPoint.y * RED_COEFFICIENT + _greenPoint.y * GREEN_COEFFICIENT + _bluePoint.y * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT)
                     );
                 }
-            }, 1000);
         });
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
