@@ -92,7 +92,7 @@ module.exports = {
                 cv.cvtColor(edgesMat, edgesMat, cv.COLOR_GRAY2RGBA, 0);
 
                 if (saveImageLocaly) {
-                    saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
+                    // saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
                     resultObject.edge = ("0" + id).slice(-2) + "-edge.jpg";
                 }
 
@@ -111,7 +111,7 @@ module.exports = {
                 cv.addWeighted(weightsMat, 1 - LOCATIONS_WEIGHT, locationsMat, LOCATIONS_WEIGHT, EDGE_GAMMA, weightsMat, -1);
 
                 if (saveImageLocaly) {
-                    saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
+                    // saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
                     resultObject.ratedPixels = ("0" + id).slice(-2) + "-rated-pixels.jpg";
                 }
 
@@ -193,15 +193,17 @@ module.exports = {
                             }
                             if (saveImageLocaly) {
                                 cv.cvtColor(channel, channel, cv.COLOR_GRAY2RGBA, 0);
-                                saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[i][0]);
+                                // saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[i][0]);
                             }
                         }
 
                         resultObject[resultsOptions[i][0]].url = ("0" + id).slice(-2) + "-" + resultsOptions[i][0] + ".jpg";
                     }
+                    channel.delete();
+                    vecToMerge.delete();
                 });
                 if (saveImageLocaly) {
-                    saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
+                    // saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
                     resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
                 }
                 
