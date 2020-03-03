@@ -5,16 +5,11 @@ import imgDownload from "../scripts/downloadImage";
 module.exports = {
     runAll: async function(req, res) {
         const urls = getTestImages();
-        const downloadsPromisesArray = await downloadImages();
 
-        console.log(downloadsPromisesArray);
-        Promise.allSettled(downloadsPromisesArray)
-        .then(images => {
             let analysisPromisesArray = [];
-            images.forEach((img, id) => {
+            urls.forEach((img, id) => {
                 // TO-DO: fix async
-                if(img.status === 'fulfilled')
-                    analysisPromisesArray.push(analyseImage(img.value, id, true));
+                analysisPromisesArray.push(analyseImage(img, id, true));
             });
             console.log(analysisPromisesArray);
             Promise.all(analysisPromisesArray).then(result => {
@@ -26,8 +21,7 @@ module.exports = {
                  console.log(`The script uses approximately ${Math.round(used.heapUsed * 100) / 100} MB`);
                 
                  res.status(200).json(result);
-            });
-        })
+            })
         .catch(e => {throw e})
 
          function downloadImages(){

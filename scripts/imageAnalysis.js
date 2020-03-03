@@ -46,11 +46,9 @@ module.exports = {
 
                 /////
                 // read img
-                let path;
-                saveImageLocaly ? (path = Path.resolve(__dirname, "../images/", image)) : (path = image);
-
+  
                 // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
-                var jimpSrc = await Jimp.read(path);
+                var jimpSrc = await Jimp.read(image);
                 // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
                 let src = cv.matFromImageData(jimpSrc.bitmap);
                 let zerosMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(0));
@@ -228,6 +226,10 @@ module.exports = {
                 const result = {
                     id: resultObject.imgId,
                     balanceAllCoefficients: resultObject.balanceAllCoefficients,
+                    imageFeedback: resultObject.imageFeedback,
+                    url: resultObject.url,
+                    edge: resultObject.edge,
+                    ratedPixels: resultObject.ratedPixels,
                     averageRGBColor: resultObject.averageRGBColor,
                     red_channel: resultObject.red_channel,
                     green_channel: resultObject.green_channel,
