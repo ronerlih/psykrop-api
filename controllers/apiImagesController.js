@@ -16,7 +16,11 @@ module.exports = {
                 for (let key in used) {
                     console.log(`${key} ${Math.round((used[key] / 1024 / 1024) * 100) / 100} MB`);
                 }
+                // sort by decending
+                result.sort((a,b) =>  b.balanceAllCoefficients - a.balanceAllCoefficients );
+                
                 console.log(`The script uses approximately ${Math.round(used.heapUsed  / 1024 / 1024 ) } MB`);
+                
                 res.status(200).json(result);
             })
             .catch(e => {throw e});

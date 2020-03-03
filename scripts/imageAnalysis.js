@@ -144,13 +144,18 @@ module.exports = {
                         centerPoint.x = centerPoint.x.toFixed(2);
                         centerPoint.y = centerPoint.y.toFixed(2);
                     }
-                    // save centers
+                    // channel object
                     resultObject[resultsOptions[i][0]] = {};
-                    resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
 
                     // balance percent
                     let balancePercent = calcBalancePercentage(src, centerPoint);
                     resultObject[resultsOptions[i][0]].balancePercent = balancePercent;
+                    
+                    // save centers
+                    resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
+                    
+                    // add moments to result
+                    resultObject[resultsOptions[i][0]].imageMoments = arr;
 
                     // save channel
                     if (saveImageLocaly) {
@@ -210,7 +215,16 @@ module.exports = {
                 edgesMat.delete();
                 channelMat.delete();
                 locationsMat.delete();
-                resolve(resultObject);
+
+                const result = {
+                    id: resultObject.imgId,
+                    balanceAllCoefficients: resultObject.balanceAllCoefficients,
+                    red_channel: resultObject.red_channel,
+                    green_channel: resultObject.green_channel,
+                    blue_channel: resultObject.blue_channel,
+                }
+                
+                resolve(result);
 
                 function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
                     return new cv.Point(
