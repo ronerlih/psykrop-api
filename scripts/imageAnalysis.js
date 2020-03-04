@@ -33,6 +33,7 @@ const locationMatrix = [
 ];
 
 let centerPoint;
+let arrayofMats = [];
 
 module.exports = {
     getTestImages: function() {
@@ -118,7 +119,7 @@ module.exports = {
 
                 ////
                 //split img
-                let arrayofMats = [];
+                arrayofMats = [];
                 let channelsCenters = [];
                 let vecOfMats = new cv.MatVector();
                 cv.split(weightsMat, vecOfMats);

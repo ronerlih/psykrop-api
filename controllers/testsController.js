@@ -24,6 +24,7 @@ module.exports = {
                 console.log(`Heap used: ${used.heapUsed / 1024 / 1024} MB`);
                 
                  res.status(200).json(result);
+                //  setTimeout(() => process.exit(0), 10)
             })
         .catch(e => {throw e})
 
