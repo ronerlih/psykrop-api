@@ -226,7 +226,7 @@ module.exports = {
                 channelMat.delete();
                 locationsMat.delete();
 
-                const result = {
+                resolve({
                     id: resultObject.imgId,
                     balanceAllCoefficients: resultObject.balanceAllCoefficients,
                     imageFeedback: resultObject.imageFeedback,
@@ -237,9 +237,7 @@ module.exports = {
                     red_channel: resultObject.red_channel,
                     green_channel: resultObject.green_channel,
                     blue_channel: resultObject.blue_channel,
-                }
-
-                resolve(result);
+                })
 
                 function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
                     return new cv.Point(
