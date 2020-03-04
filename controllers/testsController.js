@@ -1,12 +1,12 @@
 import { getTestImages, analyseImage } from "../scripts/imageAnalysis";
-let analysisPromisesArray = [];
-const urls = getTestImages();
-let used;
+
 
 // Defining methods for the booksController
 module.exports = {
     analyseForFrontEndTestDashboard: async function(req, res) {
-        
+        let analysisPromisesArray = [];
+        const urls = getTestImages();
+        let used;
         used = process.memoryUsage();
         console.log(`Heap before analysis:`);
         for (let key in used) {

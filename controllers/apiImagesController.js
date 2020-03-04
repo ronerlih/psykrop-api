@@ -6,11 +6,15 @@ module.exports = {
         let used = process.memoryUsage();
         console.log(`Heap used before analysis: ${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`);
 
-        const urls = req.body.images;
-        let analysisPromisesArray = [];
-        urls.forEach((url, id) => {
-            analysisPromisesArray.push(analyseImage(url, id));
-        });
+        try{
+            req.body.images.forEach((url, id) => {
+                analysisPromisesArray.push(analyseImage(url, id));
+            });
+        }
+        catch(e){
+            throw e;
+        }
+
 
         Promise.all(analysisPromisesArray)
             .then(result => {
