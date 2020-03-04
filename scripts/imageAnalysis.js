@@ -5,8 +5,34 @@ const Jimp = require("jimp");
 
 // opencv methods
 // console.log(Object.keys(cv.modules));
+// opencv method search
+// console.log(Object.keys(cv).filter(key => key.indexOf("INTER") >= 0));
 
-import Path from "path";
+const RED_COEFFICIENT = 1;
+const GREEN_COEFFICIENT = 0.8;
+const BLUE_COEFFICIENT = 1.2;
+const BLUR_SIZE = 3;
+const THRESHHOLD = 127.5;
+const CANNY_THRESHOLD = 100;
+const EDGE_WEIGHT = 0.719;
+const LOCATIONS_WEIGHT = 0.2;
+const EDGE_GAMMA = 0;
+const resultsOptions = {
+    0: ["red_channel", [255, 0, 0]],
+    1: ["green_channel", [0, 255, 0]],
+    2: ["blue_channel", [0, 0, 255]],
+    3: ["alpha_channel", [120, 120, 120]]
+};
+let resultObject = {};
+
+// prettier-ignore
+const locationMatrix = [
+    0,0,0, 0,0,0, 0,0,0,
+    0,0,0, 255,255,255, 0,0,0,
+    0,0,0, 0,0,0, 0,0,0
+];
+
+let centerPoint;
 
 module.exports = {
     getTestImages: function() {
@@ -24,25 +50,11 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
                 ///////-->
                 // paramaters and mats
-                const RED_COEFFICIENT = 1;
-                const GREEN_COEFFICIENT = 0.8;
-                const BLUE_COEFFICIENT = 1.2;
-                const BLUR_SIZE = 3;
-                const THRESHHOLD = 127.5;
-                const CANNY_THRESHOLD = 100;
-                const EDGE_WEIGHT = 0.719;
-                const LOCATIONS_WEIGHT = 0.2;
-                const EDGE_GAMMA = 0;
-                const resultsOptions = {
-                    0: ["red_channel", [255, 0, 0]],
-                    1: ["green_channel", [0, 255, 0]],
-                    2: ["blue_channel", [0, 0, 255]],
-                    3: ["alpha_channel", [120, 120, 120]]
-                };
-                let resultObject = {};
-                // log cv object
-                // console.log(Object.keys(cv).filter(key => key.indexOf("INTER") >= 0));
-
+                resultObject = {};
+                let locationsMat = new cv.matFromArray(3, 3, cv.CV_8UC3, locationMatrix);
+                let dst = new cv.Mat();
+                let edgesMat = new cv.Mat();
+                let channelMat = new cv.Mat();
                 /////
                 // read img
   
@@ -52,20 +64,10 @@ module.exports = {
                 let src = cv.matFromImageData(jimpSrc.bitmap);
                 let zerosMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(0));
                 let onesMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(255));
-                let dst = new cv.Mat();
                 let weightsMat = src.clone();
-                let edgesMat = new cv.Mat();
-                let channelMat = new cv.Mat();
-                // prettier-ignore
-                const locationMatrix = [
-                    0,0,0, 0,0,0, 0,0,0,
-                    0,0,0, 255,255,255, 0,0,0,
-                    0,0,0, 0,0,0, 0,0,0
-                ];
-                let locationsMat = new cv.matFromArray(3, 3, cv.CV_8UC3, locationMatrix);
 
                 // initaize point at img center
-                let centerPoint = new cv.Point(parseInt(src.cols / 2), parseInt(src.rows / 2));
+                centerPoint = new cv.Point(parseInt(src.cols / 2), parseInt(src.rows / 2));
 
                 //rgb -> gray
                 cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);

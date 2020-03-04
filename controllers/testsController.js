@@ -1,23 +1,23 @@
 import { getTestImages, analyseImage } from "../scripts/imageAnalysis";
-import imgDownload from "../scripts/downloadImage";
+let analysisPromisesArray = [];
+const urls = getTestImages();
+let used;
 
 // Defining methods for the booksController
 module.exports = {
     analyseForFrontEndTestDashboard: async function(req, res) {
-        const urls = getTestImages();
         
-        let used = process.memoryUsage();
+        used = process.memoryUsage();
         console.log(`Heap before analysis:`);
         for (let key in used) {
             console.log(`${key} ${Math.round(used[key] / 1024 / 1024)}MB`);
           }
-            let analysisPromisesArray = [];
             urls.forEach((img, id) => {
-                analysisPromisesArray.push(analyseImage(img, id, true));
+                analysisPromisesArray.push(analyseImage(img, id, true).catch(e => {throw e}));
             });
             Promise.all(analysisPromisesArray).then(result => {
                  //check heap memory
-                 let used = process.memoryUsage();
+                used = process.memoryUsage();
                  for (let key in used) {
                      console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
                    }
