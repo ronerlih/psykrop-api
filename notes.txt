@@ -28,6 +28,12 @@ https://devcenter.heroku.com/articles/scaling
 
 //i.e. 
 loadtest http://localhost:3001/api/images -H "Accept:*/*" -k -n 10 --rps 1 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png", "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg", "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg", "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465", "https://www.passmark.com/source/img_posts/montest_slide_2.png", "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg", "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"]}'  
+loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 60 --rps 1 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png", "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg", "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg", "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465", "https://www.passmark.com/source/img_posts/montest_slide_2.png", "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg", "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"]}'  
+loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 60 -c 5 --rps 5 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png"]}'  
+loadtest http://localhost:3001/api/images -H "Accept:*/*" -k -n 60 --rps 5 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png", "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg", "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg", "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465", "https://www.passmark.com/source/img_posts/montest_slide_2.png", "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg", "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"]}'  
+// long term test
+loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 600  -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png"]}'  
+
 
 //load test with wrk: https://github.com/wg/wrk
 // brew install wrk
@@ -53,3 +59,170 @@ curl -i localhost:49160
 
 //Nginx
 // https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/
+
+
+load tests resu;ts:
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Target URL:          http://localhost:3001/api/images
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   1
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Total time:          61.754518393 s
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        2943 ms
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO   50%      2827 ms
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO   90%      3661 ms
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO   95%      4181 ms
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO   99%      6244 ms
+[Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO  100%      6244 ms (longest request)
+
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Target URL:          http://localhost:3001/api/images
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   1
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Total time:          22.288975747000002 s
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 3
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        7124.2 ms
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO   50%      7195 ms
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO   90%      9726 ms
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO   95%      10378 ms
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO   99%      10658 ms
+[Tue Mar 03 2020 16:35:29 GMT-0500 (Eastern Standard Time)] INFO  100%      10658 ms (longest request)
+
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Total errors:        39
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Total time:          72.80916049599999 s
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        31304.7 ms
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO   50%      32348 ms
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO   90%      38935 ms
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO   95%      60829 ms
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO   99%      61224 ms
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO  100%      61224 ms (longest request)
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO  100%      61224 ms (longest request)
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO   503:   15 errors
+[Tue Mar 03 2020 19:51:21 GMT-0500 (Eastern Standard Time)] INFO    -1:   24 errors
+
+
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   1
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Total time:          60.145739606 s
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        588.4 ms
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO   50%      478 ms
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO   90%      978 ms
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO   95%      1317 ms
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO   99%      1471 ms
+[Tue Mar 03 2020 19:57:36 GMT-0500 (Eastern Standard Time)] INFO  100%      1471 ms (longest request)
+
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   1
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Total time:          60.15916546 s
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 1
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        544 ms
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO   50%      502 ms
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO   90%      698 ms
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO   95%      1007 ms
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO   99%      1528 ms
+[Tue Mar 03 2020 20:17:17 GMT-0500 (Eastern Standard Time)] INFO  100%      1528 ms (longest request)
+
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   5
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Total time:          12.748187377 s
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        435.2 ms
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO   50%      415 ms
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO   90%      526 ms
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO   95%      586 ms
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO   99%      770 ms
+[Tue Mar 03 2020 20:19:43 GMT-0500 (Eastern Standard Time)] INFO  100%      770 ms (longest request)
+
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Max requests:        60
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   5
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  60
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Total errors:        0
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Total time:          12.98203523 s
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 5
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        1267.4 ms
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO   50%      1170 ms
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO   90%      1965 ms
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO   95%      2068 ms
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO   99%      2223 ms
+[Tue Mar 03 2020 20:28:14 GMT-0500 (Eastern Standard Time)] INFO  100%      2223 ms (longest request)
+
+
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Max requests:        600
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Concurrency level:   1
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Agent:               keepalive
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Completed requests:  600
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Total errors:        1
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Total time:          347.53654496999997 s
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Requests per second: 2
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Mean latency:        579.1 ms
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO Percentage of the requests served within a certain time
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   50%      450 ms
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   90%      790 ms
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   95%      845 ms
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   99%      1633 ms
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO  100%      28436 ms (longest request)
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO  100%      28436 ms (longest request)
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
+[Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   503:   1 errors

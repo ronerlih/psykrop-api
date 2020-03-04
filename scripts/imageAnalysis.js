@@ -8,33 +8,6 @@ const Jimp = require("jimp");
 // opencv method search
 // console.log(Object.keys(cv).filter(key => key.indexOf("INTER") >= 0));
 
-const RED_COEFFICIENT = 1;
-const GREEN_COEFFICIENT = 0.8;
-const BLUE_COEFFICIENT = 1.2;
-const BLUR_SIZE = 3;
-const THRESHHOLD = 127.5;
-const CANNY_THRESHOLD = 100;
-const EDGE_WEIGHT = 0.719;
-const LOCATIONS_WEIGHT = 0.2;
-const EDGE_GAMMA = 0;
-const resultsOptions = {
-    0: ["red_channel", [255, 0, 0]],
-    1: ["green_channel", [0, 255, 0]],
-    2: ["blue_channel", [0, 0, 255]],
-    3: ["alpha_channel", [120, 120, 120]]
-};
-let resultObject = {};
-
-// prettier-ignore
-const locationMatrix = [
-    0,0,0, 0,0,0, 0,0,0,
-    0,0,0, 255,255,255, 0,0,0,
-    0,0,0, 0,0,0, 0,0,0
-];
-
-let centerPoint;
-let arrayofMats = [];
-
 module.exports = {
     getTestImages: function() {
         return [
@@ -49,203 +22,232 @@ module.exports = {
     },
     analyseImage: async function(image, id, saveImageLocaly) {
         return new Promise(async (resolve, reject) => {
-                ///////-->
-                // paramaters and mats
-                resultObject = {};
-                let locationsMat = new cv.matFromArray(3, 3, cv.CV_8UC3, locationMatrix);
-                let dst = new cv.Mat();
-                let edgesMat = new cv.Mat();
-                let channelMat = new cv.Mat();
-                /////
-                // read img
-  
-                // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
-                var jimpSrc = await Jimp.read(image);
-                // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
-                let src = cv.matFromImageData(jimpSrc.bitmap);
-                let zerosMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(0));
-                let onesMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(255));
-                let weightsMat = src.clone();
+            ///////-->
+            // paramaters and mats
 
-                // initaize point at img center
-                centerPoint = new cv.Point(parseInt(src.cols / 2), parseInt(src.rows / 2));
+            const RED_COEFFICIENT = 1;
+            const GREEN_COEFFICIENT = 0.8;
+            const BLUE_COEFFICIENT = 1.2;
+            const BLUR_SIZE = 3;
+            const THRESHHOLD = 127.5;
+            const CANNY_THRESHOLD = 100;
+            const EDGE_WEIGHT = 0.719;
+            const LOCATIONS_WEIGHT = 0.2;
+            const EDGE_GAMMA = 0;
+            const resultsOptions = {
+                0: ["red_channel", [255, 0, 0]],
+                1: ["green_channel", [0, 255, 0]],
+                2: ["blue_channel", [0, 0, 255]],
+                3: ["alpha_channel", [120, 120, 120]]
+            };
+            let resultObject = {};
 
-                //rgb -> gray
-                cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);
+            // prettier-ignore
+            const locationMatrix = [
+                0,0,0, 0,0,0, 0,0,0,
+                0,0,0, 255,255,255, 0,0,0,
+                0,0,0, 0,0,0, 0,0,0
+            ];
 
-                // inverse (initialize weightsMat)
-                // cv.bitwise_not(src, dst);
+            let centerPoint;
+            let arrayofMats = [];
 
-                // flip rgb -> bgr
-                // cv.cvtColor(dst, weightsMat, cv.COLOR_RGBA2BGR, 0);
+            resultObject = {};
+            let locationsMat = new cv.matFromArray(3, 3, cv.CV_8UC3, locationMatrix);
+            let dst = new cv.Mat();
+            let edgesMat = new cv.Mat();
+            let channelMat = new cv.Mat();
+            /////
+            // read img
 
-                // blur
-                // cv.blur(dst, dst, new cv.Size(BLUR_SIZE, BLUR_SIZE));
+            // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
+            var jimpSrc = await Jimp.read(image);
+            // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
+            let src = cv.matFromImageData(jimpSrc.bitmap);
+            let zerosMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(0));
+            let onesMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(255));
+            let weightsMat = src.clone();
 
-                ///////-->
-                // rate edges
-                // canny eadge detection
-                cv.Canny(dst, edgesMat, CANNY_THRESHOLD, CANNY_THRESHOLD);
+            // initaize point at img center
+            centerPoint = new cv.Point(parseInt(src.cols / 2), parseInt(src.rows / 2));
 
-                // threshold
-                cv.threshold(edgesMat, edgesMat, THRESHHOLD, 255, cv.THRESH_BINARY);
+            //rgb -> gray
+            cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);
 
-                // cnvrt back bfr save
-                cv.cvtColor(edgesMat, edgesMat, cv.COLOR_GRAY2RGBA, 0);
+            // inverse (initialize weightsMat)
+            // cv.bitwise_not(src, dst);
 
+            // flip rgb -> bgr
+            // cv.cvtColor(dst, weightsMat, cv.COLOR_RGBA2BGR, 0);
+
+            // blur
+            // cv.blur(dst, dst, new cv.Size(BLUR_SIZE, BLUR_SIZE));
+
+            ///////-->
+            // rate edges
+            // canny eadge detection
+            cv.Canny(dst, edgesMat, CANNY_THRESHOLD, CANNY_THRESHOLD);
+
+            // threshold
+            cv.threshold(edgesMat, edgesMat, THRESHHOLD, 255, cv.THRESH_BINARY);
+
+            // cnvrt back bfr save
+            cv.cvtColor(edgesMat, edgesMat, cv.COLOR_GRAY2RGBA, 0);
+
+            if (saveImageLocaly) {
+                // saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
+                resultObject.edge = ("0" + id).slice(-2) + "-edge.jpg";
+            }
+
+            // add to result
+            resultObject.imgId = ("0" + id).slice(-2);
+
+            await cv.addWeighted(weightsMat, 1 - EDGE_WEIGHT, edgesMat, EDGE_WEIGHT, EDGE_GAMMA, weightsMat, -1);
+
+            ////rate locations
+            // locations
+            await cv.resize(locationsMat, locationsMat, weightsMat.size(), 0, 0, cv.INTER_LINEAR);
+            cv.cvtColor(locationsMat, locationsMat, cv.COLOR_RGB2RGBA, 0);
+
+            // saveImg(weightsMat, "weightsMatAfter");
+            //  async function(_locationsMat){
+            cv.addWeighted(weightsMat, 1 - LOCATIONS_WEIGHT, locationsMat, LOCATIONS_WEIGHT, EDGE_GAMMA, weightsMat, -1);
+
+            if (saveImageLocaly) {
+                // saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
+                resultObject.ratedPixels = ("0" + id).slice(-2) + "-rated-pixels.jpg";
+            }
+
+            ////
+            //split img
+            arrayofMats = [];
+            let channelsCenters = [];
+            let vecOfMats = new cv.MatVector();
+            cv.split(weightsMat, vecOfMats);
+            for (let i = 0; i < 4; i++) {
+                arrayofMats.push(vecOfMats.get(i));
+            }
+            arrayofMats.forEach((channel, i) => {
+                // saveImg(img, "location2");
+                let arr = new cv.moments(channel);
+                let vecToMerge = new cv.MatVector();
+
+                centerPoint = new cv.Point(arr.m10 / arr.m00, arr.m01 / arr.m00);
+
+                //DRAW ON SRC
+                if (i != 3) {
+                    if (saveImageLocaly) {
+                        cv.circle(src, centerPoint, 5, new cv.Scalar(0, 0, 0, 255), 5, cv.LINE_8, 0);
+                        cv.circle(src, centerPoint, 4, new cv.Scalar(resultsOptions[i][1][0], resultsOptions[i][1][1], resultsOptions[i][1][2], 255), 5, cv.LINE_8, 0);
+                    } // cv.putText(src,centerPoint.x.toFixed(2) + ", " + centerPoint.y.toFixed(2), new cv.Point(centerPoint.x + 10, centerPoint.y - 10),0,1, new cv.Scalar(255,0,0),cv.LINE_8,0, false);
+                    channelsCenters.push(centerPoint);
+                }
                 if (saveImageLocaly) {
-                    // saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
-                    resultObject.edge = ("0" + id).slice(-2) + "-edge.jpg";
+                    centerPoint.x = centerPoint.x.toFixed(2);
+                    centerPoint.y = centerPoint.y.toFixed(2);
                 }
+                // channel object
+                resultObject[resultsOptions[i][0]] = {};
 
-                // add to result
-                resultObject.imgId = ("0" + id).slice(-2);
+                // balance percent
+                let balancePercent = calcBalancePercentage(src, centerPoint);
+                resultObject[resultsOptions[i][0]].balancePercent = balancePercent;
 
-                await cv.addWeighted(weightsMat, 1 - EDGE_WEIGHT, edgesMat, EDGE_WEIGHT, EDGE_GAMMA, weightsMat, -1);
+                // save centers
+                resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
+                centerPoint = new cv.Point(arr.m10 / arr.m00, arr.m01 / arr.m00);
 
-                ////rate locations
-                // locations
-                await cv.resize(locationsMat, locationsMat, weightsMat.size(), 0, 0, cv.INTER_LINEAR);
-                cv.cvtColor(locationsMat, locationsMat, cv.COLOR_RGB2RGBA, 0);
-
-                // saveImg(weightsMat, "weightsMatAfter");
-                //  async function(_locationsMat){
-                cv.addWeighted(weightsMat, 1 - LOCATIONS_WEIGHT, locationsMat, LOCATIONS_WEIGHT, EDGE_GAMMA, weightsMat, -1);
-
+                // add moments to result
+                resultObject[resultsOptions[i][0]].imageMoments = {
+                    m00: arr.m00,
+                    m01: arr.m01,
+                    m10: arr.m10
+                };
+                // save channel
                 if (saveImageLocaly) {
-                    // saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
-                    resultObject.ratedPixels = ("0" + id).slice(-2) + "-rated-pixels.jpg";
-                }
+                    switch (resultsOptions[i][0]) {
+                        case "red_channel":
+                            vecToMerge.push_back(channel);
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(onesMat);
+                            break;
+                        case "green_channel":
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(channel);
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(onesMat);
 
-                ////
-                //split img
-                arrayofMats = [];
-                let channelsCenters = [];
-                let vecOfMats = new cv.MatVector();
-                cv.split(weightsMat, vecOfMats);
-                for (let i = 0; i < 4; i++) {
-                    arrayofMats.push(vecOfMats.get(i));
-                }
-                arrayofMats.forEach((channel, i) => {
-                    // saveImg(img, "location2");
-                    let arr = new cv.moments(channel);
-                    let vecToMerge = new cv.MatVector();
+                            break;
+                        case "blue_channel":
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(zerosMat);
+                            vecToMerge.push_back(channel);
+                            vecToMerge.push_back(onesMat);
 
-                    centerPoint = new cv.Point(arr.m10 / arr.m00, arr.m01 / arr.m00);
-
-                    //DRAW ON SRC
+                            break;
+                        default:
+                    }
                     if (i != 3) {
+                        try {
+                            cv.merge(vecToMerge, channelMat);
+                        } catch (e) {
+                            console.log(e);
+                        }
                         if (saveImageLocaly) {
-                            cv.circle(src, centerPoint, 5, new cv.Scalar(0, 0, 0, 255), 5, cv.LINE_8, 0);
-                            cv.circle(src, centerPoint, 4, new cv.Scalar(resultsOptions[i][1][0], resultsOptions[i][1][1], resultsOptions[i][1][2], 255), 5, cv.LINE_8, 0);
-                        } // cv.putText(src,centerPoint.x.toFixed(2) + ", " + centerPoint.y.toFixed(2), new cv.Point(centerPoint.x + 10, centerPoint.y - 10),0,1, new cv.Scalar(255,0,0),cv.LINE_8,0, false);
-                        channelsCenters.push(centerPoint);
-                    }
-                    if (saveImageLocaly) {
-                        centerPoint.x = centerPoint.x.toFixed(2);
-                        centerPoint.y = centerPoint.y.toFixed(2);
-                    }
-                    // channel object
-                    resultObject[resultsOptions[i][0]] = {};
-
-                    // balance percent
-                    let balancePercent = calcBalancePercentage(src, centerPoint);
-                    resultObject[resultsOptions[i][0]].balancePercent = balancePercent;
-                    
-                    // save centers
-                    resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
-                    centerPoint = new cv.Point(arr.m10 / arr.m00, arr.m01 / arr.m00);
-                    
-                    // add moments to result
-                    resultObject[resultsOptions[i][0]].imageMoments = {
-                        m00: arr.m00,
-                        m01: arr.m01,
-                        m10: arr.m10
-                    }
-                    // save channel
-                    if (saveImageLocaly) {
-                        switch (resultsOptions[i][0]) {
-                            case "red_channel":
-                                vecToMerge.push_back(channel);
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(onesMat);
-                                break;
-                            case "green_channel":
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(channel);
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(onesMat);
-
-                                break;
-                            case "blue_channel":
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(zerosMat);
-                                vecToMerge.push_back(channel);
-                                vecToMerge.push_back(onesMat);
-
-                                break;
-                            default:
+                            cv.cvtColor(channel, channel, cv.COLOR_GRAY2RGBA, 0);
+                            // saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[i][0]);
                         }
-                        if (i != 3) {
-                            try {
-                                cv.merge(vecToMerge, channelMat);
-                            } catch (e) {
-                                console.log(e);
-                            }
-                            if (saveImageLocaly) {
-                                cv.cvtColor(channel, channel, cv.COLOR_GRAY2RGBA, 0);
-                                // saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[i][0]);
-                            }
-                        }
-
-                        resultObject[resultsOptions[i][0]].url = ("0" + id).slice(-2) + "-" + resultsOptions[i][0] + ".jpg";
                     }
-                    channel.delete();
-                    vecToMerge.delete();
-                });
-                if (saveImageLocaly) {
-                    // saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
-                    resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
+
+                    resultObject[resultsOptions[i][0]].url = ("0" + id).slice(-2) + "-" + resultsOptions[i][0] + ".jpg";
                 }
+                channel.delete();
+                vecToMerge.delete();
                 
+                arr = null;
+            });
+            if (saveImageLocaly) {
+                // saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
+                resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
+            }
 
-                // average balance
-                const aveCenter = weightedAverageThree(...channelsCenters);
-                resultObject.balanceAllCoefficients = calcBalancePercentage(src, aveCenter);
+            // average balance
+            const aveCenter = weightedAverageThree(...channelsCenters);
+            resultObject.balanceAllCoefficients = calcBalancePercentage(src, aveCenter);
 
-                //get avareg color
-                resultObject.averageRGBColor = cv.mean(src).slice(0,3);
-                
-                // delete mats
-                src.delete();
-                zerosMat.delete();
-                onesMat.delete();
-                dst.delete();
-                weightsMat.delete();
-                edgesMat.delete();
-                channelMat.delete();
-                locationsMat.delete();
+            //get avareg color
+            resultObject.averageRGBColor = cv.mean(src).slice(0, 3);
 
-                resolve({
-                    id: resultObject.imgId,
-                    balanceAllCoefficients: resultObject.balanceAllCoefficients,
-                    imageFeedback: resultObject.imageFeedback,
-                    url: resultObject.url,
-                    edge: resultObject.edge,
-                    ratedPixels: resultObject.ratedPixels,
-                    averageRGBColor: resultObject.averageRGBColor,
-                    red_channel: resultObject.red_channel,
-                    green_channel: resultObject.green_channel,
-                    blue_channel: resultObject.blue_channel,
-                })
+            // delete mats
+            src.delete();
+            zerosMat.delete();
+            onesMat.delete();
+            dst.delete();
+            weightsMat.delete();
+            edgesMat.delete();
+            channelMat.delete();
+            locationsMat.delete();
 
-                function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
-                    return new cv.Point(
-                        (_redPoint.x * RED_COEFFICIENT + _greenPoint.x * GREEN_COEFFICIENT + _bluePoint.x * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT),
-                        (_redPoint.y * RED_COEFFICIENT + _greenPoint.y * GREEN_COEFFICIENT + _bluePoint.y * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT)
-                    );
-                }
+            resolve({
+                id: resultObject.imgId,
+                balanceAllCoefficients: resultObject.balanceAllCoefficients,
+                imageFeedback: resultObject.imageFeedback,
+                url: resultObject.url,
+                edge: resultObject.edge,
+                ratedPixels: resultObject.ratedPixels,
+                averageRGBColor: resultObject.averageRGBColor,
+                red_channel: resultObject.red_channel,
+                green_channel: resultObject.green_channel,
+                blue_channel: resultObject.blue_channel
+            });
+
+            function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
+                return new cv.Point(
+                    (_redPoint.x * RED_COEFFICIENT + _greenPoint.x * GREEN_COEFFICIENT + _bluePoint.x * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT),
+                    (_redPoint.y * RED_COEFFICIENT + _greenPoint.y * GREEN_COEFFICIENT + _bluePoint.y * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT)
+                );
+            }
         });
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
