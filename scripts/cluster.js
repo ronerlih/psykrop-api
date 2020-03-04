@@ -11,7 +11,7 @@ module.exports = function () {
       if (cluster.isMaster) {
         console.log(`Master ${process.pid} is running`);
         // Fork workers.
-        for (let i = 0; i < numCPUs; i++) {
+        for (let i = 0; i < numCPUs/2; i++) {
           const worker = cluster.fork()
           clusterMap[worker.id] = i;
           worker.send({ cpu: worker.id });
