@@ -4,6 +4,13 @@
 
 ###### mern stack: ` mongodb, expresjs, React.js, node.js `
 
+## end points
+* `POST`/images  [?sort=[order]]
+  * request body: ["img-url"] 
+    * img-url: a String of any pulcic imge url address. 
+    In.jpeg, .jpg, .png formats.
+  * order (*optional): 'decending' or 'acending'
+
 ###### Installation
 
 - clone the git repository:
