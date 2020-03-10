@@ -156,8 +156,9 @@ module.exports = {
                 resultObject[resultsOptions[i][0]] = {};
 
                 // balance percent
-                let balancePercent = calcBalancePercentage(src, centerPoint);
+                let [distanceToCenter, balancePercent] = calcBalancePercentage(src, centerPoint);
                 resultObject[resultsOptions[i][0]].balancePercent = balancePercent;
+                resultObject[resultsOptions[i][0]].distanceToCenter = distanceToCenter;
 
                 // save centers
                 resultObject[resultsOptions[i][0]].centerPoint = centerPoint;
@@ -220,7 +221,7 @@ module.exports = {
 
             // average balance
             const aveCenter = weightedAverageThree(...channelsCenters);
-            resultObject.balanceAllCoefficients = calcBalancePercentage(src, aveCenter);
+            [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = calcBalancePercentage(src, aveCenter);
 
             //get avareg color
             resultObject.averageRGBColor = cv.mean(src).slice(0, 3);
@@ -239,6 +240,7 @@ module.exports = {
                 id: resultObject.imgId,
                 balanceAllCoefficients: resultObject.balanceAllCoefficients,
                 imageFeedback: resultObject.imageFeedback,
+                distanceToCenter: resultObject.distanceToCenter,
                 url: resultObject.url,
                 edge: resultObject.edge,
                 ratedPixels: resultObject.ratedPixels,
@@ -259,7 +261,7 @@ module.exports = {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
 
             let diff = Math.sqrt((point.x - mat.cols / 2) * (point.x - mat.cols / 2) + (point.y - mat.rows / 2) * (point.y - mat.rows / 2));
-            return 100 * (1 - diff / totalDistance);
+            return [diff, 100 * (1 - diff / totalDistance)];
         }
 
         async function saveImg(mat, imgName) {
