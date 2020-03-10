@@ -6,7 +6,12 @@ module.exports = {
         let used = process.memoryUsage();
         console.log(`Heap used before analysis: ${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`);
         const analysisPromisesArray = [];
-        console.log(req.body.images);
+        console.log(req.body.images.length);
+        if(!req.body || !req.body.images || !Array.isArray(req.body.images) ){
+            res.status(403).json({"Error": "no images array in body, please add an 'images' property with an array of img url to test."})
+        } 
+        else{
+
         try {
             req.body.images.forEach((url, id) => {
                 analysisPromisesArray.push(analyseImage(url, id));
@@ -38,7 +43,10 @@ module.exports = {
                 res.status(200).json(result);
             })
             .catch(e => {
-                throw e;
+                console.log("\n\n\n\nerror", e);
+                // throw e;
             });
+        }
+            
     }
 };
