@@ -14,7 +14,8 @@ class Landing extends Component {
     state = {
         results: "",
         loading: false,
-        postLoading: false
+        postLoading: false,
+        postUrl: "https://via.placeholder.com/400"
     };
 
     componentDidMount() {}
