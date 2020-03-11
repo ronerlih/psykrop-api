@@ -5,6 +5,10 @@ export default {
     return axios.get("/api/tests");
     
   },
+  callPost: function(url){
+    return axios.post("/api/images",{images:[url]});
+    
+  },
   // Gets all books
   getBooks: function () {
     return axios.get("/api/books");
