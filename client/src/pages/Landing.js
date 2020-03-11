@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
+import Hr from "../components/Hr";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import JSONPretty from "react-json-pretty";
@@ -65,48 +66,36 @@ class Landing extends Component {
         return (
             <Container fluid>
                 <Row>
-                    <Col size="md-5">
+                    <Col size="md-6">
                         <h4>Base URL</h4>
                         <p>Make all API calls to </p>
                         <url>https://psykrop-api.herokuapp.com/</url>
                     </Col>
                 </Row>
+                <Hr/>
+
                 <Row>
-                    <Col size="md-5">
+                    <Col size="md-6">
                         <p></p>
-                        <h4>Images</h4>
+                        <h4>/images endpoint</h4>
                         <p>Post request with an array of image resouces - urls, will return an array of insight objects about each image.</p>
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="md-5">
+                    <Col size="md-6 ">
                         <h5>request endpoint:</h5>
                         <code>POST /api/images?sorted=[*order]</code>
                         <p>options</p>
-                        <h5>try endpoint:</h5>
+                        <h5>try in sandbox:</h5>
+                        <span>add comma seperated image resouces urls (.JPG, JPEG, .PNG)</span>
                         <Input value={this.state.postUrl} onChange={this.handleInputChange} name="postUrl" placeholder="image url" />
                         <Button onclick={this.callPost} style={{ marginTop: 20 }}>
                             call psyKrop api
                         </Button>
 
                         {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
-                        {this.state.postResults ? (
-                            // <div className="details-container">
-                            <div style={{ borderRadius: "5px" }}>
-                                {/* <kbd className="details "> */}
-                                <h5 style={{ marginTop:5, marginRight: 5, display:"inline-block"}}>Response </h5>
-                                <code>
-                                    {this.state.postResults.status}
-                                </code>
-
-                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
-                                {/* </kbd> */}
-                            </div>
-                        ) : (
-                            <span></span>
-                        )}
-                    </Col>
-                    <Col size="md-6">
+                        
+                        <p></p>
                         <h5>response endpoints:</h5>
                         <ul>
                             <li>
@@ -137,15 +126,36 @@ class Landing extends Component {
 
                         <p></p>
                     </Col>
+                    <Col size="md-6">
+                {this.state.postResults ? (
+                            // <div className="details-container">
+                            <div style={{ borderRadius: "5px" }}>
+                                {/* <kbd className="details "> */}
+                                <h5 style={{ marginTop:5, marginRight: 5, display:"inline-block"}}>Response </h5>
+                                <code >
+                                    {this.state.postResults.status}
+                                </code>
+
+                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
+                                {/* </kbd> */}
+                            </div>
+                        ) : (
+                            <span></span>
+                        )}
+                    </Col>
                 </Row>
-                <Row></Row>
+                <Hr/>
+
+                <Row>
+                
+                </Row>
                 <h4>Visual tests</h4>
                 <Button onclick={this.runTests} style={{ marginTop: 20 }}>
                     run visual tests
                 </Button>
                 {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
                 <Row>
-                    <Col size="md-6 lg-4">
+                    <Col size="md-6 ">
                         {this.state.results ? (
                             // <div className="details-container">
                             <div style={{ borderRadius: "5px" }}>
@@ -159,7 +169,7 @@ class Landing extends Component {
                             <span></span>
                         )}
                     </Col>
-                    <Col size="md-6 lg-8 ">
+                    <Col size="md-6 ">
                         {this.state.results.length === 0 ? (
                             // "loading"
                             ""

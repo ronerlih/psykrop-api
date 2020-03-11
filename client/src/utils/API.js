@@ -5,8 +5,9 @@ export default {
     return axios.get("/api/tests");
     
   },
-  callPost: function(url){
-    return axios.post("/api/images",{images:[url]});
+  callPost: function(urls){
+    const urlArray = urls ? urls.split(","): [""]
+    return axios.post("/api/images",{images:urlArray});
     
   },
   // Gets all books
