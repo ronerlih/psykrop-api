@@ -6,7 +6,8 @@ export default {
     
   },
   callPost: function(urls){
-    const urlArray = urls ? urls.split(","): [""]
+    let urlArray = urls ? urls.split(","): [""];
+    urlArray = urlArray.map(element => element.trim());
     return axios.post("/api/images",{images:urlArray});
     
   },

@@ -15,7 +15,7 @@ class Landing extends Component {
         results: "",
         loading: false,
         postLoading: false,
-        postUrl: "https://via.placeholder.com/400"
+        postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
     };
 
     componentDidMount() {}
@@ -66,17 +66,38 @@ class Landing extends Component {
     render() {
         return (
             <Container fluid>
-                <Row>
+                <Row extraClass="jumbo">
                     <Col size="md-6">
+                         <div>
+                             <div >
+                                 <span style={{backgroundColor:"gray", padding:3, fontSize:8, color:"white"}}>
+                                    [alpha]
+                                 </span>
+                             </div>
+                             <span>
+
+                             <strong>psyKrop API</strong> is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
+                             </span>
+                             <p></p>
+                             <div>
+                                 <a href="https://www.psykrop.com/" target="_black">about psyKrop</a>
+                            </div>
+                            <div>
+                                 <a href="https://apps.apple.com/in/app/psykrop/id1398529702" target="_black">iOS app</a>
+                            </div>
+                            <div>
+                                 <a href="https://www.psykrop.com/try-on-web.html" target="_black">web widget</a>
+                            </div>
+                             </div>
+                             <p></p>
                         <h4>Base URL</h4>
                         <p>Make all API calls to </p>
                         <url>https://psykrop-api.herokuapp.com/</url>
                     </Col>
                 </Row>
-                <Hr/>
 
-                <Row>
-                    <Col size="md-6">
+                <Row >
+                    <Col  extraClass=" endpoint-title">
                         <p></p>
                         <h4>/images endpoint</h4>
                         <p>Post request with an array of image resouces - urls, will return an array of insight objects about each image.</p>
@@ -84,23 +105,42 @@ class Landing extends Component {
                 </Row>
                 <Row>
                     <Col size="md-6 ">
-                        <h5>request endpoint:</h5>
-                        <code>POST /api/images?sorted=[*order]</code>
-                        <p>options</p>
-                        <h5>try in sandbox:</h5>
-                        <span>add comma seperated image resouces urls (.JPG, JPEG, .PNG)</span>
+                    <h5>Try in out:</h5>
+                            <span>Add comma seperated image urls (.JPG, JPEG, .PNG)</span>
                         <Input value={this.state.postUrl} onChange={this.handleInputChange} name="postUrl" placeholder="image url" />
                         <Button onclick={this.callPost} style={{ marginTop: 20 }}>
                             call psyKrop api
                         </Button>
-
                         {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
-                        
+
                         <p></p>
-                        <h5>response endpoints:</h5>
+                        <h5>Request format</h5>
+                        <div className="code">
+                            POST /api/images?sort=[*order]
+                        </div>
+                            BODY
+                            <JSONPretty id="json-pretty-body" valueStyle="color:white" data={{images:["url-to-img.file"]}}></JSONPretty>
+
+                        <h5>Options</h5>
                         <ul>
                             <li>
-                                <strong>balanceAllCoefficients</strong>: image balance percent (0-100)
+                            [optional] order results acording to balance-harmony percentage.<br/>
+                            order :
+                            <ul>
+                                <li>
+                                decending
+                                </li>
+                                <li>
+                                acending
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        
+                        <h5>Response data points:</h5>
+                        <ul>
+                            <li>
+                                <strong>balanceAllCoefficients</strong>: image balance-harmony percent (0-100)
                             </li>
                             <li>
                                 <strong>distanceToCenter</strong>: mean balance point distance to image center (in pixels)
@@ -126,6 +166,9 @@ class Landing extends Component {
                         </ul>
 
                         <p></p>
+                        <h5>Error messages</h5>
+
+                        broken or unprocessed link will return status 200 (ok) in the response, the image response data will display the eror message.
                     </Col>
                     <Col size="md-6">
                 {this.state.postResults ? (
@@ -133,9 +176,9 @@ class Landing extends Component {
                             <div style={{ borderRadius: "5px" }}>
                                 {/* <kbd className="details "> */}
                                 <h5 style={{ marginTop:5, marginRight: 5, display:"inline-block"}}>Response </h5>
-                                <code >
+                                <div className="code" >
                                     {this.state.postResults.status}
-                                </code>
+                                </div>
 
                                 <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
                                 {/* </kbd> */}
@@ -148,10 +191,11 @@ class Landing extends Component {
                 <Hr/>
 
                 <Row>
-                
+
                 </Row>
                 <h4>Visual tests</h4>
-                <Button onclick={this.runTests} style={{ marginTop: 20 }}>
+                <p>Get insight on a batch of preselected images to see results</p>
+                <Button onclick={this.runTests} >
                     run visual tests
                 </Button>
                 {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
