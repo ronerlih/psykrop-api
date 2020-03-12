@@ -29,11 +29,11 @@ class Landing extends Component {
     loadAPI = () => {};
     runTests = () => {
         this.setState({ loading: true });
-        // API.runTests()
-        //     .then(res => {
-        //         this.setState({ results: res.data, loading: false });
-        //     })
-        //     .catch(err => console.log(err));
+        API.runTests()
+            .then(res => {
+                this.setState({ results: res.data, loading: false });
+            })
+            .catch(err => console.log(err));
     };
     callPost = () => {
         this.setState({ postLoading: true });
