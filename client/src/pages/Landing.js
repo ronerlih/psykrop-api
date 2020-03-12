@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, animateScroll as scroll } from "react-scroll";
 // import DeleteBtn from "../components/DeleteBtn";
 import Button from "../components/Button";
 import API from "../utils/API";
@@ -8,15 +9,20 @@ import Hr from "../components/Hr";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import JSONPretty from "react-json-pretty";
+import PostData from "../components/PostData"
 
 import "./style.css";
 class Landing extends Component {
-    state = {
-        results: "",
-        loading: false,
-        postLoading: false,
-        postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            results: "",
+            loading: false,
+            postLoading: false,
+            postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+        };
+        this.myRef = React.createRef();
+    }
 
     componentDidMount() {}
 
@@ -34,6 +40,12 @@ class Landing extends Component {
         API.callPost(this.state.postUrl)
             .then(res => {
                 this.setState({ postResults: res, postLoading: false });
+                // if(this.myRef.current)
+                window.scrollTo({
+                    top:this.myRef.current.parentNode.offsetTop,
+                    behavior: 'smooth'});
+
+
             })
             .catch(err => console.log(err));
     };
@@ -68,36 +80,39 @@ class Landing extends Component {
             <Container fluid>
                 <Row extraClass="jumbo">
                     <Col size="md-6">
-                         <div>
-                             <div >
-                                 <span style={{backgroundColor:"gray", padding:3, fontSize:8, color:"white"}}>
-                                    [alpha]
-                                 </span>
-                             </div>
-                             <span>
-
-                             <strong>psyKrop API</strong> is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
-                             </span>
-                             <p></p>
-                             <div>
-                                 <a href="https://www.psykrop.com/" target="_black">about psyKrop</a>
+                        <div>
+                            <div>
+                                <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span>
+                            </div>
+                            <span>
+                                <strong>psyKrop API</strong> is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
+                            </span>
+                            <p></p>
+                            <div>
+                                <a href="https://www.psykrop.com/" target="_black">
+                                    about psyKrop
+                                </a>
                             </div>
                             <div>
-                                 <a href="https://apps.apple.com/in/app/psykrop/id1398529702" target="_black">iOS app</a>
+                                <a href="https://apps.apple.com/in/app/psykrop/id1398529702" target="_black">
+                                    iOS app
+                                </a>
                             </div>
                             <div>
-                                 <a href="https://www.psykrop.com/try-on-web.html" target="_black">web widget</a>
+                                <a href="https://www.psykrop.com/try-on-web.html" target="_black">
+                                    web widget
+                                </a>
                             </div>
-                             </div>
-                             <p></p>
+                        </div>
+                        <p></p>
                         <h4>Base URL</h4>
                         <p>Make all API calls to </p>
                         <url>https://psykrop-api.herokuapp.com/</url>
                     </Col>
                 </Row>
 
-                <Row >
-                    <Col  extraClass=" endpoint-title">
+                <Row>
+                    <Col extraClass=" endpoint-title">
                         <p></p>
                         <h4>/images endpoint</h4>
                         <p>Post request with an array of image resouces - urls, will return an array of insight objects about each image.</p>
@@ -105,38 +120,30 @@ class Landing extends Component {
                 </Row>
                 <Row>
                     <Col size="md-6 ">
-                    <h5>Try in out:</h5>
-                            <span>Add comma seperated image urls (.JPG, JPEG, .PNG)</span>
+                        <h5>Try in out:</h5>
+                        <span>Add comma seperated image urls (.JPG, JPEG, .PNG)</span>
                         <Input value={this.state.postUrl} onChange={this.handleInputChange} name="postUrl" placeholder="image url" />
                         <Button onclick={this.callPost} style={{ marginTop: 20 }}>
                             call psyKrop api
                         </Button>
                         {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
-
                         <p></p>
                         <h5>Request format</h5>
-                        <div className="code">
-                            POST /api/images?sort=[*order]
-                        </div>
-                            BODY
-                            <JSONPretty id="json-pretty-body" valueStyle="color:white" data={{images:["url-to-img.file"]}}></JSONPretty>
-
+                        <div className="code">POST /api/images?sort=[*order]</div>
+                        BODY
+                        <JSONPretty id="json-pretty-body" valueStyle="color:white" data={{ images: ["url-to-img.file"] }}></JSONPretty>
                         <h5>Options</h5>
                         <ul>
                             <li>
-                            [optional] order results acording to balance-harmony percentage.<br/>
-                            order :
-                            <ul>
-                                <li>
-                                decending
-                                </li>
-                                <li>
-                                acending
-                                </li>
-                            </ul>
+                                [optional] order results acording to balance-harmony percentage.
+                                <br />
+                                order :
+                                <ul>
+                                    <li>decending</li>
+                                    <li>acending</li>
+                                </ul>
                             </li>
                         </ul>
-                        
                         <h5>Response data points:</h5>
                         <ul>
                             <li>
@@ -164,40 +171,32 @@ class Landing extends Component {
                                 <strong>blue_channel</strong>: same data points for the blue channel
                             </li>
                         </ul>
-
                         <p></p>
                         <h5>Error messages</h5>
-
                         broken or unprocessed link will return status 200 (ok) in the response, the image response data will display the eror message.
                     </Col>
-                    <Col size="md-6">
-                {this.state.postResults ? (
+                    <Col  size="md-6" extraClass="results-to-scroll-to" name="results-to-scroll-to" name="results-to-scroll-to">
+                    {this.state.postResults ? (
                             // <div className="details-container">
-                            <div style={{ borderRadius: "5px" }}>
+                            <div ref={this.myRef} style={{ borderRadius: "5px" }}>
                                 {/* <kbd className="details "> */}
-                                <h5 style={{ marginTop:5, marginRight: 5, display:"inline-block"}}>Response </h5>
-                                <div className="code" >
-                                    {this.state.postResults.status}
-                                </div>
+                                <h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Response </h5>
+                                <div className="code">{this.state.postResults.status}</div>
 
-                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
+                                <JSONPretty  id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
                                 {/* </kbd> */}
                             </div>
                         ) : (
                             <span></span>
-                        )}
+                        )}  
                     </Col>
                 </Row>
-                <Hr/>
+                <Hr />
 
-                <Row>
-
-                </Row>
+                <Row></Row>
                 <h4>Visual tests</h4>
                 <p>Get insight on a batch of preselected images to see results</p>
-                <Button onclick={this.runTests} >
-                    run visual tests
-                </Button>
+                <Button onclick={this.runTests}>run visual tests</Button>
                 {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
                 <Row>
                     <Col size="md-6 ">
