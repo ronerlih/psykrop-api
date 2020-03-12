@@ -5,6 +5,10 @@
     font-size: 24px;
     color: #007bff;
 }
+.test-spinner{
+    vertical-align: -5px;
+
+}
 .details{
     color:#00cd00;
     padding:6px;

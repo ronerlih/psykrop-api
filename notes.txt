@@ -226,3 +226,27 @@ load tests resu;ts:
 [Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO  100%      28436 ms (longest request)
 [Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
 [Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   503:   1 errors
+
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Max requests:        600
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Concurrency level:   1
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Agent:               keepalive
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Completed requests:  600
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Total errors:        2
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Total time:          467.297100473 s
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Requests per second: 1
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Mean latency:        778.7 ms
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Percentage of the requests served within a certain time
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   50%      753 ms
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   90%      845 ms
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   95%      1018 ms
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   99%      1995 ms
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO  100%      30008 ms (longest request)
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO  100%      30008 ms (longest request)
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   503:   1 errors
+[Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO    -1:   1 errors

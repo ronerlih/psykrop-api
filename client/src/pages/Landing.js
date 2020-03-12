@@ -29,11 +29,11 @@ class Landing extends Component {
     loadAPI = () => {};
     runTests = () => {
         this.setState({ loading: true });
-        API.runTests()
-            .then(res => {
-                this.setState({ results: res.data, loading: false });
-            })
-            .catch(err => console.log(err));
+        // API.runTests()
+        //     .then(res => {
+        //         this.setState({ results: res.data, loading: false });
+        //     })
+        //     .catch(err => console.log(err));
     };
     callPost = () => {
         this.setState({ postLoading: true });
@@ -126,7 +126,7 @@ class Landing extends Component {
                         <Button onclick={this.callPost} style={{ marginTop: 20 }}>
                             call psyKrop api
                         </Button>
-                        {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
+                        {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner "></i> : ""}
                         <p></p>
                         <h5>Request format</h5>
                         <div className="code">POST /api/images?sort=[*order]</div>
@@ -197,7 +197,7 @@ class Landing extends Component {
                 <h4>Visual tests</h4>
                 <p>Get insight on a batch of preselected images to see results</p>
                 <Button onclick={this.runTests}>run visual tests</Button>
-                {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner"></i> : ""}
+                {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
                 <Row>
                     <Col size="md-6 ">
                         {this.state.results ? (
