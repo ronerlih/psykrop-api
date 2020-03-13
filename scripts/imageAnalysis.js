@@ -61,12 +61,18 @@ module.exports = {
             // read img
 
             // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
-            try{
+            try {
                 var jimpSrc = await Jimp.read(image);
-            }
-            catch(e){
-                console.log(e);
-                resolve({"brokenUrl": e});
+            } catch (e) {
+                const error = new Error("broken url");
+                resolve({
+                    id: ("0" + id).slice(-2),
+                    error: {
+                        message: error.message,
+                        stack: error.stack,
+                        urlAttempted: image
+                    }
+                });
             }
             // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
             let src = cv.matFromImageData(jimpSrc.bitmap);
@@ -211,7 +217,7 @@ module.exports = {
                 }
                 channel.delete();
                 vecToMerge.delete();
-                
+
                 arr = null;
             });
             if (saveImageLocaly) {
