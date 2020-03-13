@@ -129,15 +129,16 @@ class Landing extends Component {
                         {this.state.postLoading ? <i className="fa fa-circle-notch fa-spin spinner "></i> : ""}
                         <p></p>
                         <h5>Request format</h5>
-                        <div className="code">POST /api/images?sort=[*order]</div>
+                        <div className="code">POST /api/images?sort=[order]</div>
                         BODY (in json format, excepts also url encoded, forms, and text types)
                         <JSONPretty id="json-pretty-body" valueStyle="color:white" data={{ images: ["url-to-img.file"] }}></JSONPretty>
                         <h5>Options</h5>
                         <ul>
                             <li>
-                                [optional] order results acording to balance-harmony percentage.
+                                sort=[<span style={{color:"#09b107"}}>order</span>] <span style={{fontSize:10, verticalAlign:5}}>[optional]</span> 
+                                <br/>order results acording to balance-harmony percentage.
                                 <br />
-                                order :
+                                <span style={{color:"#09b107"}}>order</span> :
                                 <ul>
                                     <li>decending</li>
                                     <li>acending</li>
