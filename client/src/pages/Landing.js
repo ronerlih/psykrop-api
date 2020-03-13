@@ -22,6 +22,8 @@ class Landing extends Component {
             postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
         };
         this.myRef = React.createRef();
+        this.visualTestsRef = React.createRef();
+        
     }
 
     componentDidMount() {}
@@ -31,7 +33,13 @@ class Landing extends Component {
         this.setState({ loading: true });
         API.runTests()
             .then(res => {
+                console.log(this.visualTestsRef);
                 this.setState({ results: res.data, loading: false });
+                window.scrollTo({
+                    top:this.visualTestsRef.current.parentNode.offsetTop,
+                    behavior: 'smooth'});
+
+
             })
             .catch(err => console.log(err));
     };
@@ -107,7 +115,7 @@ class Landing extends Component {
                         <p></p>
                         <h4>Base URL</h4>
                         <p>Make all API calls to </p>
-                        <url>https://psykrop-api.herokuapp.com/</url>
+                        <div className="url">https://psykrop-api.herokuapp.com/</div>
                     </Col>
                 </Row>
 
@@ -200,10 +208,10 @@ class Landing extends Component {
                 <Button onclick={this.runTests}>run visual tests</Button>
                 {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
                 <Row>
-                    <Col size="md-6 ">
+                    <Col size="md-6 " >
                         {this.state.results ? (
                             // <div className="details-container">
-                            <div style={{ borderRadius: "5px" }}>
+                            <div style={{ borderRadius: "5px" }} ref={this.visualTestsRef}>
                                 {/* <kbd className="details "> */}
                                 <h6 style={{ marginTop: 5 }}>Results sample</h6>
 
@@ -222,9 +230,9 @@ class Landing extends Component {
                             <div>
                                 <h6 style={{ marginTop: 5 }}>Image mats</h6>
 
-                                {this.state.results.map(image => {
+                                {this.state.results.map((image, i) => {
                                     return (
-                                        <Container style={{ border: "1px solid black" }} classes="images-container">
+                                        <Container key={i} style={{ border: "1px solid black" }} classes="images-container">
                                             <Row>
                                                 <Col size="lg-4">
                                                     <img className="img-tests" src={"images/" + image.imageFeedback} alt="imageFeedback" />
