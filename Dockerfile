@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:12
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies
@@ -13,4 +13,7 @@ COPY . .
 # set command to expose env variable
 EXPOSE 3001
 
-CMD [ "npm", "start:prod" ]
+# production
+CMD [ "npm", "run", "start:prod" ]
+#development
+# CMD [ "npm", "run", "start:dev" ]
