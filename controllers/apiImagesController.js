@@ -6,9 +6,8 @@ module.exports = {
         let used = process.memoryUsage();
         console.log(`Heap used before analysis: ${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`);
         const analysisPromisesArray = [];
-        console.log(req.body.images.length);
         if(!req.body || !req.body.images || !Array.isArray(req.body.images) ){
-            res.status(403).json({"Error": "no images array in body, please add an 'images' property with an array of img url to test."})
+            res.status(403).send({"Error": "no images array in body, please add an 'images' key in the body object with an array of img urls to test as a value."})
         } 
         else{
 
