@@ -29,7 +29,7 @@ module.exports = {
                 console.log(`Heap used: ${(used.heapUsed / 1024 / 1024).toFixed(2)}MB`);
 
                 // sort results
-                if (req.query.sort === "decending") {
+                if (req.query.sort === "descending") {
                     // sort by decending
                     console.log("decending option");
                     result.sort((a, b) => b.balanceAllCoefficients - a.balanceAllCoefficients);
