@@ -208,20 +208,6 @@ class Landing extends Component {
                 <Button onclick={this.runTests}>run visual tests</Button>
                 {this.state.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
                 <Row>
-                    <Col size="md-6 " >
-                        {this.state.results ? (
-                            // <div className="details-container">
-                            <div style={{ borderRadius: "5px" }} ref={this.visualTestsRef}>
-                                {/* <kbd className="details "> */}
-                                <h6 style={{ marginTop: 5 }}>Results sample</h6>
-
-                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.results}></JSONPretty>
-                                {/* </kbd> */}
-                            </div>
-                        ) : (
-                            <span></span>
-                        )}
-                    </Col>
                     <Col size="md-6 ">
                         {this.state.results.length === 0 ? (
                             // "loading"
@@ -266,6 +252,20 @@ class Landing extends Component {
                                     );
                                 })}
                             </div>
+                        )}
+                    </Col>
+                    <Col size="md-6 " >
+                        {this.state.results ? (
+                            // <div className="details-container">
+                            <div style={{ borderRadius: "5px" }} ref={this.visualTestsRef}>
+                                {/* <kbd className="details "> */}
+                                <h6 style={{ marginTop: 5 }}>Results sample</h6>
+
+                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.results}></JSONPretty>
+                                {/* </kbd> */}
+                            </div>
+                        ) : (
+                            <span></span>
                         )}
                     </Col>
                 </Row>
