@@ -148,8 +148,8 @@ class Landing extends Component {
                                 <br />
                                 <span style={{color:"#09b107"}}>order</span> :
                                 <ul>
-                                    <li>decending</li>
-                                    <li>acending</li>
+                                    <li>descending</li>
+                                    <li>ascending</li>
                                 </ul>
                             </li>
                         </ul>

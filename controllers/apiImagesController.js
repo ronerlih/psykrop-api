@@ -31,11 +31,11 @@ module.exports = {
                 // sort results
                 if (req.query.sort === "descending") {
                     // sort by decending
-                    console.log("decending option");
+                    console.log("descending option");
                     result.sort((a, b) => b.balanceAllCoefficients - a.balanceAllCoefficients);
-                } else if (req.query.sort === "acending") {
+                } else if (req.query.sort === "ascending") {
                     // sort by decending
-                    console.log("acending option");
+                    console.log("ascending option");
                     result.sort((a, b) =>  a.balanceAllCoefficients - b.balanceAllCoefficients);
                 }
 
