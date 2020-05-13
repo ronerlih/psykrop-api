@@ -21,7 +21,7 @@ module.exports = {
     ];
   },
   analyseImage: async function(image, id, saveImageLocaly) {
-    return new Promise(async resolve => {
+    return new Promise(async (resolve, reject) => {
       ///////-->
       // paramaters and mats
 

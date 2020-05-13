@@ -90,15 +90,18 @@ class Landing extends Component {
                     <Col size="md-6">
                         <div>
                             <div>
-                                <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span>
+                                <img src="https://api.travis-ci.com/ronerlih/psykrop-api.svg?branch=master" alt="build badge - contiues deployment" />
+                                <span> </span>
+                                <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" />
+                                {/* <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span> */}
                             </div>
                             <span>
-                                <strong>psyKrop API</strong> is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
+                                <strong class="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
                             </span>
                             <p></p>
                             <div>
                                 <a href="https://www.psykrop.com/" target="_black">
-                                    about psyKrop
+                                    About psyKrop
                                 </a>
                             </div>
                             <div>
@@ -108,7 +111,7 @@ class Landing extends Component {
                             </div>
                             <div>
                                 <a href="https://www.psykrop.com/try-on-web.html" target="_black">
-                                    web widget
+                                    Web widget
                                 </a>
                             </div>
                         </div>
