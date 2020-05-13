@@ -84,11 +84,11 @@ class Landing extends Component {
         return (
             <Container fluid>
                 <Row extraClass="jumbo">
-                    <Col size="md-6">
+                    <Col size="md-6" extraClass="order-last order-md-first">
                         
                         <div>
                             <span>
-                                <strong class="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
+                                <strong class="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, primarily an <em>Aesthetic balance score</em>.
                             </span>
                             <p></p>
                         </div>
@@ -97,7 +97,7 @@ class Landing extends Component {
                         <p>Make all API calls to </p>
                         <div className="url">https://psykrop-api.herokuapp.com/</div>
                     </Col>
-                    <Col extraClass="text-right pt-1" size="md-6">
+                    <Col extraClass="text-right pt-1 " size="md-6">
                     <div>
                             {/* <span> </span> */}
                             {/* <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" /> */}
