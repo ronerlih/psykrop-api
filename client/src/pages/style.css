@@ -45,10 +45,9 @@ color: #00cd00;
 .images-container{
     border-radius: 5px;;
     color:rgb(0, 0, 0);
-    padding: 10px;
     margin-bottom: 10px;
     /* background-color: #ebebeb; */
-    padding-top: 0px;
+    padding: 0px 0px 10px;
 }
 .code{
     padding: 5px 5px 5px 2px;

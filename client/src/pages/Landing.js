@@ -214,7 +214,7 @@ class Landing extends Component {
                             ""
                         ) : (
                             <div>
-                                <h6 style={{ marginTop: 5 }}>Image mats</h6>
+                                <h5 style={{ marginTop: 15 }}>Image mats</h5>
 
                                 {this.state.results.map((image, i) => {
                                     return (
@@ -259,8 +259,8 @@ class Landing extends Component {
                             // <div className="details-container">
                             <div style={{ borderRadius: "5px" }} ref={this.visualTestsRef}>
                                 {/* <kbd className="details "> */}
-                                <h6 style={{ marginTop: 5 }}>Results sample</h6>
-
+                                <h5 style={{ marginTop: 15 }}>Results sample</h5>
+                                <div class="code">200</div>
                                 <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.results}></JSONPretty>
                                 {/* </kbd> */}
                             </div>
