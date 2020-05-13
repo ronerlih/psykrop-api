@@ -1,6 +1,6 @@
 {
   "name": "mern",
-  "version": "0.0.2",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "PUBLIC_URL": "https://mern-stack-boilerplat.herokuapp.com/",
