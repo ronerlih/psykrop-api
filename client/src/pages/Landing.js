@@ -90,11 +90,11 @@ class Landing extends Component {
                     <Col size="md-6">
                         <div>
                             <div>
+                                {/* <span> </span> */}
+                                {/* <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" /> */}
                                 <img src="https://api.travis-ci.com/ronerlih/psykrop-api.svg?branch=master" alt="build badge - contiues deployment" />
                                 <span> </span>
-                                <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" />
-                                <span> </span>
-                                <img src="https://img.shields.io/badge/release-alpha-brightgreen" alt="alpha badge" />
+                                <img src="https://img.shields.io/badge/release-alpha-cornflowerblue" alt="alpha badge" />
                                 {/* <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span> */}
                             </div>
                             <span>
