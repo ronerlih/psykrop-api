@@ -1,4 +1,5 @@
 // Load 'opencv.js' assigning the value to the global variable 'cv'
+const rgbHex = require('rgb-hex');
 const cv = require("opencv.js");
 const Jimp = require("jimp");
 // console.log(cv.getBuildInformation())
@@ -164,12 +165,14 @@ module.exports = {
                 resultObject[resultsOptions[channelIndex].channelName] = {};
 
                 // write channel centers
-                resultObject[resultsOptions[channelIndex].channelName].COB = COB;
+                // resultObject[resultsOptions[channelIndex].channelName].COB = COB;
 
                 // save balance percent
-                [resultObject[resultsOptions[channelIndex].channelName].distanceToCenter, resultObject[resultsOptions[channelIndex].channelName].balancePercent] = calcBalancePercentage(src, COB);
+                // [resultObject[resultsOptions[channelIndex].channelName].distanceToCenter, resultObject[resultsOptions[channelIndex].channelName].balancePercent] = calcBalancePercentage(src, COB);
+                [ , resultObject[resultsOptions[channelIndex].channelName].aesthetic_score] = calcBalancePercentage(src, COB);
 
-                // TO-DO:
+                ///////////
+                // distance to lines TO-DO:
 
                 // distancesResultObject
 
@@ -198,12 +201,19 @@ module.exports = {
 
                 // add to channel object
 
+                // check visually,
+                // check garbage collection and cpu - 
+                // write tests - TBD
+                // monitor for errors
+                
+                ///////
+
                 // add moments to result
-                resultObject[resultsOptions[channelIndex].channelName].imageMoments = {
-                    m00: arr.m00,
-                    m01: arr.m01,
-                    m10: arr.m10,
-                };
+                // resultObject[resultsOptions[channelIndex].channelName].imageMoments = {
+                //     m00: arr.m00,
+                //     m01: arr.m01,
+                //     m10: arr.m10,
+                // };
                 // save channel
                 if (saveImageLocaly) {
                     switch (resultsOptions[channelIndex].channelName) {
@@ -258,7 +268,7 @@ module.exports = {
             [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = calcBalancePercentage(src, aveCenter);
 
             //get avareg color
-            resultObject.averageRGBColor = cv.mean(src).slice(0, 3);
+            resultObject.averageColor = '#' + rgbHex(...cv.mean(src).slice(0, 3)).toUpperCase();
 
             // delete mats
             src.delete();
@@ -272,13 +282,13 @@ module.exports = {
 
             resolve({
                 id: resultObject.imgId,
-                balanceAllCoefficients: resultObject.balanceAllCoefficients,
+                aesthetic_score: resultObject.balanceAllCoefficients,
                 imageFeedback: resultObject.imageFeedback,
-                distanceToCenter: resultObject.distanceToCenter,
+                // distanceToCenter: resultObject.distanceToCenter,
                 url: resultObject.url,
                 edge: resultObject.edge,
                 ratedPixels: resultObject.ratedPixels,
-                averageRGBColor: resultObject.averageRGBColor,
+                averageRGBColor: resultObject.averageColor,
                 red_channel: resultObject.red_channel,
                 green_channel: resultObject.green_channel,
                 blue_channel: resultObject.blue_channel,

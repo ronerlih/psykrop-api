@@ -9,7 +9,7 @@ import Hr from "../components/Hr";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import JSONPretty from "react-json-pretty";
-import PostData from "../components/PostData"
+import PostData from "../components/PostData";
 
 import "./style.css";
 class Landing extends Component {
@@ -19,11 +19,10 @@ class Landing extends Component {
             results: "",
             loading: false,
             postLoading: false,
-            postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+            postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
         };
         this.myRef = React.createRef();
         this.visualTestsRef = React.createRef();
-        
     }
 
     componentDidMount() {}
@@ -32,54 +31,52 @@ class Landing extends Component {
     runTests = () => {
         this.setState({ loading: true });
         API.runTests()
-            .then(res => {
+            .then((res) => {
                 console.log(this.visualTestsRef);
                 this.setState({ results: res.data, loading: false });
                 window.scrollTo({
-                    top:this.visualTestsRef.current.parentNode.offsetTop,
-                    behavior: 'smooth'});
-
-
+                    top: this.visualTestsRef.current.parentNode.offsetTop,
+                    behavior: "smooth",
+                });
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
     };
     callPost = () => {
         this.setState({ postLoading: true });
         API.callPost(this.state.postUrl)
-            .then(res => {
+            .then((res) => {
                 this.setState({ postResults: res, postLoading: false });
                 // if(this.myRef.current)
                 window.scrollTo({
-                    top:this.myRef.current.parentNode.offsetTop,
-                    behavior: 'smooth'});
-
-
+                    top: this.myRef.current.parentNode.offsetTop,
+                    behavior: "smooth",
+                });
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
     };
-    deleteDoc = id => {
+    deleteDoc = (id) => {
         API.deleteDoc(id)
-            .then(res => this.loadBooks())
-            .catch(err => console.log(err));
+            .then((res) => this.loadBooks())
+            .catch((err) => console.log(err));
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const { name, value } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
         });
     };
 
-    handleFormSubmit = event => {
+    handleFormSubmit = (event) => {
         event.preventDefault();
         if (this.state.title && this.state.author) {
             API.saveDOC({
                 title: this.state.title,
                 author: this.state.author,
-                synopsis: this.state.synopsis
+                synopsis: this.state.synopsis,
             })
-                .then(res => this.loadBooks())
-                .catch(err => console.log(err));
+                .then((res) => this.loadBooks())
+                .catch((err) => console.log(err));
         }
     };
 
@@ -88,39 +85,42 @@ class Landing extends Component {
             <Container fluid>
                 <Row extraClass="jumbo">
                     <Col size="md-6">
+                        
                         <div>
-                            <div>
-                                {/* <span> </span> */}
-                                {/* <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" /> */}
-                                <img src="https://api.travis-ci.com/ronerlih/psykrop-api.svg?branch=master" alt="build badge - contiues deployment" />
-                                <span> </span>
-                                <img src="https://img.shields.io/badge/release-alpha-cornflowerblue" alt="alpha badge" />
-                                {/* <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span> */}
-                            </div>
                             <span>
                                 <strong class="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, particularly, how balanced they are to the eye.
                             </span>
                             <p></p>
-                            <div>
-                                <a href="https://www.psykrop.com/" target="_black">
-                                    About psyKrop
-                                </a>
-                            </div>
-                            <div>
-                                <a href="https://apps.apple.com/in/app/psykrop/id1398529702" target="_black">
-                                    iOS app
-                                </a>
-                            </div>
-                            <div>
-                                <a href="https://www.psykrop.com/try-on-web.html" target="_black">
-                                    Web widget
-                                </a>
-                            </div>
                         </div>
                         <p></p>
                         <h4>Base URL</h4>
                         <p>Make all API calls to </p>
                         <div className="url">https://psykrop-api.herokuapp.com/</div>
+                    </Col>
+                    <Col extraClass="text-right pt-1" size="md-6">
+                    <div>
+                            {/* <span> </span> */}
+                            {/* <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" /> */}
+                            <img src="https://api.travis-ci.com/ronerlih/psykrop-api.svg?branch=master" alt="build badge - contiues deployment" />
+                            <span> </span>
+                            <img src="https://img.shields.io/badge/release-alpha-cornflowerblue" alt="alpha badge" />
+                            {/* <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span> */}
+                        </div>
+                        <div className="pt-1">
+                            <a href="https://www.psykrop.com/" target="_black">
+                                About psyKrop
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://apps.apple.com/in/app/psykrop/id1398529702" target="_black">
+                                iOS app
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://www.psykrop.com/try-on-web.html" target="_black">
+                                Web widget
+                            </a>
+                        </div>
                     </Col>
                 </Row>
 
@@ -133,7 +133,7 @@ class Landing extends Component {
                 </Row>
                 <Row>
                     <Col size="md-6 ">
-                        <h5>Try in out:</h5>
+                        <h5>Try it out:</h5>
                         <span>Add comma seperated image urls (.JPG, JPEG, .PNG)</span>
                         <Input value={this.state.postUrl} onChange={this.handleInputChange} name="postUrl" placeholder="image url" />
                         <Button onclick={this.callPost} style={{ marginTop: 20 }}>
@@ -148,10 +148,11 @@ class Landing extends Component {
                         <h5>Options</h5>
                         <ul>
                             <li>
-                                sort=[<span style={{color:"#09b107"}}>order</span>] <span style={{fontSize:10, verticalAlign:5}}>[optional]</span> 
-                                <br/>order results acording to balance-harmony percentage.
+                                sort=[<span style={{ color: "#09b107" }}>order</span>] <span style={{ fontSize: 10, verticalAlign: 5 }}>[optional]</span>
                                 <br />
-                                <span style={{color:"#09b107"}}>order</span> :
+                                order results acording to balance-harmony percentage.
+                                <br />
+                                <span style={{ color: "#09b107" }}>order</span> :
                                 <ul>
                                     <li>descending</li>
                                     <li>ascending</li>
@@ -189,20 +190,20 @@ class Landing extends Component {
                         <h5>Error messages</h5>
                         broken or unprocessed link will return status 200 (ok) in the response, the image response data will display the eror message.
                     </Col>
-                    <Col  size="md-6" extraClass="results-to-scroll-to" name="results-to-scroll-to" name="results-to-scroll-to">
-                    {this.state.postResults ? (
+                    <Col size="md-6" extraClass="results-to-scroll-to" name="results-to-scroll-to" name="results-to-scroll-to">
+                        {this.state.postResults ? (
                             // <div className="details-container">
                             <div ref={this.myRef} style={{ borderRadius: "5px" }}>
                                 {/* <kbd className="details "> */}
                                 <h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Response </h5>
                                 <div className="code">{this.state.postResults.status}</div>
 
-                                <JSONPretty  id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
+                                <JSONPretty id="json-pretty" valueStyle="color:white" data={this.state.postResults.data}></JSONPretty>
                                 {/* </kbd> */}
                             </div>
                         ) : (
                             <span></span>
-                        )}  
+                        )}
                     </Col>
                 </Row>
                 <Hr />
@@ -259,7 +260,7 @@ class Landing extends Component {
                             </div>
                         )}
                     </Col>
-                    <Col size="md-6 " >
+                    <Col size="md-6 ">
                         {this.state.results ? (
                             // <div className="details-container">
                             <div style={{ borderRadius: "5px" }} ref={this.visualTestsRef}>
