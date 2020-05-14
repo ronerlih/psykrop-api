@@ -278,25 +278,55 @@ module.exports = {
                 // optional: GPU support
 
                 // get 8 distances =>
-                
-                  // 2.Vertical: x=width/2
-                  distancesResultObject.d2 = Math.abs(mat.cols - centerPoint.x);
-                  distancesResultObject.d2Percent = calcDistancePercentage({cols: mat.cols, rows: mat.rows}, distancesResultObject.d2)
-                  // 3. Horizontal: y=height/2
-                  distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
-                  // 4. DIAG: y=-(height/width)*x+height
-                  distancesResultObject.d4 = 
-                  Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
-                  Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
-                  // 5. ANTID: y=(height/width)*x
-                  // 6. RoT1: x=width/3
-                  // 7. RoT2: x=(2*width)/3
-                  // 8. RoT3: y=height/3
-                  // 9. RoT4: y=(2*height)/3
 
-                // add to distancesResultObject
+                const matDimentions = {cols: mat.cols, rows: mat.rows};
+
+                // 2.Vertical: x=width/2
+                distancesResultObject.d2 = 
+                  Math.abs(mat.cols - centerPoint.x);
+                distancesResultObject.d2_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d2)
+                
+                  // 3. Horizontal: y=height/2
+                distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
+                distancesResultObject.d3_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d3)
+                // 4. DIAG: y=-(height/width)*x+height
+                distancesResultObject.d4 = 
+                  Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+                  Math.sqrt(Math.pow((mat.rows/mat.cols), 2) + 1);
+                  distancesResultObject.d4_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d4)
+                  
+                // 5. ANTID: y=(height/width)*x
+                distancesResultObject.d5 = 
+                  Math.abs((- mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+                  Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
+                distancesResultObject.d5_aesthetic_score = 
+                calcDistancePercentage(matDimentions, distancesResultObject.d5)
+                
+                // 6. RoT1: x=width/3
+                distancesResultObject.d6 = Math.abs((mat.cols / 3) - centerPoint.x);
+                distancesResultObject.d6_aesthetic_score = 
+                calcDistancePercentage(matDimentions, distancesResultObject.d6)
+                
+                // 7. RoT2: x=(2*width)/3
+                distancesResultObject.d7 = Math.abs((2 * mat.cols / 3) - centerPoint.x);
+                distancesResultObject.d7_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d7)
+                
+                // 8. RoT3: y=height/3
+                distancesResultObject.d8 = Math.abs((mat.rows / 3) - centerPoint.y);
+                distancesResultObject.d8_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d8)
+                
+                // 9. RoT4: y=(2*height)/3
+                distancesResultObject.d9 = Math.abs((2 * mat.rows / 3) - centerPoint.y);
+                distancesResultObject.d9_aesthetic_score = 
+                  calcDistancePercentage(matDimentions, distancesResultObject.d9)
                 
                 //  distancesResultObject <= getMinimum
+                distancesResultObject.highest_aesthetic_score = getHighestAestheticScore(distancesResultObject) 
                 //  distancesResultObject <= getAverage
                 //  distancesResultObject <= getWeightedAverage
 
@@ -313,6 +343,15 @@ module.exports = {
                 ///////
         }
 
+        function getHighestAestheticScore(distancesObj){
+          return Object.keys(distancesObj)
+            .filter(key => key.slice(-16) === "_aesthetic_score" )
+            .reduce((max, current) => {
+              if(distancesObj[current] > max.aestheticScore) max = {aestheticScore: distancesObj[current], distanceLine: current}  
+              return max;
+            }, {aestheticScore :0, distanceLine: null});
+            
+        }
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
 
@@ -322,9 +361,9 @@ module.exports = {
 
         function calcDistancePercentage(mat, distance) {
           let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
-          console.log(distance)
+          // console.log(distance)
           // let diff = Math.sqrt((point.x - mat.cols / 2) * (point.x - mat.cols / 2) + (point.y - mat.rows / 2) * (point.y - mat.rows / 2));
-          return [distance, 100 * (1 - distance / totalDistance)];
+          return 100 * (1 - distance / totalDistance);
       }
         async function saveImg(mat, imgName) {
             return new Promise((resolve, reject) => {
