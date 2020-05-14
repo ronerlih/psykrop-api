@@ -269,81 +269,89 @@ module.exports = {
         });
 
         async function getDistances(mat, centerPoint) {
-          ///////////
-                // distance to lines TO-DO:
+        // distance to lines:
 
-                const distancesResultObject = {};
+            let distancesResultObject = {};
 
-                // optional: SSE support (Streaming SIMD Extensions)
-                // optional: GPU support
+            // optional: SSE support (Streaming SIMD Extensions)
+            // optional: GPU support
 
-                // get 8 distances =>
+            // get distances and aesthetic score
+            //
+            const matDimentions = {cols: mat.cols, rows: mat.rows};
 
-                const matDimentions = {cols: mat.cols, rows: mat.rows};
+            // 2.Vertical: x=width/2
+            distancesResultObject.d2 = 
+              Math.abs(mat.cols - centerPoint.x);
+            distancesResultObject.d2_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d2)
+            
+            // 3. Horizontal: y=height/2
+            distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
+            distancesResultObject.d3_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d3)
+            
+              // 4. DIAG: y=-(height/width)*x+height
+            distancesResultObject.d4 = 
+              Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+              Math.sqrt(Math.pow((mat.rows/mat.cols), 2) + 1);
+              distancesResultObject.d4_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d4)
+              
+            // 5. ANTID: y=(height/width)*x
+            distancesResultObject.d5 = 
+              Math.abs((- mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+              Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
+            distancesResultObject.d5_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d5)
+            
+            // 6. RoT1: x=width/3
+            distancesResultObject.d6 = Math.abs((mat.cols / 3) - centerPoint.x);
+            distancesResultObject.d6_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d6)
+            
+            // 7. RoT2: x=(2*width)/3
+            distancesResultObject.d7 = Math.abs((2 * mat.cols / 3) - centerPoint.x);
+            distancesResultObject.d7_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d7)
+            
+            // 8. RoT3: y=height/3
+            distancesResultObject.d8 = Math.abs((mat.rows / 3) - centerPoint.y);
+            distancesResultObject.d8_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d8)
+            
+            // 9. RoT4: y=(2*height)/3
+            distancesResultObject.d9 = Math.abs((2 * mat.rows / 3) - centerPoint.y);
+            distancesResultObject.d9_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d9)
+            
+            //  distancesResultObject <= getMinimum
+            distancesResultObject.highest_aesthetic_score = 
+              getHighestAestheticScore(distancesResultObject) 
+            //  distancesResultObject <= getAverage
+            distancesResultObject.average_aesthetic_score = 
+              getAverageAestheticScore(distancesResultObject) 
+            
+            //  distancesResultObject <= getWeightedAverage
+            distancesResultObject.weighted_average_distance = 
+              getWeightedAverageAestheticScore(distancesResultObject) 
 
-                // 2.Vertical: x=width/2
-                distancesResultObject.d2 = 
-                  Math.abs(mat.cols - centerPoint.x);
-                distancesResultObject.d2_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d2)
-                
-                  // 3. Horizontal: y=height/2
-                distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
-                distancesResultObject.d3_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d3)
-                // 4. DIAG: y=-(height/width)*x+height
-                distancesResultObject.d4 = 
-                  Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
-                  Math.sqrt(Math.pow((mat.rows/mat.cols), 2) + 1);
-                  distancesResultObject.d4_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d4)
-                  
-                // 5. ANTID: y=(height/width)*x
-                distancesResultObject.d5 = 
-                  Math.abs((- mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
-                  Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
-                distancesResultObject.d5_aesthetic_score = 
-                calcDistancePercentage(matDimentions, distancesResultObject.d5)
-                
-                // 6. RoT1: x=width/3
-                distancesResultObject.d6 = Math.abs((mat.cols / 3) - centerPoint.x);
-                distancesResultObject.d6_aesthetic_score = 
-                calcDistancePercentage(matDimentions, distancesResultObject.d6)
-                
-                // 7. RoT2: x=(2*width)/3
-                distancesResultObject.d7 = Math.abs((2 * mat.cols / 3) - centerPoint.x);
-                distancesResultObject.d7_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d7)
-                
-                // 8. RoT3: y=height/3
-                distancesResultObject.d8 = Math.abs((mat.rows / 3) - centerPoint.y);
-                distancesResultObject.d8_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d8)
-                
-                // 9. RoT4: y=(2*height)/3
-                distancesResultObject.d9 = Math.abs((2 * mat.rows / 3) - centerPoint.y);
-                distancesResultObject.d9_aesthetic_score = 
-                  calcDistancePercentage(matDimentions, distancesResultObject.d9)
-                
-                //  distancesResultObject <= getMinimum
-                distancesResultObject.highest_aesthetic_score = getHighestAestheticScore(distancesResultObject) 
-                //  distancesResultObject <= getAverage
-                distancesResultObject.average_aesthetic_score = getAverageAestheticScore(distancesResultObject) 
-                
-                //  distancesResultObject <= getWeightedAverage
-                distancesResultObject.weighted_average_aesthetic_score = getWeightedAverageAestheticScore(distancesResultObject) 
+            //order
+            distancesResultObject = Object.keys(distancesResultObject)
+              .reverse()
+              .reduce((result, key) => {result[key] = distancesResultObject[key]; return result}, {})
+            
+            // draw colored lines and distances (for visual testing)
+            // draw colored distance lines and and text (distance value)
 
-                // draw colored lines and distances (for visual testing)
-                // draw colored distance lines and and text (distance value)
+            // add to channel object
 
-                // add to channel object
+            // check visually,
+            // check garbage collection and cpu - 
+            // write tests - TBD
+            // monitor for errors
 
-                // check visually,
-                // check garbage collection and cpu - 
-                // write tests - TBD
-                // monitor for errors
-                return distancesResultObject;
-                ///////
+            return distancesResultObject;
         }
 
         function getWeightedAverageAestheticScore(distancesObj){
@@ -361,8 +369,6 @@ module.exports = {
             .filter(key => key.slice(-16) === "_aesthetic_score" && key.length === 18)
             .reduce((sum, current,i, arr) => {
               length = arr.length;
-              console.log(current)
-              console.log(distancesObj[current])
               return sum + distancesObj[current];
             }, 0) / length;
         }
