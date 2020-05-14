@@ -164,6 +164,8 @@ module.exports = {
                 // channel object
                 resultObject[resultsOptions[channelIndex].channelName] = {};
 
+                //dimensions
+                resultObject.dimensions = `${src.cols}x${src.rows}`;
                 // write channel centers
                 // resultObject[resultsOptions[channelIndex].channelName].COB = COB;
 
@@ -248,6 +250,7 @@ module.exports = {
             resolve({
                 id: resultObject.imgId,
                 aesthetic_score: resultObject.balanceAllCoefficients,
+                dimensions: resultObject.dimensions,
                 distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
                 // distanceToCenter: resultObject.distanceToCenter,
@@ -280,6 +283,9 @@ module.exports = {
             //
             const matDimentions = {cols: mat.cols, rows: mat.rows};
 
+            // 1. cneter point
+            [distancesResultObject.d1, distancesResultObject.d1_aesthetic_score] = calcBalancePercentage(mat, centerPoint);
+            
             // 2.Vertical: x=width/2
             distancesResultObject.d2 = 
               Math.abs(mat.cols - centerPoint.x);
@@ -391,8 +397,6 @@ module.exports = {
 
         function calcDistancePercentage(mat, distance) {
           let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
-          // console.log(distance)
-          // let diff = Math.sqrt((point.x - mat.cols / 2) * (point.x - mat.cols / 2) + (point.y - mat.rows / 2) * (point.y - mat.rows / 2));
           return 100 * (1 - distance / totalDistance);
       }
         async function saveImg(mat, imgName) {
