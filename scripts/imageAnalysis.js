@@ -171,43 +171,6 @@ module.exports = {
                 // [resultObject[resultsOptions[channelIndex].channelName].distanceToCenter, resultObject[resultsOptions[channelIndex].channelName].balancePercent] = calcBalancePercentage(src, COB);
                 [ , resultObject[resultsOptions[channelIndex].channelName].aesthetic_score] = calcBalancePercentage(src, COB);
 
-                ///////////
-                // distance to lines TO-DO:
-
-                // distancesResultObject
-
-                // optional: SSE support (Streaming SIMD Extensions)
-                // optional: GPU support
-
-                // get 8 distances =>
-
-                // 2.Vertical: x=width/2
-                // 3. Horizontal: y=height/2
-                // 4. DIAG: y=-(height/width)*x+height
-                // 5. ANTID: y=(height/width)*x
-                // 6. RoT1: x=width/3
-                // 7. RoT2: x=(2*width)/3
-                // 8. RoT3: y=height/3
-                // 9. RoT4: y=(2*height)/3
-
-                // add to distancesResultObject
-
-                //  distancesResultObject <= getMinimum
-                //  distancesResultObject <= getAverage
-                //  distancesResultObject <= getWeightedAverage
-
-                // draw colored lines and distances (for visual testing)
-                // draw colored distance lines and and text (distance value)
-
-                // add to channel object
-
-                // check visually,
-                // check garbage collection and cpu - 
-                // write tests - TBD
-                // monitor for errors
-                
-                ///////
-
                 // add moments to result
                 // resultObject[resultsOptions[channelIndex].channelName].imageMoments = {
                 //     m00: arr.m00,
@@ -263,10 +226,12 @@ module.exports = {
                 resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
             }
 
+            
             // average balance
             const aveCenter = weightedAverageThree(...channelsCenters);
             [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = calcBalancePercentage(src, aveCenter);
-
+            resultObject.distances = await getDistances(src, aveCenter);
+            
             //get avareg color
             resultObject.averageColor = '#' + rgbHex(...cv.mean(src).slice(0, 3)).toUpperCase();
 
@@ -283,6 +248,7 @@ module.exports = {
             resolve({
                 id: resultObject.imgId,
                 aesthetic_score: resultObject.balanceAllCoefficients,
+                distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
                 // distanceToCenter: resultObject.distanceToCenter,
                 url: resultObject.url,
@@ -301,6 +267,52 @@ module.exports = {
                 );
             }
         });
+
+        async function getDistances(mat, centerPoint) {
+          ///////////
+                // distance to lines TO-DO:
+
+                const distancesResultObject = {};
+
+                // optional: SSE support (Streaming SIMD Extensions)
+                // optional: GPU support
+
+                // get 8 distances =>
+                
+                  // 2.Vertical: x=width/2
+                  distancesResultObject.d2 = Math.abs(mat.cols - centerPoint.x);
+                  distancesResultObject.d2Percent = calcDistancePercentage({cols: mat.cols, rows: mat.rows}, distancesResultObject.d2)
+                  // 3. Horizontal: y=height/2
+                  distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
+                  // 4. DIAG: y=-(height/width)*x+height
+                  distancesResultObject.d4 = 
+                  Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+                  Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
+                  // 5. ANTID: y=(height/width)*x
+                  // 6. RoT1: x=width/3
+                  // 7. RoT2: x=(2*width)/3
+                  // 8. RoT3: y=height/3
+                  // 9. RoT4: y=(2*height)/3
+
+                // add to distancesResultObject
+                
+                //  distancesResultObject <= getMinimum
+                //  distancesResultObject <= getAverage
+                //  distancesResultObject <= getWeightedAverage
+
+                // draw colored lines and distances (for visual testing)
+                // draw colored distance lines and and text (distance value)
+
+                // add to channel object
+
+                // check visually,
+                // check garbage collection and cpu - 
+                // write tests - TBD
+                // monitor for errors
+                return distancesResultObject;
+                ///////
+        }
+
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
 
@@ -308,6 +320,12 @@ module.exports = {
             return [diff, 100 * (1 - diff / totalDistance)];
         }
 
+        function calcDistancePercentage(mat, distance) {
+          let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
+          console.log(distance)
+          // let diff = Math.sqrt((point.x - mat.cols / 2) * (point.x - mat.cols / 2) + (point.y - mat.rows / 2) * (point.y - mat.rows / 2));
+          return [distance, 100 * (1 - distance / totalDistance)];
+      }
         async function saveImg(mat, imgName) {
             return new Promise((resolve, reject) => {
                 try {
