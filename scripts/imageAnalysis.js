@@ -331,6 +331,7 @@ module.exports = {
                 distancesResultObject.average_aesthetic_score = getAverageAestheticScore(distancesResultObject) 
                 
                 //  distancesResultObject <= getWeightedAverage
+                distancesResultObject.weighted_average_aesthetic_score = getWeightedAverageAestheticScore(distancesResultObject) 
 
                 // draw colored lines and distances (for visual testing)
                 // draw colored distance lines and and text (distance value)
@@ -343,6 +344,15 @@ module.exports = {
                 // monitor for errors
                 return distancesResultObject;
                 ///////
+        }
+
+        function getWeightedAverageAestheticScore(distancesObj){
+          const A = 0.4;
+          const B = 0.3;
+          const C = 0.2;
+          const D = 0.1;
+
+          return (A * distancesObj.d6 + B * distancesObj.d7 + C * distancesObj.d9 + D * distancesObj.d5) / 4 
         }
 
         function getAverageAestheticScore(distancesObj){
