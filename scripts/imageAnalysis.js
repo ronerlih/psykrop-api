@@ -328,6 +328,8 @@ module.exports = {
                 //  distancesResultObject <= getMinimum
                 distancesResultObject.highest_aesthetic_score = getHighestAestheticScore(distancesResultObject) 
                 //  distancesResultObject <= getAverage
+                distancesResultObject.average_aesthetic_score = getAverageAestheticScore(distancesResultObject) 
+                
                 //  distancesResultObject <= getWeightedAverage
 
                 // draw colored lines and distances (for visual testing)
@@ -343,6 +345,18 @@ module.exports = {
                 ///////
         }
 
+        function getAverageAestheticScore(distancesObj){
+          let length = 1;
+          return Object.keys(distancesObj)
+            .filter(key => key.slice(-16) === "_aesthetic_score" && key.length === 18)
+            .reduce((sum, current,i, arr) => {
+              length = arr.length;
+              console.log(current)
+              console.log(distancesObj[current])
+              return sum + distancesObj[current];
+            }, 0) / length;
+        }
+        
         function getHighestAestheticScore(distancesObj){
           return Object.keys(distancesObj)
             .filter(key => key.slice(-16) === "_aesthetic_score" )
