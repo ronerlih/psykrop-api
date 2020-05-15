@@ -72,5 +72,8 @@
     "redis": "^2.8.0",
     "rgb-hex": "^3.0.0",
     "session": "^0.1.0"
+  },
+  "jest": {
+    "coverageDirectory": "tests/coverage/"
   }
 }
