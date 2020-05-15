@@ -69,7 +69,7 @@ color: #00cd00;
 }
 .url{
     display: inline-block;
-    padding: 6px;
+    padding: 6px 11px 6px 11px;
     color:rgb(0, 184, 0);
     font-size: 16px;
     /* border-radius: 5px; */

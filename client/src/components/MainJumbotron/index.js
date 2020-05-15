@@ -14,7 +14,7 @@ function MainJumbotron() {
                 <p></p>
                 <h4>Base URL</h4>
                 <p>Make all API calls to </p>
-                <div className="url">https://psykrop-api.herokuapp.com/</div>
+                <div className="url"><a href="https://psykrop-api.herokuapp.com/">https://psykrop-api.herokuapp.com/</a></div>
             </Col>
             <Col extraClass="text-right pt-1 " size="md-6">
                 <div>
