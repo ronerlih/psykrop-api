@@ -6,6 +6,7 @@ import ResponseInfo from "./ResponseInfo";
 import RequestInfo from "./RequestInfo";
 import TryItOutForm from "./TryItOutForm";
 import PostResults from "./PostResults";
+import "./style.css";
 
 class ImagesEndPoint extends Component {
     constructor(props) {
