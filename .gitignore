@@ -14,10 +14,11 @@ to-project-board.md
 #images/*.jpg
 
 # testing
-/coverage
+# /tests/coverage
 
 # production
 /build
+/client/build
 
 # misc
 .DS_Store
