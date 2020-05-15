@@ -16,7 +16,6 @@ class ImagesEndPoint extends Component {
             postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
             myRef: props.myRef
         };
-        this.myRef = props.myRef;
     }
 
     callPost = () => {
@@ -25,7 +24,7 @@ class ImagesEndPoint extends Component {
             .then((res) => {
                 this.setState({ postResults: res, postLoading: false });
                 window.scrollTo({
-                    top: this.myRef.current.parentNode.offsetTop,
+                    top: this.state.myRef.current.parentNode.offsetTop,
                     behavior: "smooth",
                 });
             })
@@ -34,9 +33,7 @@ class ImagesEndPoint extends Component {
 
     handleInputChange = (event) => {
         const { name, value } = event.target;
-        this.setState({
-            [name]: value,
-        });
+        this.setState({[name]: value});
     };
 
     handleFormSubmit = (event) => {
@@ -47,8 +44,8 @@ class ImagesEndPoint extends Component {
                 author: this.state.author,
                 synopsis: this.state.synopsis,
             })
-                .then((res) => this.loadBooks())
-                .catch((err) => console.log(err));
+            .then((res) => this.loadBooks())
+            .catch((err) => console.log(err));
         }
     };
 

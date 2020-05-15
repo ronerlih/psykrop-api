@@ -7,7 +7,7 @@ function MainJumbotron() {
             <Col size="md-6" extraClass="order-last order-md-first">
                 <div>
                     <span>
-                        <strong class="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, primarily an <em>Aesthetic balance score</em>.
+                        <strong className="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, primarily an <em>Aesthetic balance score</em>.
                     </span>
                     <p></p>
                 </div>
