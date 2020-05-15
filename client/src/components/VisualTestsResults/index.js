@@ -7,7 +7,6 @@ export default function({ results, visualTestsRef }) {
     return (
         <Row>
             <Col size="md-6 ">
-                {console.log(results)}
                 {results
                     ? <ResponseImages results={results} />
                     : /* "loading"*/ ""}
