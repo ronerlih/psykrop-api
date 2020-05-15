@@ -88,6 +88,7 @@ color: #00cd00;
     padding-bottom: 10px;
     border-bottom: 1px solid black;
     background: aliceblue;
+    /* background: #f9fafb; */
 }
 nav{
     margin-bottom: 0px!important;;
@@ -97,6 +98,9 @@ nav{
     border-radius: 0px;;
     border-left: 3px solid rgb(0, 174, 0);
 
+}
+.endpoint-title p {
+    margin:0px;
 }
 .endpoint-title{
     background-color: aliceblue;

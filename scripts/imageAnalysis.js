@@ -257,7 +257,7 @@ module.exports = {
                 url: resultObject.url,
                 edge: resultObject.edge,
                 ratedPixels: resultObject.ratedPixels,
-                averageRGBColor: resultObject.averageColor,
+                average_color: resultObject.averageColor,
                 red_channel: resultObject.red_channel,
                 green_channel: resultObject.green_channel,
                 blue_channel: resultObject.blue_channel,
@@ -383,9 +383,9 @@ module.exports = {
           return Object.keys(distancesObj)
             .filter(key => key.slice(-16) === "_aesthetic_score" )
             .reduce((max, current) => {
-              if(distancesObj[current] > max.aestheticScore) max = {aestheticScore: distancesObj[current], distanceLine: current}  
+              if(distancesObj[current] > max.aesthetic_score) max = {aesthetic_score: distancesObj[current], distance_line: current}  
               return max;
-            }, {aestheticScore :0, distanceLine: null});
+            }, {aesthetic_score :0, distance_line: null});
             
         }
         function calcBalancePercentage(mat, point) {
