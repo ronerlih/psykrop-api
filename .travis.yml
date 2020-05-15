@@ -3,6 +3,7 @@ node_js: "12"
 branches:
   only:
     - master
+    - stage
 scripts:
   - npm run coveralls
 cache:
