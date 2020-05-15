@@ -20,10 +20,14 @@ function MainJumbotron() {
                 <div>
                     {/* <span> </span> */}
                     {/* <img src="https://img.shields.io/github/package-json/v/ronerlih/psykrop-api" alt="build badge - contiues deployment" /> */}
+                    
                     <img src="https://api.travis-ci.com/ronerlih/psykrop-api.svg?branch=master" alt="build badge - contiues deployment" />
                     <span> </span>
                     <img src="https://img.shields.io/badge/release-alpha-cornflowerblue" alt="alpha badge" />
-                    {/* <span style={{ backgroundColor: "gray", padding: 3, fontSize: 8, color: "white" }}>[alpha]</span> */}
+                    <span> </span>
+                    {/* <a href='https://coveralls.io/github/ronerlih/psykrop-api?branch=master'> */}
+                        <img src='https://coveralls.io/repos/github/ronerlih/psykrop-api/badge.svg?branch=master' alt='Coverage Status' />
+                    {/* </a> */}
                 </div>
                 <div className="pt-1">
                     <a href="https://www.psykrop.com/" target="_black">
