@@ -164,49 +164,14 @@ module.exports = {
                 // channel object
                 resultObject[resultsOptions[channelIndex].channelName] = {};
 
+                //dimensions
+                resultObject.dimensions = `${src.cols}x${src.rows}`;
                 // write channel centers
                 // resultObject[resultsOptions[channelIndex].channelName].COB = COB;
 
                 // save balance percent
                 // [resultObject[resultsOptions[channelIndex].channelName].distanceToCenter, resultObject[resultsOptions[channelIndex].channelName].balancePercent] = calcBalancePercentage(src, COB);
                 [ , resultObject[resultsOptions[channelIndex].channelName].aesthetic_score] = calcBalancePercentage(src, COB);
-
-                ///////////
-                // distance to lines TO-DO:
-
-                // distancesResultObject
-
-                // optional: SSE support (Streaming SIMD Extensions)
-                // optional: GPU support
-
-                // get 8 distances =>
-
-                // 2.Vertical: x=width/2
-                // 3. Horizontal: y=height/2
-                // 4. DIAG: y=-(height/width)*x+height
-                // 5. ANTID: y=(height/width)*x
-                // 6. RoT1: x=width/3
-                // 7. RoT2: x=(2*width)/3
-                // 8. RoT3: y=height/3
-                // 9. RoT4: y=(2*height)/3
-
-                // add to distancesResultObject
-
-                //  distancesResultObject <= getMinimum
-                //  distancesResultObject <= getAverage
-                //  distancesResultObject <= getWeightedAverage
-
-                // draw colored lines and distances (for visual testing)
-                // draw colored distance lines and and text (distance value)
-
-                // add to channel object
-
-                // check visually,
-                // check garbage collection and cpu - 
-                // write tests - TBD
-                // monitor for errors
-                
-                ///////
 
                 // add moments to result
                 // resultObject[resultsOptions[channelIndex].channelName].imageMoments = {
@@ -263,10 +228,12 @@ module.exports = {
                 resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
             }
 
+            
             // average balance
             const aveCenter = weightedAverageThree(...channelsCenters);
             [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = calcBalancePercentage(src, aveCenter);
-
+            resultObject.distances = await getDistances(src, aveCenter);
+            
             //get avareg color
             resultObject.averageColor = '#' + rgbHex(...cv.mean(src).slice(0, 3)).toUpperCase();
 
@@ -283,12 +250,14 @@ module.exports = {
             resolve({
                 id: resultObject.imgId,
                 aesthetic_score: resultObject.balanceAllCoefficients,
+                dimensions: resultObject.dimensions,
+                distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
                 // distanceToCenter: resultObject.distanceToCenter,
                 url: resultObject.url,
                 edge: resultObject.edge,
                 ratedPixels: resultObject.ratedPixels,
-                averageRGBColor: resultObject.averageColor,
+                average_color: resultObject.averageColor,
                 red_channel: resultObject.red_channel,
                 green_channel: resultObject.green_channel,
                 blue_channel: resultObject.blue_channel,
@@ -301,6 +270,124 @@ module.exports = {
                 );
             }
         });
+
+        async function getDistances(mat, centerPoint) {
+        // distance to lines:
+
+            let distancesResultObject = {};
+
+            // optional: SSE support (Streaming SIMD Extensions)
+            // optional: GPU support
+
+            // get distances and aesthetic score
+            //
+            const matDimentions = {cols: mat.cols, rows: mat.rows};
+
+            // 1. cneter point
+            [distancesResultObject.d1, distancesResultObject.d1_aesthetic_score] = calcBalancePercentage(mat, centerPoint);
+            
+            // 2.Vertical: x=width/2
+            distancesResultObject.d2 = 
+              Math.abs(mat.cols - centerPoint.x);
+            distancesResultObject.d2_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d2)
+            
+            // 3. Horizontal: y=height/2
+            distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
+            distancesResultObject.d3_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d3)
+            
+              // 4. DIAG: y=-(height/width)*x+height
+            distancesResultObject.d4 = 
+              Math.abs((mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+              Math.sqrt(Math.pow((mat.rows/mat.cols), 2) + 1);
+              distancesResultObject.d4_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d4)
+              
+            // 5. ANTID: y=(height/width)*x
+            distancesResultObject.d5 = 
+              Math.abs((- mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+              Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
+            distancesResultObject.d5_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d5)
+            
+            // 6. RoT1: x=width/3
+            distancesResultObject.d6 = Math.abs((mat.cols / 3) - centerPoint.x);
+            distancesResultObject.d6_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d6)
+            
+            // 7. RoT2: x=(2*width)/3
+            distancesResultObject.d7 = Math.abs((2 * mat.cols / 3) - centerPoint.x);
+            distancesResultObject.d7_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d7)
+            
+            // 8. RoT3: y=height/3
+            distancesResultObject.d8 = Math.abs((mat.rows / 3) - centerPoint.y);
+            distancesResultObject.d8_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d8)
+            
+            // 9. RoT4: y=(2*height)/3
+            distancesResultObject.d9 = Math.abs((2 * mat.rows / 3) - centerPoint.y);
+            distancesResultObject.d9_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.d9)
+            
+            //  distancesResultObject <= getMinimum
+            distancesResultObject.highest_aesthetic_score = 
+              getHighestAestheticScore(distancesResultObject) 
+            //  distancesResultObject <= getAverage
+            distancesResultObject.average_aesthetic_score = 
+              getAverageAestheticScore(distancesResultObject) 
+            
+            //  distancesResultObject <= getWeightedAverage
+            distancesResultObject.weighted_average_distance = 
+              getWeightedAverageAestheticScore(distancesResultObject) 
+
+            //order
+            distancesResultObject = Object.keys(distancesResultObject)
+              .reverse()
+              .reduce((result, key) => {result[key] = distancesResultObject[key]; return result}, {})
+            
+            // draw colored lines and distances (for visual testing)
+            // draw colored distance lines and and text (distance value)
+
+            // add to channel object
+
+            // check visually,
+            // check garbage collection and cpu - 
+            // write tests - TBD
+            // monitor for errors
+
+            return distancesResultObject;
+        }
+
+        function getWeightedAverageAestheticScore(distancesObj){
+          const A = 0.4;
+          const B = 0.3;
+          const C = 0.2;
+          const D = 0.1;
+
+          return (A * distancesObj.d6 + B * distancesObj.d7 + C * distancesObj.d9 + D * distancesObj.d5) / 4 
+        }
+
+        function getAverageAestheticScore(distancesObj){
+          let length = 1;
+          return Object.keys(distancesObj)
+            .filter(key => key.slice(-16) === "_aesthetic_score" && key.length === 18)
+            .reduce((sum, current,i, arr) => {
+              length = arr.length;
+              return sum + distancesObj[current];
+            }, 0) / length;
+        }
+        
+        function getHighestAestheticScore(distancesObj){
+          return Object.keys(distancesObj)
+            .filter(key => key.slice(-16) === "_aesthetic_score" )
+            .reduce((max, current) => {
+              if(distancesObj[current] > max.aesthetic_score) max = {aesthetic_score: distancesObj[current], distance_line: current}  
+              return max;
+            }, {aesthetic_score :0, distance_line: null});
+            
+        }
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
 
@@ -308,6 +395,10 @@ module.exports = {
             return [diff, 100 * (1 - diff / totalDistance)];
         }
 
+        function calcDistancePercentage(mat, distance) {
+          let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
+          return 100 * (1 - distance / totalDistance);
+      }
         async function saveImg(mat, imgName) {
             return new Promise((resolve, reject) => {
                 try {
