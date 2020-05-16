@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import { Col, Row } from "../Grid";
+import { Col, Row } from "../reusable/Grid";
 import Title from "./Title";
 import ResponseInfo from "./ResponseInfo";
 import RequestInfo from "./RequestInfo";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "../Grid";
+import { Col, Row } from "../reusable/Grid";
 import ResponseImages from "./ResponseImages";
 import ResponseText from "./ResponseText";
 

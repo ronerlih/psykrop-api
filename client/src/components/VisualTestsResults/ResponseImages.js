@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Container } from "../Grid";
+import { Col, Row, Container } from "../reusable/Grid";
 
 export default function({ results }) {
     return (
