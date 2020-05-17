@@ -6,7 +6,7 @@ import ResponseText from "./ResponseText";
 export default function({ results, visualTestsRef }) {
     return (
         <Row>
-            <Col size="md-6 ">
+            <Col size="md-6" extraClass="order-last order-md-first">
                 {results
                     ? <ResponseImages results={results} />
                     : /* "loading"*/ ""}
