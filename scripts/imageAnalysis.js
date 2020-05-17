@@ -249,7 +249,7 @@ module.exports = {
 
             resolve({
                 id: resultObject.imgId,
-                aesthetic_score: resultObject.balanceAllCoefficients,
+                ["aesthetic_score_(d1)"]: resultObject.balanceAllCoefficients,
                 dimensions: resultObject.dimensions,
                 distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
@@ -284,7 +284,8 @@ module.exports = {
             const matDimentions = {cols: mat.cols, rows: mat.rows};
 
             // 1. cneter point
-            [distancesResultObject.d1, distancesResultObject.d1_aesthetic_score] = calcBalancePercentage(mat, centerPoint);
+            [distancesResultObject.d1, distancesResultObject.d1_aesthetic_score] = 
+              calcBalancePercentage(mat, centerPoint);
             
             // 2.Vertical: x=width/2
             distancesResultObject.d2 = 
@@ -332,16 +333,23 @@ module.exports = {
               calcDistancePercentage(matDimentions, distancesResultObject.d9)
             
             //  distancesResultObject <= getMinimum
-            distancesResultObject.highest_aesthetic_score = 
-              getHighestAestheticScore(distancesResultObject) 
+            distancesResultObject.shortest_distance = 
+              getShortestDistance(distancesResultObject) 
+            distancesResultObject.shortest_distance_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.shortest_distance.distance)
+
             //  distancesResultObject <= getAverage
-            distancesResultObject.average_aesthetic_score = 
-              getAverageAestheticScore(distancesResultObject) 
+            distancesResultObject.average_distance = 
+              getAverageDistance(distancesResultObject) 
+            distancesResultObject.average_distance_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.average_distance)
             
             //  distancesResultObject <= getWeightedAverage
             distancesResultObject.weighted_average_distance = 
               getWeightedAverageAestheticScore(distancesResultObject) 
-
+            distancesResultObject.weighted_average_aesthetic_score = 
+              calcDistancePercentage(matDimentions, distancesResultObject.weighted_average_distance)
+           
             //order
             distancesResultObject = Object.keys(distancesResultObject)
               .reverse()
@@ -369,23 +377,23 @@ module.exports = {
           return (A * distancesObj.d6 + B * distancesObj.d7 + C * distancesObj.d9 + D * distancesObj.d5) / 4 
         }
 
-        function getAverageAestheticScore(distancesObj){
+        function getAverageDistance(distancesObj){
           let length = 1;
           return Object.keys(distancesObj)
-            .filter(key => key.slice(-16) === "_aesthetic_score" && key.length === 18)
+            .filter(key => key.slice(0,1) === "d" && key.length === 2)
             .reduce((sum, current,i, arr) => {
               length = arr.length;
-              return sum + distancesObj[current];
+              return sum + parseFloat(distancesObj[current]);
             }, 0) / length;
         }
         
-        function getHighestAestheticScore(distancesObj){
+        function getShortestDistance(distancesObj){
           return Object.keys(distancesObj)
-            .filter(key => key.slice(-16) === "_aesthetic_score" )
-            .reduce((max, current) => {
-              if(distancesObj[current] > max.aesthetic_score) max = {aesthetic_score: distancesObj[current], distance_line: current}  
-              return max;
-            }, {aesthetic_score :0, distance_line: null});
+          .filter(key => key.slice(0,1) === "d" && key.length === 2)
+            .reduce((min, current) => {
+              if(distancesObj[current] < parseFloat(min.distance)) min = {distance: distancesObj[current], distance_line: current}  
+              return min;
+            }, {distance :distancesObj.d1, distance_line: "d1"});
             
         }
         function calcBalancePercentage(mat, point) {
