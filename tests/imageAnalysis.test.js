@@ -1,8 +1,8 @@
 const imageAnalysis = require("../scripts/imageAnalysis");
 
-describe("Image Analysis tests", () => {
-  describe("First group", () => {
-    it("Run test", () => {
+describe("Initial tests structure, TBD", () => {
+  describe("Visual tests testing:", () => {
+    it("images list should match expected list", () => {
       const urls = [
         "https://2014.igem.org/wiki/images/a/a7/Sample.png",
         "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg",
@@ -15,7 +15,12 @@ describe("Image Analysis tests", () => {
       const result = imageAnalysis.getTestImages();
       expect(result).toMatchObject(urls);
     });
-
   });
 
+  describe("Image analysis testing:", () => {
+    it("Test error response", async () => {
+      const result = await imageAnalysis.analyseImage({}, 0, false);
+      expect(result).toBeInstanceOf(Object);
+    });
+  });
 });

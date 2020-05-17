@@ -5,8 +5,8 @@ import Landing from "./pages/Landing";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
-import Alert from "./components/Alert";
+import Nav from "./components/reusable/Nav";
+import Alert from "./components/reusable/Alert";
 // import {/* getCookie, */ authenticateUser, getCpu } from "./utils/handleSessions";
 
 // const PrivateRoute = ({ component: Component, state: state, ...rest }) => (

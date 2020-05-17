@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import { Container } from "../components/Grid";
-import Hr from "../components/Hr";
+import { Container } from "../components/reusable/Grid";
+import Hr from "../components/reusable/Hr";
 import MainJumbotron from "../components/MainJumbotron";
 import ImagesEndPoint from "../components/ImagesEndPoint";
 import VisualTestsForm from "../components/VisualTestsForm";

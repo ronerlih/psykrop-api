@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../Button";
-import { Row } from "../Grid";
+import Button from "../reusable/Button";
+import { Row } from "../reusable/Grid";
 
 export default function(props) {
     return (

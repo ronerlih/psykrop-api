@@ -1,6 +1,6 @@
 import React from "react";
-import { Input } from "../Form";
-import Button from "../Button";
+import { Input } from "../reusable/Form";
+import Button from "../reusable/Button";
 
 export default function(props) {
     return (
