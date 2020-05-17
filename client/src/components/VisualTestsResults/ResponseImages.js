@@ -11,32 +11,32 @@ export default function({ results }) {
                         <Row>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.imageFeedback} alt="imageFeedback" />
-                                <h6>image centers (insight)</h6>
+                                <span>image centers</span>
                             </Col>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.edge} alt="edge" />
-                                <h6>Edge mat</h6>
+                                <span>Edge mat</span>
                             </Col>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.ratedPixels} alt="rated pixels" />
-                                <h6>rated pixels mat</h6>
+                                <span>rated pixels mat</span>
                             </Col>
                         </Row>
                         <Row>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.red_channel.url} alt="red channel" />
-                                <h6>red mat</h6>
+                                <span>red mat</span>
                             </Col>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.green_channel.url} alt="green channel" />
-                                <h6>green mat</h6>
+                                <span>green mat</span>
                             </Col>
                             <Col size="lg-4">
                                 <img className="img-tests" src={"images/" + image.blue_channel.url} alt="blue channel" />
-                                <h6>blue mat</h6>
+                                <span>blue mat</span>
                             </Col>
                         </Row>
-                        <h6 className="visual-images-container-id">imgID: {image.id}</h6>
+                        <h6 className="visual-images-container-id">Image id: {image.id}</h6>
                     </Container>
                 );
             })}
