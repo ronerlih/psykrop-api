@@ -374,7 +374,7 @@ module.exports = {
           const C = 0.2;
           const D = 0.1;
 
-          return (A * distancesObj.d6 + B * distancesObj.d7 + C * distancesObj.d9 + D * distancesObj.d5) / 4 
+          return (A * distancesObj.d5 + B * distancesObj.d6 + C * distancesObj.d8 + D * distancesObj.d4) / 4 
         }
 
         function getAverageDistance(distancesObj){
@@ -395,18 +395,20 @@ module.exports = {
               return min;
             }, {distance :distancesObj.d1, distance_line: "d1"});
             
+        }   
+        
+        function calcDistancePercentage(mat, distance) {
+          let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
+          return 100 * (1 - distance / totalDistance);
         }
+
         function calcBalancePercentage(mat, point) {
             let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
 
             let diff = Math.sqrt((point.x - mat.cols / 2) * (point.x - mat.cols / 2) + (point.y - mat.rows / 2) * (point.y - mat.rows / 2));
             return [diff, 100 * (1 - diff / totalDistance)];
         }
-
-        function calcDistancePercentage(mat, distance) {
-          let totalDistance = Math.sqrt((mat.cols / 2) * (mat.cols / 2) + (mat.rows / 2) * (mat.rows / 2));
-          return 100 * (1 - distance / totalDistance);
-      }
+     
         async function saveImg(mat, imgName) {
             return new Promise((resolve, reject) => {
                 try {
