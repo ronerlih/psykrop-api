@@ -72,6 +72,7 @@ curl -i localhost:49160
 //Nginx
 // https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/
 
+// covera script: npm run coveralls
 
 load tests resu;ts:
 [Tue Mar 03 2020 16:33:38 GMT-0500 (Eastern Standard Time)] INFO 
