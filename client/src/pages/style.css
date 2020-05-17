@@ -46,11 +46,19 @@ color: #00cd00;
     margin-top:5px;
 }
 .images-container{
-    border-radius: 5px;;
+    /* border-radius: 5px;; */
     color:rgb(0, 0, 0);
     margin-bottom: 10px;
     /* background-color: #ebebeb; */
     padding: 0px 0px 10px;
+    border: 1px solid black;
+    padding: 5px;
+    background: aliceblue;
+}
+.visual-images-container-id{
+    padding:5px;
+    border:1px solid black;
+    background: white;
 }
 .code{
     padding: 5px 5px 5px 2px;

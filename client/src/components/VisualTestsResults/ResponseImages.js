@@ -36,7 +36,7 @@ export default function({ results }) {
                                 <h6>blue mat</h6>
                             </Col>
                         </Row>
-                        <h6>imgID: {image.id}</h6>
+                        <h6 className="visual-images-container-id">imgID: {image.id}</h6>
                     </Container>
                 );
             })}
