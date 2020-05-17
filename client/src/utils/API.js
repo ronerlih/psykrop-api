@@ -8,7 +8,7 @@ export default {
   callPost: function(urls){
     let urlArray = urls ? urls.split(","): [""];
     urlArray = urlArray.map(element => element.trim());
-    return axios.post("/api/images",{images:urlArray});
+    return axios.post("/api/images",urlArray);
     
   },
   // Gets all books

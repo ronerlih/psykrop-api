@@ -6,8 +6,12 @@ export default function() {
         <div>
             <h5>Request format</h5>
             <div className="code">POST /api/images?sort=[order]</div>
-            BODY (in a json format - below, excepts also url encoded and text mime types)
-            <JSONPretty id="json-pretty-body" valueStyle="color:white" data={{ images: ["url-to-img.file"] }}></JSONPretty>
+            Request BODY expample (application/json content type).
+            <JSONPretty id="json-pretty-body" valueStyle="color:white" data={["url-to-img-01.jpg", "url-to-img-02.png"]}></JSONPretty>
+            <span >
+            Or use comma seperated for form/urlencoded content type.
+            </span>
+            <p></p>
         </div>
     );
 }

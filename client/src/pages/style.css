@@ -97,7 +97,7 @@ nav{
     background-color:rgb(237, 237, 237)!important;
     border-radius: 0px;;
     border-left: 3px solid rgb(0, 174, 0);
-
+    margin-bottom: 0px;
 }
 .endpoint-title p {
     margin:0px;
