@@ -37,7 +37,7 @@ loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 60 -
 loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 60 -c 5 --rps 5 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png"]}'  
 loadtest http://localhost:3001/api/images -H "Accept:*/*" -k -n 60 --rps 5 -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png", "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg", "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg", "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465", "https://www.passmark.com/source/img_posts/montest_slide_2.png", "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg", "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"]}'  
 // long term test
-loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 600  -T 'application/json' -m POST -P '{"images":["https://2014.igem.org/wiki/images/a/a7/Sample.png"]}'  
+loadtest https://psykrop-api.herokuapp.com/api/images -H "Accept:*/*" -k -n 600  -T 'application/json' -m POST -P '["https://2014.igem.org/wiki/images/a/a7/Sample.png"]'  
 
 
 //load test with wrk: https://github.com/wg/wrk
@@ -240,6 +240,7 @@ load tests resu;ts:
 [Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO 
 [Tue Mar 03 2020 20:37:59 GMT-0500 (Eastern Standard Time)] INFO   503:   1 errors
 
+checks before distances
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO Max requests:        600
@@ -263,3 +264,28 @@ load tests resu;ts:
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO 
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO   503:   1 errors
 [Thu Mar 12 2020 17:19:21 GMT-0400 (Eastern Daylight Time)] INFO    -1:   1 errors
+
+load checks after distances
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO 
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Target URL:          https://psykrop-api.herokuapp.com/api/images
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Max requests:        600
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Concurrency level:   1
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Agent:               keepalive
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO 
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Completed requests:  600
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Total errors:        2
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Total time:          490.64715551800003 s
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Requests per second: 1
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Mean latency:        817.6 ms
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO 
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO Percentage of the requests served within a certain time
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO   50%      697 ms
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO   90%      924 ms
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO   95%      1064 ms
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO   99%      2833 ms
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO  100%      30008 ms (longest request)
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO 
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO  100%      30008 ms (longest request)
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO 
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO   503:   1 errors
+[Mon May 18 2020 09:49:47 GMT-0400 (Eastern Daylight Time)] INFO    -1:   1 errors

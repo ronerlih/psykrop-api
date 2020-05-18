@@ -10,11 +10,11 @@ export default function() {
                     <br />
                     <ul>
                         <li>
-                            Ascending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/?order=ascending</span> 
+                            Ascending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/api/images?order=ascending</span> 
                             <br/><em>(with an array of image urls in the request body)</em>
                         </li>
                         <li>
-                            Descending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/?order=descending</span> 
+                            Descending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/api/images?order=descending</span> 
                             <br/><em>(with an array of image urls in the request body)</em>
                         </li>
                     </ul>
