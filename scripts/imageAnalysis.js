@@ -8,6 +8,7 @@ const Jimp = require("jimp");
 // console.log(Object.keys(cv.modules));
 // opencv method search
 // console.log(Object.keys(cv).filter(key => key.indexOf("INTER") >= 0));
+const SAVE_IMAGES = false;
 
 module.exports = {
     getTestImages: function () {
@@ -26,7 +27,6 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             ///////-->
             // paramaters and mats
-
             const RED_COEFFICIENT = 1;
             const GREEN_COEFFICIENT = 0.8;
             const BLUE_COEFFICIENT = 1.2;
@@ -416,13 +416,19 @@ module.exports = {
         async function saveImg(mat, imgName) {
             return new Promise((resolve, reject) => {
                 try {
+                  if(SAVE_IMAGES){
                     new Jimp({
-                        width: mat.cols,
-                        height: mat.rows,
-                        data: Buffer.from(mat.data),
+                      width: mat.cols,
+                      height: mat.rows,
+                      data: Buffer.from(mat.data),
                     }).write(`images/${imgName}.jpg`);
+                    
                     // mat.delete();
                     resolve(imgName);
+                  }else {
+                    resolve();
+                  }
+
                 } catch (e) {
                     console.log("error caught: ");
                     console.log(e);
