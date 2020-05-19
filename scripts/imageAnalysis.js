@@ -236,6 +236,7 @@ module.exports = {
             
             //get avareg color
             resultObject.averageColor = '#' + rgbHex(...cv.mean(src).slice(0, 3)).toUpperCase();
+            resultObject.COB = aveCenter;
 
             // delete mats
             src.delete();
@@ -250,6 +251,7 @@ module.exports = {
             resolve({
                 id: resultObject.imgId,
                 ["aesthetic_score_(d1)"]: resultObject.balanceAllCoefficients,
+                COB: resultObject.COB,
                 dimensions: resultObject.dimensions,
                 distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
