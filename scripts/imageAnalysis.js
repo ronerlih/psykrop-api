@@ -19,7 +19,8 @@ module.exports = {
             "https://www.passmark.com/source/img_posts/montest_slide_2.png",
             "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg",
-        ];
+            "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+          ];
     },
     analyseImage: async function (image, id, saveImageLocaly) {
         return new Promise(async (resolve, reject) => {
@@ -108,7 +109,7 @@ module.exports = {
             cv.cvtColor(edgesMat, edgesMat, cv.COLOR_GRAY2RGBA, 0);
 
             if (saveImageLocaly) {
-                // saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
+                saveImg(edgesMat, ("0" + id).slice(-2) + "-edge");
                 resultObject.edge = ("0" + id).slice(-2) + "-edge.jpg";
             }
 
@@ -127,7 +128,7 @@ module.exports = {
             cv.addWeighted(weightsMat, 1 - LOCATIONS_WEIGHT, locationsMat, LOCATIONS_WEIGHT, EDGE_GAMMA, weightsMat, -1);
 
             if (saveImageLocaly) {
-                // saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
+                saveImg(weightsMat, ("0" + id).slice(-2) + "-rated-pixels");
                 resultObject.ratedPixels = ("0" + id).slice(-2) + "-rated-pixels.jpg";
             }
 
@@ -153,7 +154,7 @@ module.exports = {
                     channelsCenters.push(COB);
                     if (saveImageLocaly) {
                         cv.circle(src, COB, 5, new cv.Scalar(0, 0, 0, 255), 5, cv.LINE_8, 0);
-                        cv.circle(src, COB, 4, new cv.Scalar(resultsOptions[channelIndex].color[0], resultsOptions[channelIndex].color[1], resultsOptions[channelIndex].color[2], 255), 5, cv.LINE_8, 0);
+                        cv.circle(src, COB, 4, new cv.Scalar(...resultsOptions[channelIndex].color, 255), 5, cv.LINE_8, 0);
 
                         COB.x = COB.x.toFixed(2);
                         COB.y = COB.y.toFixed(2);
@@ -212,7 +213,7 @@ module.exports = {
                         }
                         if (saveImageLocaly) {
                             cv.cvtColor(channel, channel, cv.COLOR_GRAY2RGBA, 0);
-                            // saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[i][0]);
+                            saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[channelIndex].channelName);
                         }
                     }
 
@@ -224,7 +225,7 @@ module.exports = {
                 arr = null;
             });
             if (saveImageLocaly) {
-                // saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
+                saveImg(src, ("0" + id).slice(-2) + "-image-feedback");
                 resultObject.imageFeedback = ("0" + id).slice(-2) + "-image-feedback.jpg";
             }
 
@@ -250,7 +251,8 @@ module.exports = {
 
             resolve({
                 id: resultObject.imgId,
-                ["aesthetic_score_(d1)"]: resultObject.balanceAllCoefficients,
+                ["aesthetic_score_d1"]: resultObject.balanceAllCoefficients,
+                d1: resultObject.distanceToCenter,
                 COB: resultObject.COB,
                 dimensions: resultObject.dimensions,
                 distances: resultObject.distances,

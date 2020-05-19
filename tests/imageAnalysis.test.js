@@ -11,6 +11,7 @@ describe("Initial tests structure, TBD", () => {
             "https://www.passmark.com/source/img_posts/montest_slide_2.png",
             "https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg",
+            "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
          ];
          const result = imageAnalysis.getTestImages();
          expect(result).toMatchObject(urls);
