@@ -65,6 +65,10 @@ color: #00cd00;
 .code{
     padding: 5px 5px 5px 2px;
     background-color: rgb(237, 237, 237);
+    background-color: #f7f8fb!important;
+    border-radius: 0px;
+    /* border-radius: 0px 6px 6px 0px; */
+    border: 1px solid #e4e4e4;
     color:rgb(0, 184, 0);
     border-left: 3px solid rgb(0, 174, 0);
     font-size: 16px;
@@ -104,8 +108,9 @@ nav{
     margin-bottom: 0px!important;;
 }
 #json-pretty-body > *{
-    background-color:rgb(237, 237, 237)!important;
-    border-radius: 0px;;
+    background-color: #f7f8fb!important;
+    border-radius: 0px;
+    border: 1px solid #e4e4e4;
     border-left: 3px solid rgb(0, 174, 0);
     margin-bottom: 0px;
 }
