@@ -4,7 +4,7 @@
 to-project-board.md
 # dependencies
 /node_modules
-/client/node_modules
+# /client/node_modules
 /.pnp
 .pnp.js
 /.cs
