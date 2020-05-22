@@ -232,7 +232,8 @@ module.exports = {
             
             // average balance
             const aveCenter = weightedAverageThree(...channelsCenters);
-            [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = calcBalancePercentage(src, aveCenter);
+            [resultObject.distanceToCenter, resultObject.balanceAllCoefficients] = 
+              calcBalancePercentage(src, aveCenter);
             resultObject.distances = await getDistances(src, aveCenter);
             
             //get avareg color
@@ -293,12 +294,12 @@ module.exports = {
             
             // 2.Vertical: x=width/2
             distancesResultObject.d2 = 
-              Math.abs(mat.cols - centerPoint.x);
+              Math.abs(mat.cols/2 - centerPoint.x);
             distancesResultObject.d2_aesthetic_score = 
               calcDistancePercentage(matDimentions, distancesResultObject.d2)
             
             // 3. Horizontal: y=height/2
-            distancesResultObject.d3 = Math.abs(mat.rows - centerPoint.y);
+            distancesResultObject.d3 = Math.abs(mat.rows/2 - centerPoint.y);
             distancesResultObject.d3_aesthetic_score = 
               calcDistancePercentage(matDimentions, distancesResultObject.d3)
             
@@ -311,7 +312,7 @@ module.exports = {
               
             // 5. ANTID: y=(height/width)*x
             distancesResultObject.d5 = 
-              Math.abs((- mat.rows/mat.cols) * centerPoint.x + centerPoint.y - mat.rows) /
+              Math.abs(( - mat.rows/mat.cols) * centerPoint.x + centerPoint.y ) /
               Math.sqrt(Math.pow((- mat.rows/mat.cols), 2) + 1);
             distancesResultObject.d5_aesthetic_score = 
               calcDistancePercentage(matDimentions, distancesResultObject.d5)
@@ -350,7 +351,7 @@ module.exports = {
             
             //  distancesResultObject <= getWeightedAverage
             distancesResultObject.weighted_average_distance = 
-              getWeightedAverageAestheticScore(distancesResultObject) 
+              getWeightedAverageDistance(distancesResultObject) 
             distancesResultObject.weighted_average_aesthetic_score = 
               calcDistancePercentage(matDimentions, distancesResultObject.weighted_average_distance)
            
@@ -372,13 +373,23 @@ module.exports = {
             return distancesResultObject;
         }
 
-        function getWeightedAverageAestheticScore(distancesObj){
+        function getWeightedAverageDistance(distancesObj){
           const A = 0.4;
           const B = 0.3;
           const C = 0.2;
           const D = 0.1;
 
-          return (A * distancesObj.d5 + B * distancesObj.d6 + C * distancesObj.d8 + D * distancesObj.d4) / 4 
+          const sortedDistances = 
+            Object.keys(distancesObj)
+              .filter(key => key.slice(0,1) === "d" && key.length === 2)
+              .sort((a,b) => distancesObj[a] - distancesObj[b])
+
+          return (
+            A * distancesObj[sortedDistances[0]] + 
+            B * distancesObj[sortedDistances[1]] + 
+            C * distancesObj[sortedDistances[2]] + 
+            D * distancesObj[sortedDistances[3]]
+            )  
         }
 
         function getAverageDistance(distancesObj){
@@ -395,7 +406,8 @@ module.exports = {
           return Object.keys(distancesObj)
           .filter(key => key.slice(0,1) === "d" && key.length === 2)
             .reduce((min, current) => {
-              if(distancesObj[current] < parseFloat(min.distance)) min = {distance: distancesObj[current], distance_line: current}  
+              if(distancesObj[current] < parseFloat(min.distance)) min = 
+                {distance: distancesObj[current], distance_line: current }  
               return min;
             }, {distance :distancesObj.d1, distance_line: "d1"});
             
