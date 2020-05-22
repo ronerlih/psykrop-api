@@ -12,7 +12,7 @@ export default function({ results, visualTestsRef }) {
                     : /* "loading"*/ ""}
             </Col>
             <Col size="md-6 ">
-                {results 
+                {results
                     ? <ResponseText visualTestsRef={visualTestsRef} results={results}/>  
                     : "" }
             </Col>

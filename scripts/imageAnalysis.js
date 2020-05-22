@@ -13,7 +13,7 @@ const SAVE_IMAGES = false;
 module.exports = {
     getTestImages: function () {
         return [
-            "https://2014.igem.org/wiki/images/a/a7/Sample.png",
+            "http://2014.igem.org/wiki/images/a/a7/Sample.png",
             "https://images2.minutemediacdn.com/image/upload/c_crop,h_3236,w_5760,x_0,y_0/f_auto,q_auto,w_1100/v1554700227/shape/mentalfloss/istock-609802128.jpg",
             "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg",
             "https://qph.fs.quoracdn.net/main-qimg-7e3c3f89920a527c3becb8e312b0a465",
@@ -65,9 +65,10 @@ module.exports = {
             // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
             try {
                 var jimpSrc = await Jimp.read(image);
+               
             } catch (e) {
                 const error = new Error("broken url");
-                resolve({
+                return resolve({
                     id: ("0" + id).slice(-2),
                     error: {
                         message: error.message,
@@ -76,12 +77,12 @@ module.exports = {
                     },
                 });
             }
-            // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
+            
             let src = cv.matFromImageData(jimpSrc.bitmap);
+            // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
             let zerosMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(0));
             let onesMat = new cv.Mat(src.rows, src.cols, cv.CV_8UC1, new cv.Scalar(255));
             let weightsMat = src.clone();
-
             // initaize point at img center
             COB = new cv.Point(parseInt(src.cols / 2), parseInt(src.rows / 2));
 
@@ -201,9 +202,7 @@ module.exports = {
                             vecToMerge.push_back(zerosMat);
                             vecToMerge.push_back(channel);
                             vecToMerge.push_back(onesMat);
-
                             break;
-                        default:
                     }
                     if (channelIndex != 3) {
                         try {
@@ -216,7 +215,6 @@ module.exports = {
                             saveImg(channelMat, ("0" + id).slice(-2) + "-" + resultsOptions[channelIndex].channelName);
                         }
                     }
-
                     resultObject[resultsOptions[channelIndex].channelName].url = ("0" + id).slice(-2) + "-" + resultsOptions[channelIndex].channelName + ".jpg";
                 }
                 channel.delete();
@@ -265,7 +263,7 @@ module.exports = {
                 average_color: resultObject.averageColor,
                 red_channel: resultObject.red_channel,
                 green_channel: resultObject.green_channel,
-                blue_channel: resultObject.blue_channel,
+                blue_channel: resultObject.blue_channel
             });
 
             function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
