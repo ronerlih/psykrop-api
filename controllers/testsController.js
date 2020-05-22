@@ -1,10 +1,10 @@
-import { getTestImages, analyseImage } from "../scripts/imageAnalysis";
+import OpenCV from "../scripts/imageAnalysis";
 
 // Defining methods for the booksController
 module.exports = {
    analyseForFrontEndTestDashboard: async function(req, res) {
       let analysisPromisesArray = [];
-      const urls = getTestImages();
+      const urls = OpenCV.getTestImages();
       let used;
       used = process.memoryUsage();
       console.log("Heap before analysis:");
@@ -12,7 +12,7 @@ module.exports = {
          console.log(`${key} ${Math.round(used[key] / 1024 / 1024)}MB`);
       }
       urls.forEach((img, id) => {
-         analysisPromisesArray.push(analyseImage(img, id, true));
+         analysisPromisesArray.push(OpenCV.analyseImage(img, id, true));
       });
       Promise.all(analysisPromisesArray)
          .then((result) => {
