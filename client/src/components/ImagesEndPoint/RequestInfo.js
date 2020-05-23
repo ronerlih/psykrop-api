@@ -5,7 +5,7 @@ export default function() {
     return (
         <div>
             <h5>Request format</h5>
-            <div className="code">POST /api/images?order=descending</div>
+            <div className="code">POST /api/images?order=desc</div>
             Request BODY expample (application/json content type).
             <JSONPretty id="json-pretty-body" valueStyle="color:white" data={["url-to-img-01.jpg", "url-to-img-02.png"]}></JSONPretty>
             <span >

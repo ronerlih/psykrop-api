@@ -27,11 +27,11 @@ module.exports = {
                console.log(`Heap used: ${(used.heapUsed / 1024 / 1024).toFixed(2)}MB`);
 
                // order results
-               if (req.query.order === "descending") {
+               if (req.query.order === "desc") {
                   // order by decending
                   console.log("descending option");
                   result.sort((a, b) => b.balanceAllCoefficients - a.balanceAllCoefficients);
-               } else if (req.query.order === "ascending") {
+               } else if (req.query.order === "asc") {
                   // order by decending
                   console.log("ascending option");
                   result.sort((a, b) => a.balanceAllCoefficients - b.balanceAllCoefficients);
