@@ -37,6 +37,7 @@ export default function({ results }) {
                                     <span>blue mat</span>
                                 </Col>
                             </Row>
+                            <h6 className="visual-images-container-id">Image id: {image.id}</h6>
                             </div>)
                         : ([<h6 className="visual-images-container-id">Image id: {image.id}</h6>, JSON.stringify(image)])
                             }
