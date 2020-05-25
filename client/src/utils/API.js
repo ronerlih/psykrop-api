@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   runTests: function(){
-    return axios.get("/api/tests");
+    return axios.get("/api/visualtests");
     
   },
   callPost: function(urls){

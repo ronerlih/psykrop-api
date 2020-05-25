@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row } from "../reusable/Grid";
-import Title from "./Title";
+import Title from "../reusable/Title";
 import ResponseInfo from "./ResponseInfo";
 import RequestInfo from "./RequestInfo";
 import TryItOutForm from "./TryItOutForm";
@@ -53,9 +53,9 @@ class ImagesEndPoint extends Component {
     render() {
         return (
             <div>
-                <Title />
                 <Row>
                     <Col size="md-6 ">
+                        <Title info="endpoint" title="/api/images" miniTitle="A POST request with an array of image urls will return an array of insights about each image."/>
                         <TryItOutForm 
                             postLoading={this.state.postLoading} 
                             callPost={this.callPost} 
