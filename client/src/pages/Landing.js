@@ -7,10 +7,6 @@ import ImagesEndPoint from "../components/ImagesEndPoint";
 import VisualTestsForm from "../components/VisualTestsForm";
 import VisualTestsResults from "../components/VisualTestsResults";
 import "./style.css";
-// import { List, ListItem } from "../components/List";
-// import { Link } from "react-router-dom";
-// import DeleteBtn from "../components/DeleteBtn";
-// import PostData from "../components/PostData";
 
 class Landing extends Component {
     constructor(props) {
@@ -22,10 +18,13 @@ class Landing extends Component {
         };
         this.myRef = React.createRef();
         this.visualTestsRef = React.createRef();
+        this.btnRef = React.createRef();
     }
 
     runTests = () => {
         this.setState({ loading: true });
+        console.log(this.btnRef)
+        if(this.btnRef.current) this.btnRef.current.blur();
         API.runTests()
             .then((res) => {
                 console.log(this.visualTestsRef);
@@ -44,7 +43,7 @@ class Landing extends Component {
                 <MainJumbotron />
                 <ImagesEndPoint myRef={this.myRef} />
                 <Hr />
-                <VisualTestsForm runTests={this.runTests} loading={this.state.loading} />
+                <VisualTestsForm btnRef={this.btnRef} runTests={this.runTests} loading={this.state.loading} />
                 <VisualTestsResults visualTestsRef={this.visualTestsRef} results={this.state.results} />
             </Container>
         );
