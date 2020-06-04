@@ -3,6 +3,8 @@ import API from "../utils/API";
 import { Container } from "../components/reusable/Grid";
 import Hr from "../components/reusable/Hr";
 import MainJumbotron from "../components/MainJumbotron";
+import BaseUrl from "../components/BaseUrl";
+import Seperator from "../components/reusable/Seperator";
 import ImagesEndPoint from "../components/ImagesEndPoint";
 import VisualTestsForm from "../components/VisualTestsForm";
 import VisualTestsResults from "../components/VisualTestsResults";
@@ -38,8 +40,10 @@ class Landing extends Component {
         return (
             <Container fluid>
                 <MainJumbotron />
+                <BaseUrl />
+                {/* <Seperator title="Images Endpoint"/> */}
                 <ImagesEndPoint myRef={this.myRef} />
-                <Hr />
+                {/* <Seperator title="Visual Tests Endpoint"/> */}
                 <VisualTestsForm runTests={this.runTests} loading={this.state.loading} />
                 <VisualTestsResults visualTestsRef={this.visualTestsRef} results={this.state.results} />
             </Container>

@@ -4,18 +4,14 @@ import { Col, Row } from "../reusable/Grid";
 function MainJumbotron() {
     return (
         <Row extraClass="jumbo">
-            <Col size="md-6" extraClass="order-last order-md-first">
+            <Col size="md-6" extraClass="order-last order-md-first ">
                 <div>
                     <span>
-                        <strong className="page-headline">psyKrop API</strong> <br /> Is a non opinionated non bias A.I that returns insight about images, primarily an <em>Aesthetic Score</em>.
+                        <strong className="page-headline">psyKrop API</strong> <br /> Is an non opinionated non biased A.I that returns insight about images, primarily an <em>Aesthetic Score</em>.
                     </span>
                     <p></p>
                 </div>
-                <p></p>
-                <h4>Base URL</h4>
-                <p>Make all API calls to </p>
-                <div className="url"><a href="https://psykrop-api.herokuapp.com/">https://psykrop-api.herokuapp.com/</a></div>
-            </Col>
+                            </Col>
             <Col extraClass="text-right pt-1 " size="md-6">
                 <div>
                     {/* <span> </span> */}

@@ -7,8 +7,10 @@ export default function(props) {
    return (
       <div>
          <Row>
-            <Col size="md-6" extraClass="mb-1">
+            <Col size="md-12" extraClass="mb-1">
                <Title info="endpoint" title="/api/visualtests" miniTitle="A GET request will return an array of insights from a predetermined set of images and will also provide visual output of the images in the set, the different channels rating, and the overall pixel ratings." />
+               </Col></Row> <Row>
+            <Col size="md-6" extraClass="mb-1">
                {/* <h4>Visual tests</h4> */}
                <p>Get insight on a batch of preselected images to see results</p>
                <Button onclick={props.runTests}>Run visual tests</Button>
