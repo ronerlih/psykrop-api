@@ -21,6 +21,11 @@ app.use(morgan("dev"));
 // compress responses
 app.use(compression());
 
+// linient CORS *
+app.use((req,res,next) => {
+   res.header("Access-Control-Allow-Origin", "*"); 
+   next(); });
+
 //use sessions for tracking logins
 // connect redis
 // app.use(initSession(session, RedisStore, client));
@@ -41,7 +46,7 @@ app.use(APIandAppRoutes);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, "client/build"), { maxAge: "30d" }));
+   app.use(express.static(path.resolve(__dirname, "client/build"), { maxAge: "30d" }));
 }
 
 // error handling
@@ -53,8 +58,8 @@ app.use((err, req, res, next) => errorHandler(err, req, res, next));
 
 // Start the API server
 app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!  ${
-    process.env.cpuCore ? "on CPU " + process.env.cpuCore : ""
-  }`);
+   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!  ${
+      process.env.cpuCore ? "on CPU " + process.env.cpuCore : ""
+   }`);
 });
 
