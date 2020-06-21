@@ -6,6 +6,8 @@ module.exports = {
       let used = process.memoryUsage();
       console.log(`Heap used before analysis: ${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`);
       const analysisPromisesArray = [];
+      console.log((req.body));
+
       if (!req.body || !Array.isArray(req.body)) {
          res.status(403).send({ Error: "no images array in body, please compose your request with an array of image urls in the body (application/json contentType) or comma seperated urls (form/urlencoded contentType)." });
       } else {

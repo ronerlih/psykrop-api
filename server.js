@@ -18,6 +18,10 @@ import errorHandler from "./scripts/errorHandler";
 //logs
 app.use(morgan("dev"));
 
+// body processors
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // compress responses
 app.use(compression());
 
@@ -31,9 +35,6 @@ app.use((req,res,next) => {
 // app.use(initSession(session, RedisStore, client));
 // app.use(initSession(session));
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 // ssr
 // if (process.argv.indexOf("no-ssr") < 0)
