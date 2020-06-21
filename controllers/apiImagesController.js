@@ -36,7 +36,7 @@ module.exports = {
                   console.log("ascending option");
                   result.sort((a, b) => a.balanceAllCoefficients - b.balanceAllCoefficients);
                }
-
+               res.header("Access-Control-Allow-Origin", "*");
                res.status(200).json(result);
             })
             .catch((e) => {
