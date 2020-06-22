@@ -82,8 +82,8 @@ class App extends React.Component {
             ? ""
             : ""
           }
-          <Alert cpu= {this.state.cpu ? this.state.cpu.data: ""} onclick={this.removeInfo}>
-              </Alert>
+          {/* <Alert cpu= {this.state.cpu ? this.state.cpu.data: ""} onclick={this.removeInfo}> */}
+              {/* </Alert> */}
         </div>
       </RouterComponent>
 

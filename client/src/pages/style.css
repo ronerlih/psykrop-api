@@ -120,9 +120,24 @@ nav{
     margin-bottom: 10px;
     background-color: aliceblue;
     border: 1px solid black;
-    width: 100%;
+    /* width: 100%; */
+    width: calc(100vw - 45px);
+    /* right: 0px; */
+    z-index: 2;
     /* margin:10px; */
     /* margin: 15px 0px 10px 15px; */
-
     padding:5px;
 }
+h1,h2,h3,h4,h5,h6, span:not(.__json-key__) {font-weight: 100!important;
+    letter-spacing: 1px;}
+.bg-dark{background-color: black!important;} 
+
+@media (max-width: 768px) { 
+    .endpoint-title {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .only-on-large{
+        display: none;
+    }
+ }
