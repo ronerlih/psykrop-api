@@ -32,11 +32,11 @@ module.exports = {
                if (req.query.order === "desc") {
                   // order by decending
                   console.log("descending option");
-                  result.sort((a, b) => b.balanceAllCoefficients - a.balanceAllCoefficients);
+                  result.sort((a, b) => b.aesthetic_score - a.aesthetic_score);
                } else if (req.query.order === "asc") {
                   // order by decending
                   console.log("ascending option");
-                  result.sort((a, b) => a.balanceAllCoefficients - b.balanceAllCoefficients);
+                  result.sort((a, b) => a.aesthetic_score - b.aesthetic_score);
                }
                res.status(200).json(result);
             })
