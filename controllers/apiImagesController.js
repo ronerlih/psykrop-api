@@ -6,6 +6,8 @@ module.exports = {
       let used = process.memoryUsage();
       console.log(`Heap used before analysis: ${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`);
       const analysisPromisesArray = [];
+      console.log((req.body));
+
       if (!req.body || !Array.isArray(req.body)) {
          res.status(403).send({ Error: "no images array in body, please compose your request with an array of image urls in the body (application/json contentType) or comma seperated urls (form/urlencoded contentType)." });
       } else {
@@ -27,16 +29,15 @@ module.exports = {
                console.log(`Heap used: ${(used.heapUsed / 1024 / 1024).toFixed(2)}MB`);
 
                // order results
-               if (req.query.order === "descending") {
+               if (req.query.order === "desc") {
                   // order by decending
                   console.log("descending option");
                   result.sort((a, b) => b.balanceAllCoefficients - a.balanceAllCoefficients);
-               } else if (req.query.order === "ascending") {
+               } else if (req.query.order === "asc") {
                   // order by decending
                   console.log("ascending option");
                   result.sort((a, b) => a.balanceAllCoefficients - b.balanceAllCoefficients);
                }
-
                res.status(200).json(result);
             })
             .catch((e) => {

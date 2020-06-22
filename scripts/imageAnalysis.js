@@ -174,7 +174,7 @@ module.exports = {
                 // save balance percent
                 // [resultObject[resultsOptions[channelIndex].channelName].distanceToCenter, resultObject[resultsOptions[channelIndex].channelName].balancePercent] = calcBalancePercentage(src, COB);
                 [ , resultObject[resultsOptions[channelIndex].channelName].aesthetic_score] = calcBalancePercentage(src, COB);
-
+                resultObject[resultsOptions[channelIndex].channelName].aesthetic_score = setPrecision(4,resultObject[resultsOptions[channelIndex].channelName].aesthetic_score);
                 // add moments to result
                 // resultObject[resultsOptions[channelIndex].channelName].imageMoments = {
                 //     m00: arr.m00,
@@ -236,7 +236,7 @@ module.exports = {
             
             //get avareg color
             resultObject.averageColor = '#' + rgbHex(...cv.mean(src).slice(0, 3)).toUpperCase();
-            resultObject.COB = aveCenter;
+            resultObject.COB = {x:  1 * aveCenter.x.toFixed(4), y: 1 * aveCenter.y.toFixed(4)};
 
             // delete mats
             src.delete();
@@ -250,11 +250,24 @@ module.exports = {
 
             resolve({
                 id: resultObject.imgId,
-                ["aesthetic_score_d1"]: resultObject.balanceAllCoefficients,
-                d1: resultObject.distanceToCenter,
+                // ["aesthetic_score_d1"]: resultObject.balanceAllCoefficients,
+                // d1: resultObject.distanceToCenter,
+                aesthetic_score: resultObject.distances.aesthetic_score,
+                ["dmin%_shortest_distance_percentage"]: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
+                ["next_shortest_distance_percentage"]: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
+                center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
+                vertical_strength: setPrecision(4,resultObject.distances.d2_aesthetic_score),
+                horizontal_strength: setPrecision(4,resultObject.distances.d3_aesthetic_score),
+                diagonal_strength_01: setPrecision(4,resultObject.distances.d4_aesthetic_score),
+                diagonal_strength_02: setPrecision(4,resultObject.distances.d5_aesthetic_score),
+                rule_of_thirds_strength_01: setPrecision(4,resultObject.distances.d6_aesthetic_score),
+                rule_of_thirds_strength_02: setPrecision(4,resultObject.distances.d7_aesthetic_score),
+                rule_of_thirds_strength_03: setPrecision(4,resultObject.distances.d8_aesthetic_score),
+                rule_of_thirds_strength_04: setPrecision(4,resultObject.distances.d9_aesthetic_score),
+
                 COB: resultObject.COB,
                 dimensions: resultObject.dimensions,
-                distances: resultObject.distances,
+                // distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
                 // distanceToCenter: resultObject.distanceToCenter,
                 url: resultObject.url,
@@ -266,6 +279,7 @@ module.exports = {
                 blue_channel: resultObject.blue_channel
             });
 
+            function setPrecision(precision, num) { return (1 * ( num.toFixed(precision) ))}
             function weightedAverageThree(_redPoint, _greenPoint, _bluePoint) {
                 return new cv.Point(
                     (_redPoint.x * RED_COEFFICIENT + _greenPoint.x * GREEN_COEFFICIENT + _bluePoint.x * BLUE_COEFFICIENT) / (RED_COEFFICIENT + GREEN_COEFFICIENT + BLUE_COEFFICIENT),
@@ -286,6 +300,7 @@ module.exports = {
             //
             const matDimentions = {cols: mat.cols, rows: mat.rows};
 
+            
             // 1. cneter point
             [distancesResultObject.d1, distancesResultObject.d1_aesthetic_score] = 
               calcBalancePercentage(mat, centerPoint);
@@ -338,8 +353,14 @@ module.exports = {
             //  distancesResultObject <= getMinimum
             distancesResultObject.shortest_distance = 
               getShortestDistance(distancesResultObject) 
-            distancesResultObject.shortest_distance_aesthetic_score = 
+            distancesResultObject["dmin%_shortest_distance_aesthetic_score"] = 
               calcDistancePercentage(matDimentions, distancesResultObject.shortest_distance.distance)
+
+            //  distancesResultObject <= getSecondMinimum
+            distancesResultObject.second_shortest_distance = 
+              getSecondShortestDistance(distancesResultObject.shortest_distance.distance_line, distancesResultObject) 
+            distancesResultObject["dmin2%_shortest_distance_aesthetic_score"] = 
+              calcDistancePercentage(matDimentions, distancesResultObject.second_shortest_distance.distance)
 
             //  distancesResultObject <= getAverage
             distancesResultObject.average_distance = 
@@ -353,6 +374,10 @@ module.exports = {
             distancesResultObject.weighted_average_aesthetic_score = 
               calcDistancePercentage(matDimentions, distancesResultObject.weighted_average_distance)
            
+              // Aesthetic score calculation
+            distancesResultObject.aesthetic_score = 
+             100 *  ( Math.atan( distancesResultObject.weighted_average_distance - distancesResultObject.shortest_distance.distance ) / ( Math.PI / 2) ).toPrecision(6); 
+
             //order
             distancesResultObject = Object.keys(distancesResultObject)
               .reverse()
@@ -403,6 +428,17 @@ module.exports = {
         function getShortestDistance(distancesObj){
           return Object.keys(distancesObj)
           .filter(key => key.slice(0,1) === "d" && key.length === 2)
+            .reduce((min, current) => {
+              if(distancesObj[current] < parseFloat(min.distance)) min = 
+                {distance: distancesObj[current], distance_line: current }  
+              return min;
+            }, {distance :distancesObj.d1, distance_line: "d1"});
+            
+        }   
+        
+        function getSecondShortestDistance(shortestLine ,distancesObj){
+          return Object.keys(distancesObj)
+          .filter(key => key.slice(0,1) === "d" && key.length === 2 && key !== shortestLine)
             .reduce((min, current) => {
               if(distancesObj[current] < parseFloat(min.distance)) min = 
                 {distance: distancesObj[current], distance_line: current }  

@@ -94,12 +94,10 @@ color: #00cd00;
     font-size: 16;
     font-weight: 600;
 }
-.hr{
-    background-color: black;
-    height: 3px;;
-}
+
 .jumbo{
-    padding-bottom: 10px;
+    padding-bottom: 8px;
+    padding-top: 6px;
     border-bottom: 1px solid black;
     background: aliceblue;
     /* background: #f9fafb; */
@@ -117,12 +115,14 @@ nav{
 .endpoint-title p {
     margin:0px;
 }
-.endpoint-title{
+.endpoint-title {
+    margin-top: 18px;
+    margin-bottom: 10px;
     background-color: aliceblue;
     border: 1px solid black;
     width: 100%;
     /* margin:10px; */
-    margin: 15px 0px 10px;
+    /* margin: 15px 0px 10px 15px; */
 
     padding:5px;
 }

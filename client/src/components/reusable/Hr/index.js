@@ -1,14 +1,18 @@
 import React from "react";
-import './style.css'
+import { Col, Row } from "../Grid";
+import "./style.css";
 
-function Hr(props) {
-  console.log(props.cpu)
+function Hr() {
   return (
-  <div>
-
-      <hr className="hr"/>
-    </div>
-  );
+          <hr className="hr" />
+ );
+  //  return (
+  //     <Row>
+  //        <Col size="md-6" extraClass="">
+  //           <hr className="hr" />
+  //        </Col>
+  //     </Row>
+  //  );
 }
 
 export default Hr;

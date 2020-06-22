@@ -3,6 +3,6 @@ const apiImagesController = require("../../controllers/apiImagesController");
 
 // Matches with "/api/images"
 router.route("/")
-  .post(apiImagesController.analyseUrls)
+   .post(apiImagesController.analyseUrls);
 
 module.exports = router;

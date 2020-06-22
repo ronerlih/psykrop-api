@@ -3,7 +3,7 @@ const router = require("express").Router();
 // const userRoutes = require("./user");
 const workerRoutes = require("./worker");
 const imagesRoutes = require("./images");
-const testsRoutes = require("./tests");
+const testsRoutes = require("./visualTests");
 // const redisClient = require('../../scripts/redis');
 
 // console.log(redisClient)
@@ -20,6 +20,6 @@ router.use("/worker", workerRoutes);
 router.use("/images", imagesRoutes);
 
 // /api/tests routes
-router.use("/tests", testsRoutes);
+router.use("/visualtests", testsRoutes);
 
 module.exports = router;

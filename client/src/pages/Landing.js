@@ -3,14 +3,11 @@ import API from "../utils/API";
 import { Container } from "../components/reusable/Grid";
 import Hr from "../components/reusable/Hr";
 import MainJumbotron from "../components/MainJumbotron";
+import Seperator from "../components/reusable/Seperator";
 import ImagesEndPoint from "../components/ImagesEndPoint";
 import VisualTestsForm from "../components/VisualTestsForm";
 import VisualTestsResults from "../components/VisualTestsResults";
 import "./style.css";
-// import { List, ListItem } from "../components/List";
-// import { Link } from "react-router-dom";
-// import DeleteBtn from "../components/DeleteBtn";
-// import PostData from "../components/PostData";
 
 class Landing extends Component {
     constructor(props) {
@@ -42,8 +39,9 @@ class Landing extends Component {
         return (
             <Container fluid>
                 <MainJumbotron />
+                {/* <Seperator title="Images Endpoint"/> */}
                 <ImagesEndPoint myRef={this.myRef} />
-                <Hr />
+                {/* <Seperator title="Visual Tests Endpoint"/> */}
                 <VisualTestsForm runTests={this.runTests} loading={this.state.loading} />
                 <VisualTestsResults visualTestsRef={this.visualTestsRef} results={this.state.results} />
             </Container>

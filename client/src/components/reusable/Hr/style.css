@@ -2,3 +2,13 @@
   opacity:0;
   transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
 }
+/* .hr{
+  background-color: #f1f8ff;
+  height: 5px;
+  border:1px solid black;
+} */
+.hr{
+  /* background-color: #f1f8ff; */
+  /* height: 0px; */
+  border-top:1px solid black;
+}
