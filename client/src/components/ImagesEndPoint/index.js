@@ -54,6 +54,7 @@ class ImagesEndPoint extends Component {
       return (
          <div>
             <Title info="endpoint" title="/api/images" miniTitle="A POST request with an array of image urls will return an array of insights about each image." />
+            <h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Try it out </h5>
             <Row>
                <Col size="md-6 ">
                   <TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />

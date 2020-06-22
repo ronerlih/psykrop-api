@@ -8,9 +8,9 @@ export default function() {
             <div className="code">POST /api/images?order=desc</div>
             Request BODY expample (application/json content type).
             <JSONPretty id="json-pretty-body" valueStyle="color:white" data={["url-to-img-01.jpg", "url-to-img-02.png"]}></JSONPretty>
-            <span >
+            {/* <span >
             Or use comma seperated for form/urlencoded content type.
-            </span>
+            </span> */}
             <p></p>
         </div>
     );

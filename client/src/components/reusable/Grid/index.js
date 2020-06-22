@@ -14,10 +14,11 @@ export function Row({ fluid, children, extraClass }) {
 
 // This Col component lets us size bootstrap columns with less syntax
 // e.g. <Col size="md-12"> instead of <div className="col-md-12">
-export function Col({ size, children, extraClass, ref }) {
+export function Col({ size, children, extraClass, ref, style }) {
     return (
         <div
             ref={ref}
+            style={style}
             className={
                 size
                     ? size
