@@ -24,7 +24,7 @@ const renderResponse = () => props.results ? (
          <Row style={{minHeight:150}}>
                <Col size="md-6" extraClass="mb-1" >
                {/* <h4>Visual tests</h4> */}
-               <p>Get insight on a batch of preselected images to see results</p>
+               <p>Get insights sample on a batch of preselected images, and see the image amalysis.</p>
                <Button onclick={props.runTests}>Run visual tests</Button>
                {props.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
             </Col>
