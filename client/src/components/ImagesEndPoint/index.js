@@ -87,7 +87,7 @@ class ImagesEndPoint extends Component {
 					</Col>
 				</Row>
 				<Row>
-					<Col size="md-6 ">
+					<Col size="md-6 " >
 						<RequestInfo />
 						<ResponseInfo />
 					</Col>
