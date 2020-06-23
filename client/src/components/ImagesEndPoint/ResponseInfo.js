@@ -1,21 +1,28 @@
 import React from "react";
 export default function() {
+
+    const OptionSpan = ({opt}) => 
+        <>
+            <span style={{ color: "#09b107" }}>/api/images?order={opt}</span> 
+            <span style={{ display:"block",fontSize:13}}>(Array of image urls in the request body)</span>
+        </> 
+
     return (
-        <div>
+        <div style={{marginBottom:150}}>
             {/* options info */}
             <h5>Options</h5>
             <ul>
                 <li>
-                    Optionally you can order results acording to thier Aesthetic score by adding a sort parameter to the call.
+                    Optionally order results acording to thier <em>Aesthetic score</em>.
                     <br />
                     <ul>
                         <li>
-                            Ascending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/api/images?order=asc</span> 
-                            <br/><em>(with an array of image urls in the request body)</em>
+                            ASC order: <br/> 
+                            <OptionSpan opt="asc"></OptionSpan> 
                         </li>
                         <li>
-                            Descending order: <span style={{ color: "#09b107" }}>https://psykrop-api.herokuapp.com/api/images?order=desc</span> 
-                            <br/><em>(with an array of image urls in the request body)</em>
+                            DESC order: <br/>
+                            <OptionSpan opt="desc"></OptionSpan> 
                         </li>
                     </ul>
                 </li>
@@ -29,7 +36,8 @@ export default function() {
                 <li>
                     <strong>distanceToCenter</strong>: mean balance point distance to image center (in pixels)
                 </li>
-                <li>
+                </ul>
+                {/* <li>
                     <strong>averageRGBColor</strong>: average color (r,g,b) value
                 </li>
                 <li>
@@ -48,10 +56,11 @@ export default function() {
                     <strong>blue_channel</strong>: same data points for the blue channel
                 </li>
             </ul>
-            
+             */}
             {/* error info */}
             <h5>Error messages</h5>
             broken or unprocessed link will return status 200 (ok) in the response, the image response data will display the eror message.
+        
         </div>
     );
 }

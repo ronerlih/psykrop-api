@@ -91,7 +91,7 @@ class ImagesEndPoint extends Component {
 						<RequestInfo />
 						<ResponseInfo />
 					</Col>
-					<Col size="md-6" extraClass="bg-dark results-to-scroll-to" name="results-to-scroll-to">
+					<Col size="md-6" extraClass="bg-dark order-first order-md-last results-to-scroll-to" name="results-to-scroll-to">
 						{this.state.postResults ? (
 							<PostResults myRef={this.state.myRef} data={this.state.postResults.data}>
 								{this.state.postResults.status}
