@@ -155,8 +155,9 @@ nav{
     letter-spacing: 2px;
     padding-bottom:8px;
 }
-h1,h2,h3,h4,h5,h6,p,strong,a,li,div, span:not(.__json-key__) {font-weight: 100!important;
-    letter-spacing: 1px;}
+h1,h2,h3,h4,h5,h6,p,strong,a,li,div {
+    font-weight: 100!important;
+    letter-spacing: 1px; font-family: sans-serif;}
 .bg-dark{background-color: black!important;} 
 
 @media (max-width: 768px) { 
