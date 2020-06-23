@@ -78,12 +78,15 @@ class App extends React.Component {
             /> */}
             <Route component={NoMatch} />
           </Switch>
-          {this.state.cpu
+          {/* {this.state.cpu
             ? ""
             : ""
-          }
+          } */}
           {/* <Alert cpu= {this.state.cpu ? this.state.cpu.data: ""} onclick={this.removeInfo}> */}
               {/* </Alert> */}
+              <div className="footer bg-dark" style={{opacity: 0.85,borderTop: "1px solid white",position:"relative",height:50}} >
+                <span style={{ color:"white",position:"absolute", bottom:0, fontSize:10}}>@devnow</span>
+              </div>
         </div>
       </RouterComponent>
 

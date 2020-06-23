@@ -41,7 +41,7 @@ class Landing extends Component {
                 {/* <Seperator title="Images Endpoint"/> */}
                 <ImagesEndPoint myRef={this.myRef} />
                 {/* <Seperator title="Visual Tests Endpoint"/> */}
-                <VisualTestsForm runTests={this.runTests} loading={this.state.loading} />
+                <VisualTestsForm runTests={this.runTests} loading={this.state.loading} results={this.state.results ? true : false}/>
                 <VisualTestsResults visualTestsRef={this.visualTestsRef} results={this.state.results} />
             </Container>
         );

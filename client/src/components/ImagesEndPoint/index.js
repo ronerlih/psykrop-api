@@ -17,11 +17,14 @@ class ImagesEndPoint extends Component {
 			results: "",
 			postLoading: false,
 			postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
+			// postUrl: "http://www.vinovenitas.com/wp-content/uploads/2018/12/beautiful-bloom-blossom-906150-2000x800.jpg",
+			// postUrl: "https://i.pinimg.com/originals/07/17/75/07177570ec51605b8e0c0179904efec3.jpg",
 			myRef: props.myRef,
 		};
 	}
 
-	callPost = () => {
+	callPost = e => {
+		e && e.preventDefault();
 		this.setState({ postLoading: true });
 		API.callPost(this.state.postUrl)
 			.then((res) => {
@@ -62,7 +65,7 @@ class ImagesEndPoint extends Component {
 					<code className="language-javascript">
 {`axios.post(
 	'https://psykrop-api.herokuapp.com/api/images?sort=desc', 
-	['https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png']
+	[${this.state.postUrl.split(",").map( url => `\n     '${url}'`).join(",")}\n    ]
 	)
 	.then( response => console.log(response))`}
 
