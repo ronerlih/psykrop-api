@@ -1,3 +1,4 @@
+import Prism from "prismjs";
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row } from "../reusable/Grid";
@@ -6,6 +7,7 @@ import ResponseInfo from "./ResponseInfo";
 import RequestInfo from "./RequestInfo";
 import TryItOutForm from "./TryItOutForm";
 import PostResults from "./PostResults";
+import "../../pages/prism.css";
 import "./style.css";
 
 class ImagesEndPoint extends Component {
@@ -50,16 +52,36 @@ class ImagesEndPoint extends Component {
 		}
 	};
 
+	componentDidUpdate(){
+		Prism.highlightAll();
+	}
+	renderResponse(){
+		return this.state.postResults ? (
+			<><h5 style={{fontWeight:100, marginTop: 5, marginRight: 5, display: "inline-block" }} className="text-light">Request </h5>
+				<pre>
+					<code className="language-javascript">
+{`axios.post(
+	'https://psykrop-api.herokuapp.com/api/images?sort=desc', 
+	['https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png']
+	)
+	.then( response => console.log(response))`}
+
+					</code>
+				</pre></>
+			) : ""
+	}
 	render() {
 		return (
 			<div>
 				<Title info="endpoint" title="/api/images" miniTitle="A POST request with an array of image urls will return an array of insights about each image." />
 				<Row>
-					<Col size="md-6 ">
+					<Col size="md-6">
 						<h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Try it out </h5>
 						<TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />
 					</Col>
-					<Col size="md-6" extraClass="bg-dark" />
+					<Col size="md-6" extraClass="bg-dark">
+					{this.renderResponse()}
+					</Col>
 				</Row>
 				<Row>
 					<Col size="md-6 ">
