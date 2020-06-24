@@ -84,8 +84,8 @@ class App extends React.Component {
           } */}
           {/* <Alert cpu= {this.state.cpu ? this.state.cpu.data: ""} onclick={this.removeInfo}> */}
               {/* </Alert> */}
-              <div className="footer bg-dark" style={{opacity: 0.85,borderTop: "1px solid white",position:"relative",height:50}} >
-                <span style={{ color:"white",position:"absolute", bottom:0, fontSize:10}}>@devnow</span>
+              <div className="footer bg-dark" style={{opacity: 0.85,borderTop: "10px solid #7ec6a8",position:"relative",height:50}} >
+                <span style={{padding:"2px 2px 2px 4px",color:"white",position:"absolute", bottom:0, fontSize:10}}>@devnow</span>
               </div>
         </div>
       </RouterComponent>
