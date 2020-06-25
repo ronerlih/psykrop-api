@@ -46,6 +46,7 @@ export default function() {
                 <li>
                     <strong>center_of_balance</strong>: Point(x, y) : Mean balance point of the rated pixel after analysis transformations.</li>
                 </ul>
+                
                 {/* <li>
                     <strong>averageRGBColor</strong>: average color (r,g,b) value
                 </li>
