@@ -82,8 +82,8 @@ class ImagesEndPoint extends Component {
 						<h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Try it out </h5>
 						<TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />
 					</Col>
-					<Col size="md-6" extraClass="bg-dark">
-					{this.renderResponse()}
+					<Col size="md-6" extraClass="bg-dark_">
+					{/* {this.renderResponse()} */}
 					</Col>
 				</Row>
 				<Row>
@@ -91,7 +91,7 @@ class ImagesEndPoint extends Component {
 						<RequestInfo />
 						<ResponseInfo />
 					</Col>
-					<Col size="md-6" extraClass="bg-dark order-first order-md-last results-to-scroll-to" name="results-to-scroll-to">
+					<Col size="md-6" extraClass="bg-dark_ order-first order-md-last results-to-scroll-to" name="results-to-scroll-to">
 						{this.state.postResults ? (
 							<PostResults myRef={this.state.myRef} data={this.state.postResults.data}>
 								{this.state.postResults.status}

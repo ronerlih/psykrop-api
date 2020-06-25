@@ -28,8 +28,8 @@ const renderResponse = () => props.results ? (
                <Button onclick={props.runTests}>Run visual tests</Button>
                {props.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
             </Col>
-            <Col size="md-6" extraClass="bg-dark only-on-large">
-            {renderResponse()}
+            <Col size="md-6" extraClass="bg-dark_ only-on-large">
+            {/* {renderResponse()} */}
             </Col>
          </Row>
       </div>
