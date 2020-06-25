@@ -13,7 +13,7 @@ export default function({ results, visualTestsRef }) {
                         ? <ResponseImages results={results} />
                         : ""}
                 </Col>
-                <Col extraClass="bg-dark"  size="md-6 ">
+                <Col extraClass="bg-dark_"  size="md-6 ">
                     {results
                         ? <ResponseText visualTestsRef={visualTestsRef} results={results}/>  
                         : "" }
