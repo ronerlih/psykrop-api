@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import { Container } from "../components/reusable/Grid";
-import Hr from "../components/reusable/Hr";
 import MainJumbotron from "../components/MainJumbotron";
 import Seperator from "../components/reusable/Seperator";
 import ImagesEndPoint from "../components/ImagesEndPoint";
@@ -42,7 +41,7 @@ class Landing extends Component {
                 {/* <Seperator title="Images Endpoint"/> */}
                 <ImagesEndPoint myRef={this.myRef} />
                 {/* <Seperator title="Visual Tests Endpoint"/> */}
-                <VisualTestsForm runTests={this.runTests} loading={this.state.loading} />
+                <VisualTestsForm runTests={this.runTests} loading={this.state.loading} results={this.state.results ? true : false}/>
                 <VisualTestsResults visualTestsRef={this.visualTestsRef} results={this.state.results} />
             </Container>
         );

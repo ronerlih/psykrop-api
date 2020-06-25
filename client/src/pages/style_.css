@@ -1,14 +1,5 @@
-/* version variables */
-html {
-    /* --border-right: 55px solid black; */
-    /* --title-width: 110%; */
-    --border-right: none;
-    --title-width: calc(100vw - 45px);
-}
-
-/* theme rollout */
 /* scroll bar */
-/* 
+
 pre::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -26,7 +17,7 @@ pre::-webkit-scrollbar-thumb
 {
     background-color: #000000;
     border: 1px solid rgb(89, 89, 89);
-} */
+}
 
 
 .page-headline{
@@ -151,7 +142,7 @@ color: #00cd00;
     padding-top: 6px;
     border-bottom: 1px solid black;
     background: aliceblue;
-    border-right: var(--border-right);
+    border-right: 55px solid black;
 
     /* background: #f9fafb; */
 }
@@ -174,8 +165,8 @@ nav{
     background-color: aliceblue;
     border: 1px solid black;
     /* width: 100%; */
-    width: var(--title-width);
-    /* width: 110%; */
+    /* width: calc(100vw - 30px); */
+    width: 110%;
     /* right: 0px; */
     z-index: 2;
     /* margin:10px; */
@@ -186,14 +177,12 @@ nav{
     letter-spacing: 2px;
     padding-bottom:8px;
 }
-/* style rollout */
-/* h1,h2,h3,h4,h5,h6,p,strong,a,li,div {
+h1,h2,h3,h4,h5,h6,p,strong,a,li,div {
     font-weight: 100!important;
     letter-spacing: 1px; font-family: sans-serif;}
+.bg-dark{background-color: black!important;} 
 .bg-dark_{background-color: black!important;} 
-.bg-dark{background-color: black!important;}  */
-.future-theme{display: none;}
-/* .only-on-large{display:none} */
+
 @media (max-width: 768px) { 
     .endpoint-title {
         width: 100%;

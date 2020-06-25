@@ -5,7 +5,7 @@ export default function({ results }) {
     return (
         <div>
             <h5 style={{ marginTop: 15 }}>Image mats</h5>
-            {results.map((image, i) => {
+            {results.length ? results.map((image, i) => {
                 return (
                     <Container key={i} style={{ border: "1px solid black" }} classes="images-container">
                         {image.red_channel
@@ -43,7 +43,8 @@ export default function({ results }) {
                             }
                     </Container>
                 );
-            })}
+            }) 
+        : <></>}
         </div>
     );
 }

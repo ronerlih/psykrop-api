@@ -1,3 +1,4 @@
+import Prism from "prismjs";
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row } from "../reusable/Grid";
@@ -6,77 +7,102 @@ import ResponseInfo from "./ResponseInfo";
 import RequestInfo from "./RequestInfo";
 import TryItOutForm from "./TryItOutForm";
 import PostResults from "./PostResults";
+import "../../pages/prism.css";
 import "./style.css";
 
 class ImagesEndPoint extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         results: "",
-         postLoading: false,
-         postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
-         myRef: props.myRef,
-      };
-   }
+	constructor(props) {
+		super(props);
+		this.state = {
+			results: "",
+			postLoading: false,
+			postUrl: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
+			// postUrl: "http://www.vinovenitas.com/wp-content/uploads/2018/12/beautiful-bloom-blossom-906150-2000x800.jpg",
+			// postUrl: "https://i.pinimg.com/originals/07/17/75/07177570ec51605b8e0c0179904efec3.jpg",
+			myRef: props.myRef,
+		};
+	}
 
-   callPost = () => {
-      this.setState({ postLoading: true });
-      API.callPost(this.state.postUrl)
-         .then((res) => {
-            this.setState({ postResults: res, postLoading: false });
-            window.scrollTo({
-               top: this.state.myRef.current.parentNode.offsetTop,
-               behavior: "smooth",
-            });
-         })
-         .catch((err) => console.log(err));
-   };
+	callPost = e => {
+		e && e.preventDefault();
+		this.setState({ postLoading: true });
+		API.callPost(this.state.postUrl)
+			.then((res) => {
+				this.setState({ postResults: res, postLoading: false });
+				window.scrollTo({
+					top: this.state.myRef.current.parentNode.offsetTop,
+					behavior: "smooth",
+				});
+			})
+			.catch((err) => console.log(err));
+	};
 
-   handleInputChange = (event) => {
-      const { name, value } = event.target;
-      this.setState({ [name]: value });
-   };
+	handleInputChange = (event) => {
+		const { name, value } = event.target;
+		this.setState({ [name]: value });
+	};
 
-   handleFormSubmit = (event) => {
-      event.preventDefault();
-      if (this.state.title && this.state.author) {
-         API.saveDOC({
-            title: this.state.title,
-            author: this.state.author,
-            synopsis: this.state.synopsis,
-         })
-            .then((res) => this.loadBooks())
-            .catch((err) => console.log(err));
-      }
-   };
+	handleFormSubmit = (event) => {
+		event.preventDefault();
+		if (this.state.title && this.state.author) {
+			API.saveDOC({
+				title: this.state.title,
+				author: this.state.author,
+				synopsis: this.state.synopsis,
+			})
+				.then((res) => this.loadBooks())
+				.catch((err) => console.log(err));
+		}
+	};
 
-   render() {
-      return (
-         <div>
-            <Title info="endpoint" title="/api/images" miniTitle="A POST request with an array of image urls will return an array of insights about each image." />
-            <h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Try it out </h5>
-            <Row>
-               <Col size="md-6 ">
-                  <TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />
-               </Col>
-            </Row>
-            <Row>
-               <Col size="md-6 ">
-                  <RequestInfo />
-                  <ResponseInfo />
-               </Col>
-               <Col size="md-6" extraClass="results-to-scroll-to" name="results-to-scroll-to">
-                  {this.state.postResults ? (
-                     <PostResults myRef={this.state.myRef} data={this.state.postResults.data}>
-                        {this.state.postResults.status}
-                     </PostResults>
-                  ) : (
-                     ""
-                  )}
-               </Col>
-            </Row>
-         </div>
-      );
-   }
+	componentDidUpdate(){
+		Prism.highlightAll();
+	}
+	renderResponse(){
+		return this.state.postResults ? (
+			<><h5 style={{fontWeight:100, marginTop: 5, marginRight: 5, display: "inline-block" }} className="text-light">Request </h5>
+				<pre>
+					<code className="language-javascript">
+{`axios.post(
+	'https://psykrop-api.herokuapp.com/api/images?sort=desc', 
+	[${this.state.postUrl.split(",").map( url => `\n     '${url}'`).join(",")}\n    ]
+	)
+	.then( response => console.log(response))`}
+
+					</code>
+				</pre></>
+			) : ""
+	}
+	render() {
+		return (
+			<div>
+				<Title info="endpoint" title="/api/images" miniTitle="A POST request with an array of image urls will return an array of insights about each image." />
+				<Row>
+					<Col size="md-6">
+						<h5 style={{ marginTop: 5, marginRight: 5, display: "inline-block" }}>Try it out </h5>
+						<TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />
+					</Col>
+					<Col size="md-6" extraClass="bg-dark_">
+					{/* {this.renderResponse()} */}
+					</Col>
+				</Row>
+				<Row>
+					<Col size="md-6 " >
+						<RequestInfo />
+						<ResponseInfo />
+					</Col>
+					<Col size="md-6" extraClass="bg-dark_ order-first order-md-last results-to-scroll-to" name="results-to-scroll-to">
+						{this.state.postResults ? (
+							<PostResults myRef={this.state.myRef} data={this.state.postResults.data}>
+								{this.state.postResults.status}
+							</PostResults>
+						) : (
+							""
+						)}
+					</Col>
+				</Row>
+			</div>
+		);
+	}
 }
 export default ImagesEndPoint;

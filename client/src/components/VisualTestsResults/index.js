@@ -5,17 +5,21 @@ import ResponseText from "./ResponseText";
 
 export default function({ results, visualTestsRef }) {
     return (
-        <Row>
-            <Col size="md-6" extraClass="order-last order-md-first">
-                {results
-                    ? <ResponseImages results={results} />
-                    : /* "loading"*/ ""}
-            </Col>
-            <Col size="md-6 ">
-                {results
-                    ? <ResponseText visualTestsRef={visualTestsRef} results={results}/>  
-                    : "" }
-            </Col>
-        </Row>
+        <>
+        {results ? 
+            <Row>
+                <Col size="md-6" extraClass="order-last order-md-first">
+                    {results
+                        ? <ResponseImages results={results} />
+                        : ""}
+                </Col>
+                <Col extraClass="bg-dark"  size="md-6 ">
+                    {results
+                        ? <ResponseText visualTestsRef={visualTestsRef} results={results}/>  
+                        : "" }
+                </Col>
+            </Row>
+            : <></> /* "loading"*/}
+        </>
     );
 }

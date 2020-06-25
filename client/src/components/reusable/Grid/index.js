@@ -8,8 +8,8 @@ export function Container({ classes, fluid, children }) {
 }
 
 // This Row component lets us use a bootstrap row without having to think about class names
-export function Row({ fluid, children, extraClass }) {
-    return <div className={`row${fluid ? "-fluid" : ""} ${extraClass ? extraClass : ""}`}>{children}</div>;
+export function Row({ fluid, children, extraClass, style}) {
+    return <div style={style}className={`row${fluid ? "-fluid" : ""} ${extraClass ? extraClass : ""}`}>{children}</div>;
 }
 
 // This Col component lets us size bootstrap columns with less syntax

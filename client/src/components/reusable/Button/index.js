@@ -3,7 +3,7 @@ import './style.css'
 
 function Button(props) {
   return (
-      <button ref={props.btnRef} type="button" style={props.style} className='btn btn-primary ' onClick={props.onclick} aria-label="test">
+      <button ref={props.btnRef} type="button" style={props.style} className='btn btn-primary ' onClick={props.onclick} {...props} aria-label="test">
         {props.children}
       </button>
   );
