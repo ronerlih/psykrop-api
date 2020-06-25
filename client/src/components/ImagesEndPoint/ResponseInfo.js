@@ -29,13 +29,22 @@ export default function() {
             </ul>
             {/* datapoints info  */}
             <h5>Response data points: (TBD)</h5>
-            <ul style={{ color: "#ddd" }}>
+            {/* <ul style={{ color: "#ddd" }}> */}
+            <ul >
                 <li>
-                    <strong>balanceAllCoefficients</strong>: image balance-harmony percent (0-100)
+                    <strong>aesthetic_score</strong>: Number (0-100) : based on its compositional strength as compared with established works of art and design, read more below.
                 </li>
                 <li>
-                    <strong>distanceToCenter</strong>: mean balance point distance to image center (in pixels)
+                    <strong>horizontal_strength</strong>: Number (0-100) :  relative compositional strength compared to the horizontal line, read more below.
                 </li>
+                <li>
+                    <strong>diagonal_strength_01</strong>: Number (0-100) :  relative compositional strength compared to the diagonal line, read more below.
+                </li>
+                <li>
+                    <strong>center_strength</strong>: Number (0-100) :  relative compositional strength compared to the image center, read more below.
+                </li>
+                <li>
+                    <strong>center_of_balance</strong>: Point(x, y) : Mean balance point of the rated pixel after analysis transformations.</li>
                 </ul>
                 {/* <li>
                     <strong>averageRGBColor</strong>: average color (r,g,b) value
