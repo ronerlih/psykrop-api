@@ -248,25 +248,36 @@ module.exports = {
             channelMat.delete();
             locationsMat.delete();
 
-            resolve({
-                id: resultObject.imgId,
-                // ["aesthetic_score_d1"]: resultObject.balanceAllCoefficients,
+            !saveImageLocaly 
+              ? resolve({
+                  id: resultObject.imgId,
+                  aesthetic_score: resultObject.distances.aesthetic_score,
+                  horizontal_strength: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
+                  diagonal_strength_01: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
+                  center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
+                  center_of_balance: resultObject.COB,
+                })
+              : resolve({
+                  id: resultObject.imgId,
+                  aesthetic_score: resultObject.distances.aesthetic_score,
+                  horizontal_strength: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
+                  diagonal_strength_01: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
+                  center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
+                  center_of_balance: resultObject.COB,
+              
                 // d1: resultObject.distanceToCenter,
-                aesthetic_score: resultObject.distances.aesthetic_score,
-                ["dmin%_shortest_distance_percentage"]: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
-                ["next_shortest_distance_percentage"]: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
-                center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
-                vertical_strength: setPrecision(4,resultObject.distances.d2_aesthetic_score),
-                horizontal_strength: setPrecision(4,resultObject.distances.d3_aesthetic_score),
-                diagonal_strength_01: setPrecision(4,resultObject.distances.d4_aesthetic_score),
-                diagonal_strength_02: setPrecision(4,resultObject.distances.d5_aesthetic_score),
-                rule_of_thirds_strength_01: setPrecision(4,resultObject.distances.d6_aesthetic_score),
-                rule_of_thirds_strength_02: setPrecision(4,resultObject.distances.d7_aesthetic_score),
-                rule_of_thirds_strength_03: setPrecision(4,resultObject.distances.d8_aesthetic_score),
-                rule_of_thirds_strength_04: setPrecision(4,resultObject.distances.d9_aesthetic_score),
+                // ["aesthetic_score_d1"]: resultObject.balanceAllCoefficients,
+                // vertical_strength: setPrecision(4,resultObject.distances.d2_aesthetic_score),
+                // horizontal_strength: setPrecision(4,resultObject.distances.d3_aesthetic_score),
+                // diagonal_strength_01: setPrecision(4,resultObject.distances.d4_aesthetic_score),
+                // diagonal_strength_02: setPrecision(4,resultObject.distances.d5_aesthetic_score),
+                // rule_of_thirds_strength_01: setPrecision(4,resultObject.distances.d6_aesthetic_score),
+                // rule_of_thirds_strength_02: setPrecision(4,resultObject.distances.d7_aesthetic_score),
+                // rule_of_thirds_strength_03: setPrecision(4,resultObject.distances.d8_aesthetic_score),
+                // rule_of_thirds_strength_04: setPrecision(4,resultObject.distances.d9_aesthetic_score),
 
-                COB: resultObject.COB,
-                dimensions: resultObject.dimensions,
+                
+                // dimensions: resultObject.dimensions,
                 // distances: resultObject.distances,
                 imageFeedback: resultObject.imageFeedback,
                 // distanceToCenter: resultObject.distanceToCenter,
