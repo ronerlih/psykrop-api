@@ -6,10 +6,14 @@ import { Row, Col } from "../reusable/Grid";
 
 export default () => {
 	return (
+		<>
+
+                <MainTitle title="Overview"></MainTitle>
+		
 		<Row>
+
 			<Col size="md-6">
 				{/* <SectionTitle>Overview</SectionTitle> */}
-                <MainTitle title="Overview"></MainTitle>
 				<P>
 					The psyKrop API returns an Aesthetic Score for an image based on its compositional strength as compared with established works of art and design (maximum score: 100). This Aesthetic Score can be used to rank large collections of images or combined with other aesthetic ranking
 					algorithms for more comprehensive results. It is recommended that the Aesthetic Score is used to compare images with similar content when used to highlight best framing.
@@ -39,6 +43,7 @@ export default () => {
                 Contact Aestatix LLC at <a href="https://aestatix.com">Aestatix.com</a>
                 </P>
 			</Col>
-		</Row>
+			<Col extraClass="bg-dark_" size="md-6" />
+		</Row></>
 	);
 };

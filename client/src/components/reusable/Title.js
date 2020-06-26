@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row } from "./Grid";
 import corner from "./corner.svg";
 
-const RENDER_CORNER = false;
+const RENDER_CORNER = true;
 const Corner = () => RENDER_CORNER ?
 	<>
 		<img src={corner} style={{zIndex:2,right:0,bottom:-21,position:"absolute", height:20}}/>

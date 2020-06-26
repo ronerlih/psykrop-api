@@ -83,7 +83,7 @@ class ImagesEndPoint extends Component {
 						<TryItOutForm postLoading={this.state.postLoading} callPost={this.callPost} postUrl={this.state.postUrl} handleInputChange={this.handleInputChange} />
 					</Col>
 					<Col size="md-6" extraClass="bg-dark_">
-					{/* {this.renderResponse()} */}
+					{this.renderResponse()}
 					</Col>
 				</Row>
 				<Row>
