@@ -252,16 +252,16 @@ module.exports = {
               ? resolve({
                   id: resultObject.imgId,
                   aesthetic_score: resultObject.distances.aesthetic_score,
-                  horizontal_strength: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
-                  diagonal_strength_01: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
+                  [mapDistancesName(resultObject.distances.shortest_distance.distance_line)]: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
+                  [mapDistancesName(resultObject.distances.second_shortest_distance.distance_line)]: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
                   center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
                   center_of_balance: resultObject.COB,
                 })
               : resolve({
                   id: resultObject.imgId,
                   aesthetic_score: resultObject.distances.aesthetic_score,
-                  horizontal_strength: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
-                  diagonal_strength_01: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
+                  [mapDistancesName(resultObject.distances.shortest_distance.distance_line)]: setPrecision(4,resultObject.distances["dmin%_shortest_distance_aesthetic_score"]),
+                  [mapDistancesName(resultObject.distances.second_shortest_distance.distance_line)]: setPrecision(4,resultObject.distances["dmin2%_shortest_distance_aesthetic_score"]),
                   center_strength: setPrecision(4,resultObject.balanceAllCoefficients),
                   center_of_balance: resultObject.COB,
               
@@ -275,7 +275,6 @@ module.exports = {
                 // rule_of_thirds_strength_02: setPrecision(4,resultObject.distances.d7_aesthetic_score),
                 // rule_of_thirds_strength_03: setPrecision(4,resultObject.distances.d8_aesthetic_score),
                 // rule_of_thirds_strength_04: setPrecision(4,resultObject.distances.d9_aesthetic_score),
-
                 
                 // dimensions: resultObject.dimensions,
                 // distances: resultObject.distances,
@@ -405,6 +404,21 @@ module.exports = {
             // monitor for errors
 
             return distancesResultObject;
+        }
+
+        function mapDistancesName(distanceName){
+          switch(distanceName) {
+            case 'd1': return 'center_strength'
+            case 'd2': return 'vertical_strength'
+            case 'd3': return 'horizontal_strength'
+            case 'd4': return 'diagonal_strength_01'
+            case 'd5': return 'diagonal_strength_02'
+            case 'd6': return 'rule_of_third_strength_01'
+            case 'd7': return 'rule_of_third_strength_02'
+            case 'd8': return 'rule_of_third_strength_03'
+            case 'd9': return 'rule_of_third_strength_04'
+            default: return '_'
+          }
         }
 
         function getWeightedAverageDistance(distancesObj){
