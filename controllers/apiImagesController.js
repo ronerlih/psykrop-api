@@ -1,6 +1,5 @@
 import { analyseImage } from "../scripts/imageAnalysis";
 
-// Defining methods for the booksController
 module.exports = {
    analyseUrls: async function(req, res) {
       let used = process.memoryUsage();

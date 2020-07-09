@@ -41,14 +41,14 @@ app.use((req,res,next) => {
 //   router.use("^/$", serverRenderer)
 
 // Add router (ssr and static)
-// app.use(router);
-// Add API and view routes
-app.use(APIandAppRoutes);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
    app.use(express.static(path.resolve(__dirname, "client/build"), { maxAge: "30d" }));
 }
+
+// Add API and view routes
+app.use(APIandAppRoutes);
 
 // error handling
 app.use((err, req, res, next) => errorHandler(err, req, res, next));
