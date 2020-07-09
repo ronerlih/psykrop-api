@@ -3,7 +3,7 @@ html {
     /* --border-right: 55px solid black; */
     /* --title-width: 110%; */
     --border-right: none;
-    --title-width: calc(100vw - 45px);
+    --title-width: calc(100vw - 30px);
 }
 
 /* theme rollout */
