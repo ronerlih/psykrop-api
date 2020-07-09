@@ -8,7 +8,7 @@ const Jimp = require("jimp");
 // console.log(Object.keys(cv.modules));
 // opencv method search
 // console.log(Object.keys(cv).filter(key => key.indexOf("INTER") >= 0));
-const SAVE_IMAGES = true;
+const SAVE_IMAGES = false;
 
 module.exports = {
 	getTestImages: function() {
