@@ -3,7 +3,7 @@ import API from "../utils/API";
 import { Container } from "../components/reusable/Grid";
 import MainJumbotron from "../components/MainJumbotron";
 import Info from "../components/Info";
-import Seperator from "../components/reusable/Seperator";
+// import Seperator from "../components/reusable/Seperator";
 import ImagesEndPoint from "../components/ImagesEndPoint";
 import VisualTestsForm from "../components/VisualTestsForm";
 import VisualTestsResults from "../components/VisualTestsResults";

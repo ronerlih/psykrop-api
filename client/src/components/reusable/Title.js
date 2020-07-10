@@ -5,7 +5,7 @@ import corner from "./corner.svg";
 const RENDER_CORNER = true;
 const Corner = () => RENDER_CORNER ?
 	<>
-		<img src={corner} style={{zIndex:2,right:0,bottom:-21,position:"absolute", height:20}}/>
+		<img src={corner} style={{zIndex:2,right:0,bottom:-21,position:"absolute", height:20}} alt=""/>
 		<div style={{zIndex:2,right:0,bottom:-21,position:"absolute", height:20, width:"100%"}}/>
 	</> : <></>
 	

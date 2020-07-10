@@ -6,7 +6,7 @@ import Landing from "./pages/Landing";
 // import Signup from "./pages/Signup";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/reusable/Nav";
-import Alert from "./components/reusable/Alert";
+// import Alert from "./components/reusable/Alert";
 // import {/* getCookie, */ authenticateUser, getCpu } from "./utils/handleSessions";
 
 // const PrivateRoute = ({ component: Component, state: state, ...rest }) => (
@@ -51,7 +51,7 @@ class App extends React.Component {
 
   // removeInfo = () => this.setState({ cpu: null })
 
-  componentWillMount() {
+  componentDidMount() {
       // this.authenticate();
       // this.getCpu();
   }
