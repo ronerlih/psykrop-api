@@ -29,7 +29,7 @@ export default function(props) {
                {props.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
             </Col>
             <Col size="md-6" extraClass="bg-dark_ only-on-large">
-            {renderResponse()}
+            {/* {renderResponse()} */}
             </Col>
          </Row>
       </div>
