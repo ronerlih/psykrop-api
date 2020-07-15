@@ -5,17 +5,17 @@ import { Row, Col } from "../reusable/Grid";
 
 export default function(props) {
   
-// const renderResponse = () => props.results ? (
-//    <><h5 style={{fontWeight:100, marginTop: 5, marginRight: 5, display: "inline-block" }} className="text-light">Request </h5>
-//       <pre>
-//          <code className="language-javascript">
-// {`fetch('https://psykrop-api.herokuapp.com/api/visualtests')
-//    .then( response => response.json())
-//    .then( data => console.log(data))`
-// }
-//          </code>
-//       </pre></>
-//    ) : "" ;
+const renderResponse = () => props.results ? (
+   <><h5 style={{fontWeight:100, marginTop: 5, marginRight: 5, display: "inline-block" }} className="text-light">Request </h5>
+      <pre>
+         <code className="language-javascript">
+{`fetch('https://psykrop-api.herokuapp.com/api/visualtests')
+   .then( response => response.json())
+   .then( data => console.log(data))`
+}
+         </code>
+      </pre></>
+   ) : "" ;
 
    return (
       <div>
@@ -29,7 +29,7 @@ export default function(props) {
                {props.loading ? <i className="fa fa-circle-notch fa-spin spinner test-spinner"></i> : ""}
             </Col>
             <Col size="md-6" extraClass="bg-dark_ only-on-large">
-            {/* {renderResponse()} */}
+            {renderResponse()}
             </Col>
          </Row>
       </div>
